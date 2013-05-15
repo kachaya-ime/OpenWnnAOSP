@@ -1078,7 +1078,6 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
                     mDbDic.insert( TABLE_NAME_DIC, null, content );
                     mDbDic.setTransactionSuccessful();
                 } catch( SQLException e ) {
-                    mDbDic.endTransaction();
                     return -1;
                 } finally {
                     mDbDic.endTransaction();
