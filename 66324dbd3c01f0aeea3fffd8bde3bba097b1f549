@@ -22,6 +22,30 @@
       "revId": "66324dbd3c01f0aeea3fffd8bde3bba097b1f549",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1885a37_b00536ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1019634
+      },
+      "writtenOn": "2015-03-12T05:17:43Z",
+      "side": 1,
+      "message": "OK. I\u0027ll fix",
+      "parentUuid": "61258242_33098859",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 79
+      },
+      "revId": "66324dbd3c01f0aeea3fffd8bde3bba097b1f549",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
