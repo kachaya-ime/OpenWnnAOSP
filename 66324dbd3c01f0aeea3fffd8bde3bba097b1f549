@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61258242_33098859",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2015-03-12T04:55:34Z",
+      "side": 1,
+      "message": "Note that the IMMS crash has already been adressed by\nI871ccda787eb0f1099ba3574356c1da4b33681f3 in L MR1.\nHaving said that, I think it\u0027s worth merging this CL for L\ndevices.  So can you update the commit message to\nmake it clear that this fix is for L devices?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 79
+      },
+      "revId": "66324dbd3c01f0aeea3fffd8bde3bba097b1f549",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
