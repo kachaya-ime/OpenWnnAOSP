@@ -170,7 +170,7 @@ public class OpenWnnEN extends OpenWnn {
 
         if (OpenWnn.getCurrentIme() != null) {
             if (mConverterEN == null) {
-                mConverterEN = new OpenWnnEngineEN("/data/data/jp.co.omronsoft.openwnn/writableEN.dic");
+                mConverterEN = new OpenWnnEngineEN("/data/user/" + mUserId + "/jp.co.omronsoft.openwnn/writableEN.dic");
             }
         }
 
@@ -288,7 +288,7 @@ public class OpenWnnEN extends OpenWnn {
         mWordSeparators = getResources().getString(R.string.en_word_separators);
 
         if (mConverterEN == null) {
-            mConverterEN = new OpenWnnEngineEN("/data/data/jp.co.omronsoft.openwnn/writableEN.dic");
+            mConverterEN = new OpenWnnEngineEN("/data/user/" + mUserId + "/jp.co.omronsoft.openwnn/writableEN.dic");
         }
 
         if (mSymbolList == null) {

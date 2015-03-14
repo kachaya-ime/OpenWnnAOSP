@@ -80,6 +80,8 @@ public class OpenWnn extends InputMethodService {
     /** KeyAction list */
     private List<KeyAction> KeyActionList = new ArrayList<KeyAction>();
 
+    protected static int mUserId;
+
     /**
      * Constructor
      */
@@ -99,6 +101,8 @@ public class OpenWnn extends InputMethodService {
 
         mCurrentIme = this;
 
+        final UserManager um = (UserManager)getSystemService(Context.USER_SERVICE);
+        mUserId = um.getUserHandle();
 
         mTextCandidatesViewManager = new TextCandidatesViewManager(-1);
         if (isXLarge()) {

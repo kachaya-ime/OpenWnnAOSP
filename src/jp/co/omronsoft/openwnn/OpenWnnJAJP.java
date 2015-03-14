@@ -470,10 +470,10 @@ public class OpenWnnJAJP extends OpenWnn {
 
         if (OpenWnn.getCurrentIme() != null) {
             if (mConverter == null || mConverterJAJP == null) {
-                mConverter = mConverterJAJP = new OpenWnnEngineJAJP("/data/data/jp.co.omronsoft.openwnn/writableJAJP.dic");
+                mConverter = mConverterJAJP = new OpenWnnEngineJAJP("/data/user/" + mUserId + "/jp.co.omronsoft.openwnn/writableJAJP.dic");
             }
             if (mConverterEN == null) {
-                mConverterEN = new OpenWnnEngineEN("/data/data/jp.co.omronsoft.openwnn/writableEN.dic");
+                mConverterEN = new OpenWnnEngineEN("/data/user/" + mUserId + "/jp.co.omronsoft.openwnn/writableEN.dic");
             }
         }
 
@@ -504,10 +504,10 @@ public class OpenWnnJAJP extends OpenWnn {
         super.onCreate();
 
         if (mConverter == null || mConverterJAJP == null) {
-            mConverter = mConverterJAJP = new OpenWnnEngineJAJP("/data/data/jp.co.omronsoft.openwnn/writableJAJP.dic");
+            mConverter = mConverterJAJP = new OpenWnnEngineJAJP("/data/user/" + mUserId + "/jp.co.omronsoft.openwnn/writableJAJP.dic");
         }
         if (mConverterEN == null) {
-            mConverterEN = new OpenWnnEngineEN("/data/data/jp.co.omronsoft.openwnn/writableEN.dic");
+            mConverterEN = new OpenWnnEngineEN("/data/user/" + mUserId + "/jp.co.omronsoft.openwnn/writableEN.dic");
         }
 
         String delimiter = Pattern.quote(getResources().getString(R.string.en_word_separators));
