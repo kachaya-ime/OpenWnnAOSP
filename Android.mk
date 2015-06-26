@@ -10,6 +10,8 @@ LOCAL_PACKAGE_NAME := OpenWnn
 LOCAL_JNI_SHARED_LIBRARIES := \
 	 libWnnEngDic libWnnJpnDic libwnndict
 
+LOCAL_MULTILIB := 32
+
 LOCAL_AAPT_FLAGS += -c hdpi
 
 include $(BUILD_PACKAGE)
