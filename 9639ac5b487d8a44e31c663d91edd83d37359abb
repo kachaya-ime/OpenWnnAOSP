@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Verified+1: Colin Cross <ccross@android.com>
+Autosubmit+1: Colin Cross <ccross@android.com>
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Mon, 14 May 2018 22:44:40 +0000
+Reviewed-on: https://android-review.googlesource.com/683367
+Project: platform/packages/inputmethods/OpenWnn
+Branch: refs/heads/master
