@@ -1,0 +1,14 @@
+android_app {
+    name: "OpenWnn",
+    srcs: ["**/*.java"],
+    platform_apis: true,
+    jni_libs: [
+        "libWnnEngDic",
+        "libWnnJpnDic",
+        "libwnndict",
+    ],
+    aaptflags: [
+        "-c",
+        "hdpi",
+    ],
+}
