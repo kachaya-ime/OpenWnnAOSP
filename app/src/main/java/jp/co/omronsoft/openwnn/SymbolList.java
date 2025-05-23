@@ -16,14 +16,16 @@
 
 package jp.co.omronsoft.openwnn;
 
+import android.content.SharedPreferences;
+import android.content.res.XmlResourceParser;
+import android.util.Log;
+
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import org.xmlpull.v1.XmlPullParserException;
-import android.content.SharedPreferences;
-import android.content.res.XmlResourceParser;
-import android.util.Log;
 
 /**
  * The generator class of symbol list.
@@ -45,7 +47,7 @@ public class SymbolList implements WnnEngine {
     /** Language definition (Chinese) */
     public static final int LANG_ZHCN = 2;
 
-    
+
     /** Key string to get normal symbol list for Japanese */
     public static final String SYMBOL_JAPANESE = "j";
 
@@ -56,7 +58,7 @@ public class SymbolList implements WnnEngine {
     public static final String SYMBOL_CHINESE = "c1";
 
     /** Key string to get face mark list for Japanese */
-    public static final String SYMBOL_JAPANESE_FACE  = "j_face";
+    public static final String SYMBOL_JAPANESE_FACE = "j_face";
 
     /** The name of XML tag key */
     private static final String XMLTAG_KEY = "string";
@@ -65,7 +67,7 @@ public class SymbolList implements WnnEngine {
      * DEFINITION OF VARIABLES
      */
     /** Symbols data */
-    protected HashMap<String,ArrayList<String>> mSymbols;
+    protected HashMap<String, ArrayList<String>> mSymbols;
 
     /** OpenWnn which has this instance */
     private OpenWnn mWnn;
@@ -79,6 +81,7 @@ public class SymbolList implements WnnEngine {
     /*
      * DEFINITION OF METHODS
      */
+
     /**
      * Constructor
      *
@@ -90,38 +93,38 @@ public class SymbolList implements WnnEngine {
         mSymbols = new HashMap<String, ArrayList<String>>();
 
         switch (lang) {
-        case LANG_EN:
-            /* symbols for English IME */
-            mSymbols.put(SYMBOL_ENGLISH, getXmlfile(R.xml.symbols_latin12_list));
-            mCurrentList = mSymbols.get(SYMBOL_ENGLISH);
-            break;
+            case LANG_EN:
+                /* symbols for English IME */
+                mSymbols.put(SYMBOL_ENGLISH, getXmlfile(R.xml.symbols_latin12_list));
+                mCurrentList = mSymbols.get(SYMBOL_ENGLISH);
+                break;
 
-        case LANG_JA:
-            /* symbols for Japanese IME */
-            mSymbols.put(SYMBOL_JAPANESE, getXmlfile(R.xml.symbols_japan_list));
-            mSymbols.put(SYMBOL_JAPANESE_FACE, getXmlfile(R.xml.symbols_japan_face_list));
-            mSymbols.put(SYMBOL_ENGLISH, getXmlfile(R.xml.symbols_latin1_list));
-            mCurrentList = mSymbols.get(SYMBOL_JAPANESE);
-            break;
+            case LANG_JA:
+                /* symbols for Japanese IME */
+                mSymbols.put(SYMBOL_JAPANESE, getXmlfile(R.xml.symbols_japan_list));
+                mSymbols.put(SYMBOL_JAPANESE_FACE, getXmlfile(R.xml.symbols_japan_face_list));
+                mSymbols.put(SYMBOL_ENGLISH, getXmlfile(R.xml.symbols_latin1_list));
+                mCurrentList = mSymbols.get(SYMBOL_JAPANESE);
+                break;
 
-        case LANG_ZHCN: 
-            /* symbols for Chinese IME */
-            mSymbols.put(SYMBOL_CHINESE, getXmlfile(R.xml.symbols_china_list));
-            mSymbols.put(SYMBOL_ENGLISH, getXmlfile(R.xml.symbols_latin1_list));
-            mCurrentList = mSymbols.get(SYMBOL_CHINESE);
-            break;
-        }        
+            case LANG_ZHCN:
+                /* symbols for Chinese IME */
+                mSymbols.put(SYMBOL_CHINESE, getXmlfile(R.xml.symbols_china_list));
+                mSymbols.put(SYMBOL_ENGLISH, getXmlfile(R.xml.symbols_latin1_list));
+                mCurrentList = mSymbols.get(SYMBOL_CHINESE);
+                break;
+        }
 
         mCurrentList = null;
     }
-    
+
     /**
      * Get a attribute value from a XML resource.
      *
      * @param xrp   XML resource
      * @param name  The attribute name
      *
-     * @return  The value of the attribute
+     * @return The value of the attribute
      */
     private String getXmlAttribute(XmlResourceParser xrp, String name) {
         int resId = xrp.getAttributeResourceValue(null, name, 0);
@@ -136,7 +139,7 @@ public class SymbolList implements WnnEngine {
      * Load a symbols list from XML resource.
      *
      * @param id    XML resource ID
-     * @return      The symbols list
+     * @return The symbols list
      */
     private ArrayList<String> getXmlfile(int id) {
         ArrayList<String> list = new ArrayList<String>();
@@ -180,11 +183,13 @@ public class SymbolList implements WnnEngine {
      * WnnEngine's interface
      **********************************************************************/
     /** @see jp.co.omronsoft.openwnn.WnnEngine#init */
-    public void init() {}
-    
+    public void init() {
+    }
+
     /** @see jp.co.omronsoft.openwnn.WnnEngine#close */
-    public void close() {}
-    
+    public void close() {
+    }
+
     /** @see jp.co.omronsoft.openwnn.WnnEngine#predict */
     public int predict(ComposingText text, int minLen, int maxLen) {
         /* ignore if there is no list for the type */
@@ -197,18 +202,22 @@ public class SymbolList implements WnnEngine {
         mCurrentListIterator = mCurrentList.iterator();
         return 1;
     }
-    
+
     /** @see jp.co.omronsoft.openwnn.WnnEngine#convert */
     public int convert(ComposingText text) {
         return 0;
     }
-    
-    /** @see jp.co.omronsoft.openwnn.WnnEngine#searchWords */
-    public int searchWords(String key) {return 0;}
 
     /** @see jp.co.omronsoft.openwnn.WnnEngine#searchWords */
-    public int searchWords(WnnWord word) {return 0;}
-    
+    public int searchWords(String key) {
+        return 0;
+    }
+
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#searchWords */
+    public int searchWords(WnnWord word) {
+        return 0;
+    }
+
     /** @see jp.co.omronsoft.openwnn.WnnEngine#getNextCandidate */
     public WnnWord getNextCandidate() {
         if (mCurrentListIterator == null || !mCurrentListIterator.hasNext()) {
@@ -218,31 +227,47 @@ public class SymbolList implements WnnEngine {
         WnnWord word = new WnnWord(str, str);
         return word;
     }
-    
+
     /** @see jp.co.omronsoft.openwnn.WnnEngine#learn */
-    public boolean learn(WnnWord word) {return false;}
-    
+    public boolean learn(WnnWord word) {
+        return false;
+    }
+
     /** @see jp.co.omronsoft.openwnn.WnnEngine#addWord */
-    public int addWord(WnnWord word) {return 0;}
+    public int addWord(WnnWord word) {
+        return 0;
+    }
 
     /** @see jp.co.omronsoft.openwnn.WnnEngine#deleteWord */
-    public boolean deleteWord(WnnWord word) {return false;}
-    
+    public boolean deleteWord(WnnWord word) {
+        return false;
+    }
+
     /** @see jp.co.omronsoft.openwnn.WnnEngine#setPreferences */
-    public void setPreferences(SharedPreferences pref) {}
+    public void setPreferences(SharedPreferences pref) {
+    }
 
     /** @see jp.co.omronsoft.openwnn.WnnEngine#breakSequence */
-    public void breakSequence() {}
+    public void breakSequence() {
+    }
 
     /** @see jp.co.omronsoft.openwnn.WnnEngine#makeCandidateListOf */
-    public int makeCandidateListOf(int clausePosition) {return 0;}
+    public int makeCandidateListOf(int clausePosition) {
+        return 0;
+    }
 
     /** @see jp.co.omronsoft.openwnn.WnnEngine#initializeDictionary */
-    public boolean initializeDictionary(int dictionary) {return true;}
+    public boolean initializeDictionary(int dictionary) {
+        return true;
+    }
 
     /** @see jp.co.omronsoft.openwnn.WnnEngine#initializeDictionary */
-    public boolean initializeDictionary(int dictionary, int type) {return true;}
-    
+    public boolean initializeDictionary(int dictionary, int type) {
+        return true;
+    }
+
     /** @see jp.co.omronsoft.openwnn.WnnEngine#getUserDictionaryWords */
-    public WnnWord[] getUserDictionaryWords() {return null;}
+    public WnnWord[] getUserDictionaryWords() {
+        return null;
+    }
 }

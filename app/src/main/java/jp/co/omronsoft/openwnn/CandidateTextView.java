@@ -18,8 +18,8 @@ package jp.co.omronsoft.openwnn;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,22 +52,22 @@ public class CandidateTextView extends TextView {
     /** Alert dialog */
     private Dialog mCandidateDialog = null;
 
-   /**
-    * Constructor
-    * @param context    context
-    */
+    /**
+     * Constructor
+     * @param context    context
+     */
     public CandidateTextView(Context context) {
         super(context);
         setSoundEffectsEnabled(false);
     }
 
-   /**
-    * Constructor
-    * @param context    context
-    * @param candidateMinimumHeight Minimum height of candidate view
-    * @param candidateMinimumWidth  Minimum width of candidate view
-    * @param maxWidth  Maximum width of candidate view
-    */
+    /**
+     * Constructor
+     * @param context    context
+     * @param candidateMinimumHeight Minimum height of candidate view
+     * @param candidateMinimumWidth  Minimum width of candidate view
+     * @param maxWidth  Maximum width of candidate view
+     */
     public CandidateTextView(Context context, int candidateMinimumHeight, int candidateMinimumWidth, int maxWidth) {
         super(context);
         setSoundEffectsEnabled(false);
@@ -76,8 +76,8 @@ public class CandidateTextView extends TextView {
         setGravity(Gravity.CENTER);
         setSingleLine();
         setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                                           ViewGroup.LayoutParams.MATCH_PARENT,
-                                                           1.0f));
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                1.0f));
         setMinHeight(candidateMinimumHeight);
         setMinimumWidth(candidateMinimumWidth);
         mCandidateMinimumWidth = candidateMinimumWidth;
@@ -85,17 +85,17 @@ public class CandidateTextView extends TextView {
         mChangeFontSize = maxWidth - CHANGE_FONTSIZE_WIDTH;
     }
 
-   /**
-    * Textview is set to the best content for the display of candidate.
-    * @param WnnWord    candidate
-    * @param wordCount  candidate id
-    * @param OnClickListener Operation when clicking
-    * @param OnClickListener Operation when longclicking
-    * @return Set completion textview
-    */
+    /**
+     * Textview is set to the best content for the display of candidate.
+     * @param WnnWord    candidate
+     * @param wordCount  candidate id
+     * @param OnClickListener Operation when clicking
+     * @param OnClickListener Operation when longclicking
+     * @return Set completion textview
+     */
     public CandidateTextView setCandidateTextView(WnnWord word, int wordCount,
-                                                        OnClickListener candidateOnClick,
-                                                        OnLongClickListener candidateOnLongClick) {
+                                                  OnClickListener candidateOnClick,
+                                                  OnLongClickListener candidateOnLongClick) {
         setTextSize(CUSTOM_FONTSIZE[0]);
         setText(word.candidate);
         setId(wordCount);
@@ -109,15 +109,15 @@ public class CandidateTextView extends TextView {
         return this;
     }
 
-   /**
-    * If the text view is set to the best width for the display,
-    * and it is necessary, the character is shortened.
-    * @param WnnWord candidate word
-    * @return int    textview width
-    */
+    /**
+     * If the text view is set to the best width for the display,
+     * and it is necessary, the character is shortened.
+     * @param WnnWord candidate word
+     * @return int    textview width
+     */
     public int setCustomCandidate(WnnWord word) {
         TextPaint paint = getPaint();
-        int width = (int)paint.measureText(word.candidate, 0, word.candidate.length());
+        int width = (int) paint.measureText(word.candidate, 0, word.candidate.length());
         width += getPaddingLeft() + getPaddingRight();
 
         if (width > mCandidateMinimumWidth) {
@@ -128,7 +128,7 @@ public class CandidateTextView extends TextView {
                 }
             }
 
-            width = (int)paint.measureText(word.candidate, 0, word.candidate.length());
+            width = (int) paint.measureText(word.candidate, 0, word.candidate.length());
             width += getPaddingLeft() + getPaddingRight();
 
             if (width >= mMaxWidth) {
@@ -146,7 +146,8 @@ public class CandidateTextView extends TextView {
     }
 
     /** @see View#setBackgroundDrawable */
-    @Override public void setBackgroundDrawable(Drawable d) {
+    @Override
+    public void setBackgroundDrawable(Drawable d) {
         super.setBackgroundDrawable(d);
         setPadding(20, 0, 20, 0);
     }
@@ -172,10 +173,11 @@ public class CandidateTextView extends TextView {
     }
 
     /** @see android.view.View#onWindowVisibilityChanged */
-    @Override protected void onWindowVisibilityChanged(int visibility) {
-       super.onWindowVisibilityChanged(visibility);
-       if ((visibility != VISIBLE) && (mCandidateDialog != null)) {
-           mCandidateDialog.dismiss();
-       }
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+        if ((visibility != VISIBLE) && (mCandidateDialog != null)) {
+            mCandidateDialog.dismiss();
+        }
     }
 }

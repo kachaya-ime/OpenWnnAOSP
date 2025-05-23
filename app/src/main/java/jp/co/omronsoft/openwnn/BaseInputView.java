@@ -18,7 +18,6 @@ package jp.co.omronsoft.openwnn;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.AttributeSet;
 import android.view.Window;
 import android.view.WindowManager;
@@ -50,11 +49,12 @@ public class BaseInputView extends LinearLayout {
      *
      * @see android.view.View#onWindowVisibilityChanged(int)
      */
-    @Override protected void onWindowVisibilityChanged(int visibility) {
-       super.onWindowVisibilityChanged(visibility);
-       if ((visibility != VISIBLE) && (mOptionsDialog != null)) {
-           mOptionsDialog.dismiss();
-       }
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+        if ((visibility != VISIBLE) && (mOptionsDialog != null)) {
+            mOptionsDialog.dismiss();
+        }
     }
 
     /**
@@ -74,7 +74,7 @@ public class BaseInputView extends LinearLayout {
         dialogLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
         window.setAttributes(dialogLayoutParams);
         window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
- 
+
         mOptionsDialog.show();
     }
 
@@ -82,9 +82,9 @@ public class BaseInputView extends LinearLayout {
      * Close dialog.
      */
     public void closeDialog() {
-       if (mOptionsDialog != null) {
-           mOptionsDialog.dismiss();
-           mOptionsDialog = null;
-       }
+        if (mOptionsDialog != null) {
+            mOptionsDialog.dismiss();
+            mOptionsDialog = null;
+        }
     }
 }

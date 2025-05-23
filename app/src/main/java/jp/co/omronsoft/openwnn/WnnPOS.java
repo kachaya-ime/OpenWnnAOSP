@@ -31,7 +31,8 @@ public class WnnPOS {
     /**
      * Constructor
      */
-    public WnnPOS() {}
+    public WnnPOS() {
+    }
 
     /**
      * Constructor
@@ -40,7 +41,7 @@ public class WnnPOS {
      * @param right     The part of speech at right side
      */
     public WnnPOS(int left, int right) {
-        this.left  = left;
+        this.left = left;
         this.right = right;
     }
 }

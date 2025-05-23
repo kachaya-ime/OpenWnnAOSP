@@ -16,27 +16,22 @@
 
 package jp.co.omronsoft.openwnn;
 
-import jp.co.omronsoft.openwnn.JAJP.*;
-import android.inputmethodservice.InputMethodService;
-import android.view.WindowManager;
 import android.content.Context;
-import android.view.View;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import android.util.Log;
-import android.os.*;
-import android.view.inputmethod.*;
 import android.content.res.Configuration;
-import android.graphics.*;
-import android.graphics.drawable.*;
+import android.inputmethodservice.InputMethodService;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.co.omronsoft.openwnn.KeyAction;
+import jp.co.omronsoft.openwnn.JAJP.OpenWnnEngineJAJP;
 
 /**
  * The OpenWnn IME's base class.
@@ -46,22 +41,22 @@ import jp.co.omronsoft.openwnn.KeyAction;
 public class OpenWnn extends InputMethodService {
 
     /** Candidate view */
-    protected CandidatesViewManager  mCandidatesViewManager = null;
+    protected CandidatesViewManager mCandidatesViewManager = null;
     /** Input view (software keyboard) */
-    protected InputViewManager  mInputViewManager = null;
+    protected InputViewManager mInputViewManager = null;
     /** Conversion engine */
-    protected WnnEngine  mConverter = null;
+    protected WnnEngine mConverter = null;
     /** Pre-converter (for Romaji-to-Kana input, Hangul input, etc.) */
-    protected LetterConverter  mPreConverter = null;
+    protected LetterConverter mPreConverter = null;
     /** The inputing/editing string */
-    protected ComposingText  mComposingText = null;
+    protected ComposingText mComposingText = null;
     /** The input connection */
     protected InputConnection mInputConnection = null;
     /** Auto hide candidate view */
     protected boolean mAutoHideMode = true;
     /** Direct input mode */
     protected boolean mDirectInputMode = true;
-     
+
     /** Flag for checking if the previous down key event is consumed by OpenWnn  */
     private boolean mConsumeDownEvent;
 
@@ -91,7 +86,8 @@ public class OpenWnn extends InputMethodService {
      * InputMethodService 
      **********************************************************************/
     /** @see android.inputmethodservice.InputMethodService#onCreate */
-    @Override public void onCreate() {
+    @Override
+    public void onCreate() {
         updateXLargeMode();
         super.onCreate();
 
@@ -103,31 +99,36 @@ public class OpenWnn extends InputMethodService {
         mTextCandidatesViewManager = new TextCandidatesViewManager(-1);
         if (isXLarge()) {
             mTextCandidates1LineViewManager =
-                new TextCandidates1LineViewManager(OpenWnnEngineJAJP.LIMIT_OF_CANDIDATES_1LINE);
+                    new TextCandidates1LineViewManager(OpenWnnEngineJAJP.LIMIT_OF_CANDIDATES_1LINE);
             mCandidatesViewManager = mTextCandidates1LineViewManager;
         } else {
             mCandidatesViewManager = mTextCandidatesViewManager;
         }
 
-        if (mConverter != null) { mConverter.init(); }
-        if (mComposingText != null) { mComposingText.clear(); }
+        if (mConverter != null) {
+            mConverter.init();
+        }
+        if (mComposingText != null) {
+            mComposingText.clear();
+        }
     }
 
     /** @see android.inputmethodservice.InputMethodService#onCreateCandidatesView */
-    @Override public View onCreateCandidatesView() {
+    @Override
+    public View onCreateCandidatesView() {
         if (mCandidatesViewManager != null) {
-            WindowManager wm = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+            WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             if (isXLarge()) {
                 mCandidatesViewManager = mTextCandidates1LineViewManager;
                 mTextCandidatesViewManager.initView(this,
-                                                        wm.getDefaultDisplay().getWidth(),
-                                                        wm.getDefaultDisplay().getHeight());
+                        wm.getDefaultDisplay().getWidth(),
+                        wm.getDefaultDisplay().getHeight());
             } else {
                 mCandidatesViewManager = mTextCandidatesViewManager;
             }
             View view = mCandidatesViewManager.initView(this,
-                                                        wm.getDefaultDisplay().getWidth(),
-                                                        wm.getDefaultDisplay().getHeight());
+                    wm.getDefaultDisplay().getWidth(),
+                    wm.getDefaultDisplay().getHeight());
             mCandidatesViewManager.setViewType(CandidatesViewManager.VIEW_TYPE_NORMAL);
             return view;
         } else {
@@ -136,29 +137,32 @@ public class OpenWnn extends InputMethodService {
     }
 
     /** @see android.inputmethodservice.InputMethodService#onCreateInputView */
-    @Override public View onCreateInputView() {
+    @Override
+    public View onCreateInputView() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
 
         if (mInputViewManager != null) {
-            WindowManager wm = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+            WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             return mInputViewManager.initView(this,
-                                              wm.getDefaultDisplay().getWidth(),
-                                              wm.getDefaultDisplay().getHeight());
+                    wm.getDefaultDisplay().getWidth(),
+                    wm.getDefaultDisplay().getHeight());
         } else {
             return super.onCreateInputView();
         }
     }
 
     /** @see android.inputmethodservice.InputMethodService#onDestroy */
-    @Override public void onDestroy() {
+    @Override
+    public void onDestroy() {
         super.onDestroy();
         mCurrentIme = null;
         close();
     }
 
     /** @see android.inputmethodservice.InputMethodService#onKeyDown */
-    @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         mConsumeDownEvent = onEvent(new OpenWnnEvent(event));
 
         KeyAction Keycodeinfo = new KeyAction();
@@ -182,7 +186,8 @@ public class OpenWnn extends InputMethodService {
     }
 
     /** @see android.inputmethodservice.InputMethodService#onKeyUp */
-    @Override public boolean onKeyUp(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         boolean ret = mConsumeDownEvent;
         int cnt = KeyActionList.size();
         for (int i = 0; i < cnt; i++) {
@@ -195,7 +200,7 @@ public class OpenWnn extends InputMethodService {
         }
         if (!ret) {
             ret = super.onKeyUp(keyCode, event);
-        }else{
+        } else {
             ret = onEvent(new OpenWnnEvent(event));
         }
         return ret;
@@ -206,7 +211,8 @@ public class OpenWnn extends InputMethodService {
      *
      * @see android.inputmethodservice.InputMethodService#onKeyLongPress
      */
-    @Override public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
         if (mCurrentIme == null) {
             Log.e("iWnn", "OpenWnn::onKeyLongPress()  Unprocessing onCreate() ");
             return super.onKeyLongPress(keyCode, event);
@@ -216,9 +222,10 @@ public class OpenWnn extends InputMethodService {
         wnnEvent.code = OpenWnnEvent.KEYLONGPRESS;
         return onEvent(wnnEvent);
     }
-        
+
     /** @see android.inputmethodservice.InputMethodService#onStartInput */
-    @Override public void onStartInput(EditorInfo attribute, boolean restarting) {
+    @Override
+    public void onStartInput(EditorInfo attribute, boolean restarting) {
         super.onStartInput(attribute, restarting);
         mInputConnection = getCurrentInputConnection();
         if (!restarting && mComposingText != null) {
@@ -227,26 +234,38 @@ public class OpenWnn extends InputMethodService {
     }
 
     /** @see android.inputmethodservice.InputMethodService#onStartInputView */
-    @Override public void onStartInputView(EditorInfo attribute, boolean restarting) {
+    @Override
+    public void onStartInputView(EditorInfo attribute, boolean restarting) {
         super.onStartInputView(attribute, restarting);
         mInputConnection = getCurrentInputConnection();
 
         setCandidatesViewShown(false);
         if (mInputConnection != null) {
             mDirectInputMode = false;
-            if (mConverter != null) { mConverter.init(); }
+            if (mConverter != null) {
+                mConverter.init();
+            }
         } else {
             mDirectInputMode = true;
         }
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        if (mCandidatesViewManager != null) { mCandidatesViewManager.setPreferences(pref);  }
-        if (mInputViewManager != null) { mInputViewManager.setPreferences(pref, attribute);  }
-        if (mPreConverter != null) { mPreConverter.setPreferences(pref);  }
-        if (mConverter != null) { mConverter.setPreferences(pref);  }
+        if (mCandidatesViewManager != null) {
+            mCandidatesViewManager.setPreferences(pref);
+        }
+        if (mInputViewManager != null) {
+            mInputViewManager.setPreferences(pref, attribute);
+        }
+        if (mPreConverter != null) {
+            mPreConverter.setPreferences(pref);
+        }
+        if (mConverter != null) {
+            mConverter.setPreferences(pref);
+        }
     }
 
     /** @see android.inputmethodservice.InputMethodService#requestHideSelf */
-    @Override public void requestHideSelf(int flag) {
+    @Override
+    public void requestHideSelf(int flag) {
         super.requestHideSelf(flag);
         if (mInputViewManager == null) {
             hideWindow();
@@ -254,7 +273,8 @@ public class OpenWnn extends InputMethodService {
     }
 
     /** @see android.inputmethodservice.InputMethodService#setCandidatesViewShown */
-    @Override public void setCandidatesViewShown(boolean shown) {
+    @Override
+    public void setCandidatesViewShown(boolean shown) {
         super.setCandidatesViewShown(shown);
         setExtractViewShown(shown);
         if (shown) {
@@ -267,13 +287,16 @@ public class OpenWnn extends InputMethodService {
     }
 
     /** @see android.inputmethodservice.InputMethodService#hideWindow */
-    @Override public void hideWindow() {
+    @Override
+    public void hideWindow() {
         super.hideWindow();
         mDirectInputMode = true;
         hideStatusIcon();
     }
+
     /** @see android.inputmethodservice.InputMethodService#onComputeInsets */
-    @Override public void onComputeInsets(InputMethodService.Insets outInsets) {
+    @Override
+    public void onComputeInsets(InputMethodService.Insets outInsets) {
         super.onComputeInsets(outInsets);
         outInsets.contentTopInsets = outInsets.visibleTopInsets;
     }
@@ -298,7 +321,7 @@ public class OpenWnn extends InputMethodService {
      * @param prevChar     The character input previous
      * @param toggleTable  Toggle table
      * @param reverse      {@code false} if toggle direction is forward, {@code true} if toggle direction is backward
-     * @return          A character ({@code null} if no character is found)
+     * @return A character ({@code null} if no character is found)
      */
     protected String searchToggleCharacter(String prevChar, String[] toggleTable, boolean reverse) {
         for (int i = 0; i < toggleTable.length; i++) {
@@ -327,7 +350,9 @@ public class OpenWnn extends InputMethodService {
      * Processing of resource open when IME ends.
      */
     protected void close() {
-        if (mConverter != null) { mConverter.close(); }
+        if (mConverter != null) {
+            mConverter.close();
+        }
     }
 
     /**
@@ -344,8 +369,8 @@ public class OpenWnn extends InputMethodService {
      */
     public void updateXLargeMode() {
         mIsXLarge = ((getResources().getConfiguration().screenLayout &
-                      Configuration.SCREENLAYOUT_SIZE_MASK)
-                      == Configuration.SCREENLAYOUT_SIZE_XLARGE);
+                Configuration.SCREENLAYOUT_SIZE_MASK)
+                == Configuration.SCREENLAYOUT_SIZE_XLARGE);
     }
 
     /**
@@ -366,30 +391,30 @@ public class OpenWnn extends InputMethodService {
     protected boolean isThroughKeyCode(int keyCode) {
         boolean result;
         switch (keyCode) {
-        case KeyEvent.KEYCODE_CALL:
-        case KeyEvent.KEYCODE_VOLUME_DOWN:
-        case KeyEvent.KEYCODE_VOLUME_UP:
-        case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
-        case KeyEvent.KEYCODE_MEDIA_NEXT:
-        case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-        case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
-        case KeyEvent.KEYCODE_MEDIA_REWIND:
-        case KeyEvent.KEYCODE_MEDIA_STOP:
-        case KeyEvent.KEYCODE_MUTE:
-        case KeyEvent.KEYCODE_HEADSETHOOK:
-        case KeyEvent.KEYCODE_VOLUME_MUTE:
-        case KeyEvent.KEYCODE_MEDIA_CLOSE:
-        case KeyEvent.KEYCODE_MEDIA_EJECT:
-        case KeyEvent.KEYCODE_MEDIA_PAUSE:
-        case KeyEvent.KEYCODE_MEDIA_PLAY:
-        case KeyEvent.KEYCODE_MEDIA_RECORD:
-        case KeyEvent.KEYCODE_MANNER_MODE:
-            result = true;
-            break;
+            case KeyEvent.KEYCODE_CALL:
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+            case KeyEvent.KEYCODE_VOLUME_UP:
+            case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
+            case KeyEvent.KEYCODE_MEDIA_NEXT:
+            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+            case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
+            case KeyEvent.KEYCODE_MEDIA_REWIND:
+            case KeyEvent.KEYCODE_MEDIA_STOP:
+            case KeyEvent.KEYCODE_MUTE:
+            case KeyEvent.KEYCODE_HEADSETHOOK:
+            case KeyEvent.KEYCODE_VOLUME_MUTE:
+            case KeyEvent.KEYCODE_MEDIA_CLOSE:
+            case KeyEvent.KEYCODE_MEDIA_EJECT:
+            case KeyEvent.KEYCODE_MEDIA_PAUSE:
+            case KeyEvent.KEYCODE_MEDIA_PLAY:
+            case KeyEvent.KEYCODE_MEDIA_RECORD:
+            case KeyEvent.KEYCODE_MANNER_MODE:
+                result = true;
+                break;
 
-        default:
-            result = false;
-            break;
+            default:
+                result = false;
+                break;
 
         }
         return result;
@@ -404,22 +429,22 @@ public class OpenWnn extends InputMethodService {
     protected boolean isTenKeyCode(int keyCode) {
         boolean result = false;
         switch (keyCode) {
-        case KeyEvent.KEYCODE_NUMPAD_0:
-        case KeyEvent.KEYCODE_NUMPAD_1:
-        case KeyEvent.KEYCODE_NUMPAD_2:
-        case KeyEvent.KEYCODE_NUMPAD_3:
-        case KeyEvent.KEYCODE_NUMPAD_4:
-        case KeyEvent.KEYCODE_NUMPAD_5:
-        case KeyEvent.KEYCODE_NUMPAD_6:
-        case KeyEvent.KEYCODE_NUMPAD_7:
-        case KeyEvent.KEYCODE_NUMPAD_8:
-        case KeyEvent.KEYCODE_NUMPAD_9:
-        case KeyEvent.KEYCODE_NUMPAD_DOT:
-            result = true;
-            break;
+            case KeyEvent.KEYCODE_NUMPAD_0:
+            case KeyEvent.KEYCODE_NUMPAD_1:
+            case KeyEvent.KEYCODE_NUMPAD_2:
+            case KeyEvent.KEYCODE_NUMPAD_3:
+            case KeyEvent.KEYCODE_NUMPAD_4:
+            case KeyEvent.KEYCODE_NUMPAD_5:
+            case KeyEvent.KEYCODE_NUMPAD_6:
+            case KeyEvent.KEYCODE_NUMPAD_7:
+            case KeyEvent.KEYCODE_NUMPAD_8:
+            case KeyEvent.KEYCODE_NUMPAD_9:
+            case KeyEvent.KEYCODE_NUMPAD_DOT:
+                result = true;
+                break;
 
-        default:
-            break;
+            default:
+                break;
 
         }
         return result;

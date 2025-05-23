@@ -16,8 +16,12 @@
 
 package jp.co.omronsoft.openwnn.JAJP;
 
-import jp.co.omronsoft.openwnn.*;
 import android.view.View;
+
+import jp.co.omronsoft.openwnn.OpenWnnEvent;
+import jp.co.omronsoft.openwnn.OpenWnnJAJP;
+import jp.co.omronsoft.openwnn.UserDictionaryToolsEdit;
+import jp.co.omronsoft.openwnn.UserDictionaryToolsList;
 
 /**
  * The user dictionary's word editor class for Japanese IME.
@@ -49,11 +53,12 @@ public class UserDictionaryToolsEditJAJP extends UserDictionaryToolsEdit {
      */
     public void initialize() {
         mListViewName = "jp.co.omronsoft.openwnn.JAJP.UserDictionaryToolsListJAJP";
-        mPackageName  = "jp.co.omronsoft.openwnn";
+        mPackageName = "jp.co.omronsoft.openwnn";
     }
 
     /** @see jp.co.omronsoft.openwnn.UserDictionaryToolsEdit#sendEventToIME */
-    @Override protected boolean sendEventToIME(OpenWnnEvent ev) {
+    @Override
+    protected boolean sendEventToIME(OpenWnnEvent ev) {
         try {
             return OpenWnnJAJP.getInstance().onEvent(ev);
         } catch (Exception ex) {
@@ -63,7 +68,8 @@ public class UserDictionaryToolsEditJAJP extends UserDictionaryToolsEdit {
     }
 
     /** @see jp.co.omronsoft.openwnn.UserDictionaryToolsEdit#createUserDictionaryToolsList */
-    @Override protected UserDictionaryToolsList createUserDictionaryToolsList() {
+    @Override
+    protected UserDictionaryToolsList createUserDictionaryToolsList() {
         return new UserDictionaryToolsListJAJP();
     }
 }

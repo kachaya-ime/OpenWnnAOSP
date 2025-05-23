@@ -17,18 +17,10 @@
 package jp.co.omronsoft.openwnn;
 
 import android.app.Dialog;
-import android.content.res.Resources;
 import android.content.SharedPreferences;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.util.TypedValue;
-
-import java.util.ArrayList;
 
 /**
  * The interface of candidates view manager used by {@link OpenWnn}.
@@ -39,15 +31,15 @@ public abstract class CandidatesViewManager {
     /** Size of candidates view (normal) */
     public static final int VIEW_TYPE_NORMAL = 0;
     /** Size of candidates view (full) */
-    public static final int VIEW_TYPE_FULL   = 1;
+    public static final int VIEW_TYPE_FULL = 1;
     /** Size of candidates view (close/non-display) */
-    public static final int VIEW_TYPE_CLOSE  = 2;
+    public static final int VIEW_TYPE_CLOSE = 2;
 
     /**
      * Attribute of a word (no attribute)
      * @see jp.co.omronsoft.openwnn.WnnWord
      */
-    public static final int ATTRIBUTE_NONE    = 0;
+    public static final int ATTRIBUTE_NONE = 0;
     /**
      * Attribute of a word (a candidate in the history list)
      * @see jp.co.omronsoft.openwnn.WnnWord
@@ -57,12 +49,12 @@ public abstract class CandidatesViewManager {
      * Attribute of a word (the best candidate)
      * @see jp.co.omronsoft.openwnn.WnnWord
      */
-    public static final int ATTRIBUTE_BEST    = 2;
+    public static final int ATTRIBUTE_BEST = 2;
     /**
      * Attribute of a word (auto generated/not in the dictionary)
      * @see jp.co.omronsoft.openwnn.WnnWord
      */
-    public static final int ATTRIBUTE_AUTO_GENERATED  = 4;
+    public static final int ATTRIBUTE_AUTO_GENERATED = 4;
 
     /** The view of the LongPressDialog */
     protected View mViewLongPressDialog = null;
@@ -103,7 +95,7 @@ public abstract class CandidatesViewManager {
     /**
      * Get the candidates view type.
      *
-     * @return      The view type,
+     * @return The view type,
      * from {@link CandidatesViewManager#VIEW_TYPE_NORMAL} to
      * {@link CandidatesViewManager#VIEW_TYPE_CLOSE}
      */
@@ -165,7 +157,7 @@ public abstract class CandidatesViewManager {
             closeDialog();
             mDialog = new Dialog(view.getContext(), R.style.Dialog);
 
-            TextView text = (TextView)mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_text);
+            TextView text = (TextView) mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_text);
             text.setText(word.candidate);
 
             mDialog.setContentView(mViewLongPressDialog);
@@ -182,7 +174,7 @@ public abstract class CandidatesViewManager {
             mDialog.dismiss();
             mDialog = null;
             if (null != mViewLongPressDialog) {
-                ViewGroup parent = (ViewGroup)mViewLongPressDialog.getParent();
+                ViewGroup parent = (ViewGroup) mViewLongPressDialog.getParent();
                 if (null != parent) {
                     parent.removeView(mViewLongPressDialog);
                 }

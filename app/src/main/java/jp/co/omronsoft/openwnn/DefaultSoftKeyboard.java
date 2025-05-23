@@ -16,22 +16,22 @@
 
 package jp.co.omronsoft.openwnn;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.media.MediaPlayer;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.TextView;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.content.res.*;
-import android.os.Vibrator;
-import android.media.MediaPlayer;
-import android.content.Context;
-
-import android.util.Log;
 
 /**
  * The default software keyboard class.
@@ -85,36 +85,36 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /** Japanese 12-key keyboard [REVERSE TOGGLE] */
     public static final int KEYCODE_JP12_REVERSE = -219;
     /** Japanese 12-key keyboard [CLOSE] */
-    public static final int KEYCODE_JP12_CLOSE   = -220;
+    public static final int KEYCODE_JP12_CLOSE = -220;
     /** Japanese 12-key keyboard [KEYBOARD TYPE CHANGE] */
-    public static final int KEYCODE_JP12_KBD   = -221;
+    public static final int KEYCODE_JP12_KBD = -221;
     /** Japanese 12-key keyboard [EMOJI] */
-    public static final int KEYCODE_JP12_EMOJI      = -222;
+    public static final int KEYCODE_JP12_EMOJI = -222;
     /** Japanese 12-key keyboard [FULL-WIDTH HIRAGANA MODE] */
-    public static final int KEYCODE_JP12_ZEN_HIRA   = -223;
+    public static final int KEYCODE_JP12_ZEN_HIRA = -223;
     /** Japanese 12-key keyboard [FULL-WIDTH NUMBER MODE] */
-    public static final int KEYCODE_JP12_ZEN_NUM    = -224;
+    public static final int KEYCODE_JP12_ZEN_NUM = -224;
     /** Japanese 12-key keyboard [FULL-WIDTH ALPHABET MODE] */
-    public static final int KEYCODE_JP12_ZEN_ALPHA  = -225;
+    public static final int KEYCODE_JP12_ZEN_ALPHA = -225;
     /** Japanese 12-key keyboard [FULL-WIDTH KATAKANA MODE] */
-    public static final int KEYCODE_JP12_ZEN_KATA   = -226;
+    public static final int KEYCODE_JP12_ZEN_KATA = -226;
     /** Japanese 12-key keyboard [HALF-WIDTH KATAKANA MODE] */
-    public static final int KEYCODE_JP12_HAN_KATA   = -227;
+    public static final int KEYCODE_JP12_HAN_KATA = -227;
     /** Japanese 12-key keyboard [HALF-WIDTH NUMBER MODE] */
-    public static final int KEYCODE_JP12_HAN_NUM    = -228;
+    public static final int KEYCODE_JP12_HAN_NUM = -228;
     /** Japanese 12-key keyboard [HALF-WIDTH ALPHABET MODE] */
-    public static final int KEYCODE_JP12_HAN_ALPHA  = -229;
+    public static final int KEYCODE_JP12_HAN_ALPHA = -229;
     /** Japanese 12-key keyboard [MODE TOOGLE CHANGE] */
     public static final int KEYCODE_JP12_TOGGLE_MODE = -230;
 
     /** Key code for symbol keyboard alt key */
-    public static final int KEYCODE_4KEY_MODE        = -300;
+    public static final int KEYCODE_4KEY_MODE = -300;
     /** Key code for symbol keyboard up key */
-    public static final int KEYCODE_4KEY_UP          = -301;
+    public static final int KEYCODE_4KEY_UP = -301;
     /** Key code for symbol keyboard down key */
-    public static final int KEYCODE_4KEY_DOWN        = -302;
+    public static final int KEYCODE_4KEY_DOWN = -302;
     /** Key code for symbol keyboard del key */
-    public static final int KEYCODE_4KEY_CLEAR       = -303;
+    public static final int KEYCODE_4KEY_CLEAR = -303;
 
     /* for Qwerty keyboard */
     /** Qwerty keyboard [DEL] */
@@ -124,49 +124,49 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /** Qwerty keyboard [SHIFT] */
     public static final int KEYCODE_QWERTY_SHIFT = Keyboard.KEYCODE_SHIFT;
     /** Qwerty keyboard [ALT] */
-    public static final int KEYCODE_QWERTY_ALT   = -103;
+    public static final int KEYCODE_QWERTY_ALT = -103;
     /** Qwerty keyboard [KEYBOARD TYPE CHANGE] */
-    public static final int KEYCODE_QWERTY_KBD   = -104;
+    public static final int KEYCODE_QWERTY_KBD = -104;
     /** Qwerty keyboard [CLOSE] */
     public static final int KEYCODE_QWERTY_CLOSE = -105;
     /** Japanese Qwerty keyboard [EMOJI] */
     public static final int KEYCODE_QWERTY_EMOJI = -106;
     /** Japanese Qwerty keyboard [FULL-WIDTH HIRAGANA MODE] */
-    public static final int KEYCODE_QWERTY_ZEN_HIRA   = -107;
+    public static final int KEYCODE_QWERTY_ZEN_HIRA = -107;
     /** Japanese Qwerty keyboard [FULL-WIDTH NUMBER MODE] */
-    public static final int KEYCODE_QWERTY_ZEN_NUM    = -108;
+    public static final int KEYCODE_QWERTY_ZEN_NUM = -108;
     /** Japanese Qwerty keyboard [FULL-WIDTH ALPHABET MODE] */
-    public static final int KEYCODE_QWERTY_ZEN_ALPHA  = -109;
+    public static final int KEYCODE_QWERTY_ZEN_ALPHA = -109;
     /** Japanese Qwerty keyboard [FULL-WIDTH KATAKANA MODE] */
-    public static final int KEYCODE_QWERTY_ZEN_KATA   = -110;
+    public static final int KEYCODE_QWERTY_ZEN_KATA = -110;
     /** Japanese Qwerty keyboard [HALF-WIDTH KATAKANA MODE] */
-    public static final int KEYCODE_QWERTY_HAN_KATA   = -111;
+    public static final int KEYCODE_QWERTY_HAN_KATA = -111;
     /** Qwerty keyboard [NUMBER MODE] */
-    public static final int KEYCODE_QWERTY_HAN_NUM    = -112;
+    public static final int KEYCODE_QWERTY_HAN_NUM = -112;
     /** Qwerty keyboard [ALPHABET MODE] */
-    public static final int KEYCODE_QWERTY_HAN_ALPHA  = -113;
+    public static final int KEYCODE_QWERTY_HAN_ALPHA = -113;
     /** Qwerty keyboard [MODE TOOGLE CHANGE] */
     public static final int KEYCODE_QWERTY_TOGGLE_MODE = -114;
     /** Qwerty keyboard [PINYIN MODE] */
-    public static final int KEYCODE_QWERTY_PINYIN  = -115;
-    
+    public static final int KEYCODE_QWERTY_PINYIN = -115;
+
     /** OpenWnn instance which hold this software keyboard*/
-    protected OpenWnn      mWnn;
-    
+    protected OpenWnn mWnn;
+
     /** Current keyboard view */
     protected KeyboardView mKeyboardView;
-    
+
     /** View objects (main side) */
     protected BaseInputView mMainView;
     /** View objects (sub side) */
     protected ViewGroup mSubView;
-    
+
     /** Current keyboard definition */
     protected Keyboard mCurrentKeyboard;
-    
+
     /** Caps lock state */
     protected boolean mCapsLock;
-    
+
     /** Input restraint */
     protected boolean mDisableKeyInput = true;
     /**
@@ -180,17 +180,17 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /** Current language */
     protected int mCurrentLanguage;
     /** Language (English) */
-    public static final int LANG_EN  = 0;
+    public static final int LANG_EN = 0;
     /** Language (Japanese) */
-    public static final int LANG_JA  = 1;
+    public static final int LANG_JA = 1;
     /** Language (Chinese) */
-    public static final int LANG_CN  = 2;
+    public static final int LANG_CN = 2;
 
     /* portrait/landscape */
     /** State of the display */
     protected int mDisplayMode = 0;
     /** Display mode (Portrait) */
-    public static final int PORTRAIT  = 0;
+    public static final int PORTRAIT = 0;
     /** Display mode (Landscape) */
     public static final int LANDSCAPE = 1;
 
@@ -198,15 +198,15 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /** Current keyboard type */
     protected int mCurrentKeyboardType;
     /** Keyboard (QWERTY keyboard) */
-    public static final int KEYBOARD_QWERTY  = 0;
+    public static final int KEYBOARD_QWERTY = 0;
     /** Keyboard (12-keys keyboard) */
-    public static final int KEYBOARD_12KEY   = 1;
+    public static final int KEYBOARD_12KEY = 1;
     /** State of the shift key */
     protected int mShiftOn = 0;
     /** Shift key off */
     public static final int KEYBOARD_SHIFT_OFF = 0;
     /** Shift key on */
-    public static final int KEYBOARD_SHIFT_ON  = 1;
+    public static final int KEYBOARD_SHIFT_ON = 1;
 
     /* key-modes */
     /** Current key-mode */
@@ -216,9 +216,9 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /** English key-mode (alphabet) */
     public static final int KEYMODE_EN_ALPHABET = 0;
     /** English key-mode (number) */
-    public static final int KEYMODE_EN_NUMBER   = 1;
+    public static final int KEYMODE_EN_NUMBER = 1;
     /** English key-mode (phone number) */
-    public static final int KEYMODE_EN_PHONE    = 2;
+    public static final int KEYMODE_EN_PHONE = 2;
 
     /* key-modes for Japanese */
     /** Japanese key-mode (Full-width Hiragana) */
@@ -226,49 +226,49 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /** Japanese key-mode (Full-width alphabet) */
     public static final int KEYMODE_JA_FULL_ALPHABET = 1;
     /** Japanese key-mode (Full-width number) */
-    public static final int KEYMODE_JA_FULL_NUMBER   = 2;
+    public static final int KEYMODE_JA_FULL_NUMBER = 2;
     /** Japanese key-mode (Full-width Katakana) */
     public static final int KEYMODE_JA_FULL_KATAKANA = 3;
     /** Japanese key-mode (Half-width alphabet) */
     public static final int KEYMODE_JA_HALF_ALPHABET = 4;
     /** Japanese key-mode (Half-width number) */
-    public static final int KEYMODE_JA_HALF_NUMBER   = 5;
+    public static final int KEYMODE_JA_HALF_NUMBER = 5;
     /** Japanese key-mode (Half-width Katakana) */
     public static final int KEYMODE_JA_HALF_KATAKANA = 6;
     /** Japanese key-mode (Half-width phone number) */
-    public static final int KEYMODE_JA_HALF_PHONE    = 7;
+    public static final int KEYMODE_JA_HALF_PHONE = 7;
 
     /* key-modes for Chinese */
     /** Chinese key-mode (pinyin) */
-    public static final int KEYMODE_CN_PINYIN   = 0;
+    public static final int KEYMODE_CN_PINYIN = 0;
     /** Chinese key-mode (Full-width number) */
-    public static final int KEYMODE_CN_FULL_NUMBER   = 1;
+    public static final int KEYMODE_CN_FULL_NUMBER = 1;
     /** Chinese key-mode (alphabet) */
     public static final int KEYMODE_CN_ALPHABET = 2;
     /** Chinese key-mode (phone) */
-    public static final int KEYMODE_CN_PHONE    = 3;
+    public static final int KEYMODE_CN_PHONE = 3;
     /** Chinese key-mode (Half-width number) */
-    public static final int KEYMODE_CN_HALF_NUMBER   = 4;
-    
+    public static final int KEYMODE_CN_HALF_NUMBER = 4;
+
     /* key-modes for HARD */
     /** HARD key-mode (SHIFT_OFF_ALT_OFF) */
-    public static final int HARD_KEYMODE_SHIFT_OFF_ALT_OFF     = 2;
+    public static final int HARD_KEYMODE_SHIFT_OFF_ALT_OFF = 2;
     /** HARD key-mode (SHIFT_ON_ALT_OFF) */
-    public static final int HARD_KEYMODE_SHIFT_ON_ALT_OFF      = 3;
+    public static final int HARD_KEYMODE_SHIFT_ON_ALT_OFF = 3;
     /** HARD key-mode (SHIFT_OFF_ALT_ON) */
-    public static final int HARD_KEYMODE_SHIFT_OFF_ALT_ON      = 4;
+    public static final int HARD_KEYMODE_SHIFT_OFF_ALT_ON = 4;
     /** HARD key-mode (SHIFT_ON_ALT_ON) */
-    public static final int HARD_KEYMODE_SHIFT_ON_ALT_ON       = 5;
+    public static final int HARD_KEYMODE_SHIFT_ON_ALT_ON = 5;
     /** HARD key-mode (SHIFT_LOCK_ALT_OFF) */
-    public static final int HARD_KEYMODE_SHIFT_LOCK_ALT_OFF    = 6;
+    public static final int HARD_KEYMODE_SHIFT_LOCK_ALT_OFF = 6;
     /** HARD key-mode (SHIFT_LOCK_ALT_ON) */
-    public static final int HARD_KEYMODE_SHIFT_LOCK_ALT_ON     = 7;
+    public static final int HARD_KEYMODE_SHIFT_LOCK_ALT_ON = 7;
     /** HARD key-mode (SHIFT_LOCK_ALT_LOCK) */
-    public static final int HARD_KEYMODE_SHIFT_LOCK_ALT_LOCK   = 8;
+    public static final int HARD_KEYMODE_SHIFT_LOCK_ALT_LOCK = 8;
     /** HARD key-mode (SHIFT_OFF_ALT_LOCK) */
-    public static final int HARD_KEYMODE_SHIFT_OFF_ALT_LOCK    = 9;
+    public static final int HARD_KEYMODE_SHIFT_OFF_ALT_LOCK = 9;
     /** HARD key-mode (SHIFT_ON_ALT_LOCK) */
-    public static final int HARD_KEYMODE_SHIFT_ON_ALT_LOCK     = 10;
+    public static final int HARD_KEYMODE_SHIFT_ON_ALT_LOCK = 10;
 
     /** Whether the H/W keyboard is hidden. */
     protected boolean mHardKeyboardHidden = true;
@@ -288,13 +288,13 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
      * {@code true} if there is no composing text.
      */
     protected boolean mNoInput = true;
-    
+
     /** Vibratior for key click vibration */
     protected Vibrator mVibrator = null;
-    
+
     /** MediaPlayer for key click sound */
     protected MediaPlayer mSound = null;
-    
+
     /** Key toggle cycle table currently using */
     protected String[] mCurrentCycleTable;
 
@@ -302,51 +302,65 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     private KeyboardView.OnKeyboardActionListener mSymbolOnKeyboardAction = new KeyboardView.OnKeyboardActionListener() {
         public void onKey(int primaryCode, int[] keyCodes) {
             switch (primaryCode) {
-            case KEYCODE_4KEY_MODE:
-                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.INPUT_KEY,
-                                              new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK)));
-                break;
+                case KEYCODE_4KEY_MODE:
+                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.INPUT_KEY,
+                            new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK)));
+                    break;
 
-            case KEYCODE_4KEY_UP:
-                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_UP));
-                break;
+                case KEYCODE_4KEY_UP:
+                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_UP));
+                    break;
 
-            case KEYCODE_4KEY_DOWN:
-                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_DOWN));
-                break;
+                case KEYCODE_4KEY_DOWN:
+                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_DOWN));
+                    break;
 
-            case KEYCODE_4KEY_CLEAR:
-                InputConnection connection = mWnn.getCurrentInputConnection();
-                if (connection != null) {
-                    connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
-                }
-                return;
+                case KEYCODE_4KEY_CLEAR:
+                    InputConnection connection = mWnn.getCurrentInputConnection();
+                    if (connection != null) {
+                        connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
+                    }
+                    return;
 
-            default:
-                break;
+                default:
+                    break;
             }
         }
+
         public void onPress(int primaryCode) {
             playSoundAndVibration();
         }
-        public void onText(CharSequence text) { }
-        public void swipeLeft() { }
-        public void swipeRight() { }
-        public void swipeUp() { }
-        public void swipeDown() { }
-        public void onRelease(int primaryCode) { }
+
+        public void onText(CharSequence text) {
+        }
+
+        public void swipeLeft() {
+        }
+
+        public void swipeRight() {
+        }
+
+        public void swipeUp() {
+        }
+
+        public void swipeDown() {
+        }
+
+        public void onRelease(int primaryCode) {
+        }
+
         public boolean onLongPress(Keyboard.Key key) {
             switch (key.codes[0]) {
-            case KEYCODE_4KEY_UP:
-                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_FULL_UP));
-                return true;
+                case KEYCODE_4KEY_UP:
+                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_FULL_UP));
+                    return true;
 
-            case KEYCODE_4KEY_DOWN:
-                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_FULL_DOWN));
-                return true;
+                case KEYCODE_4KEY_DOWN:
+                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_FULL_DOWN));
+                    return true;
 
-            default:
-                break;
+                default:
+                    break;
             }
             return false;
         }
@@ -355,7 +369,8 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /**
      * Constructor
      */
-    public DefaultSoftKeyboard() { }
+    public DefaultSoftKeyboard() {
+    }
 
     /**
      * Create keyboard views
@@ -374,7 +389,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
      * Get the keyboard changed the specified shift state.
      *
      * @param shift     Shift state
-     * @return          Keyboard view
+     * @return Keyboard view
      */
     protected Keyboard getShiftChangeKeyboard(int shift) {
         try {
@@ -393,7 +408,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
      * Get the keyboard changed the specified input mode.
      *
      * @param mode      Input mode
-     * @return          Keyboard view
+     * @return Keyboard view
      */
     protected Keyboard getModeChangeKeyboard(int mode) {
         try {
@@ -412,7 +427,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
      * Get the keyboard changed the specified keyboard type
      *
      * @param type      Keyboard type
-     * @return          Keyboard view
+     * @return Keyboard view
      */
     protected Keyboard getTypeChangeKeyboard(int type) {
         try {
@@ -431,7 +446,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
      * Get the keyboard when some characters are input or no character is input.
      *
      * @param inputed   {@code true} if some characters are inputed; {@code false} if no character is inputed.
-     * @return          Keyboard view
+     * @return Keyboard view
      */
     protected Keyboard getKeyboardInputed(boolean inputed) {
         try {
@@ -470,7 +485,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         changeKeyboard(kbd);
 
         mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                                      OpenWnnEvent.Mode.DEFAULT));
+                OpenWnnEvent.Mode.DEFAULT));
     }
 
     /**
@@ -508,28 +523,28 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         int mode = -1;
         int keymode = mCurrentKeyMode;
         switch (mCurrentLanguage) {
-        case LANG_EN:
-            if (keymode == KEYMODE_EN_ALPHABET) {
-                mode = KEYMODE_EN_NUMBER;
-            } else if (keymode == KEYMODE_EN_NUMBER) {
-                mode = KEYMODE_EN_ALPHABET;
-            }
-            break;
+            case LANG_EN:
+                if (keymode == KEYMODE_EN_ALPHABET) {
+                    mode = KEYMODE_EN_NUMBER;
+                } else if (keymode == KEYMODE_EN_NUMBER) {
+                    mode = KEYMODE_EN_ALPHABET;
+                }
+                break;
 
-        case LANG_JA:
-            if (keymode == KEYMODE_JA_HALF_ALPHABET) {
-                mode = KEYMODE_JA_HALF_NUMBER;
-            } else if (keymode == KEYMODE_JA_HALF_NUMBER) {
-                mode = KEYMODE_JA_HALF_ALPHABET;
-            } else if (keymode == KEYMODE_JA_FULL_ALPHABET) {
-                mode = KEYMODE_JA_FULL_NUMBER;
-            } else if (keymode == KEYMODE_JA_FULL_NUMBER) {
-                mode = KEYMODE_JA_FULL_ALPHABET;
-            }
-            break;
+            case LANG_JA:
+                if (keymode == KEYMODE_JA_HALF_ALPHABET) {
+                    mode = KEYMODE_JA_HALF_NUMBER;
+                } else if (keymode == KEYMODE_JA_HALF_NUMBER) {
+                    mode = KEYMODE_JA_HALF_ALPHABET;
+                } else if (keymode == KEYMODE_JA_FULL_ALPHABET) {
+                    mode = KEYMODE_JA_FULL_NUMBER;
+                } else if (keymode == KEYMODE_JA_FULL_NUMBER) {
+                    mode = KEYMODE_JA_FULL_ALPHABET;
+                }
+                break;
 
-        default:
-            /* invalid */
+            default:
+                /* invalid */
         }
 
         if (mode >= 0) {
@@ -553,7 +568,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         if (type != KEYBOARD_QWERTY && type != KEYBOARD_12KEY) {
             return;
         }
-        
+
         /* change keyboard view */
         Keyboard kbd = getTypeChangeKeyboard(type);
         if (kbd != null) {
@@ -563,7 +578,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
 
         /* notice that the keyboard is changed */
         mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                                      OpenWnnEvent.Mode.DEFAULT));
+                OpenWnnEvent.Mode.DEFAULT));
     }
 
     /**
@@ -587,12 +602,13 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
             return false;
         }
     }
+
     /** @see jp.co.omronsoft.openwnn.InputViewManager#initView */
     public View initView(OpenWnn parent, int width, int height) {
         mWnn = parent;
-        mDisplayMode = 
-            (parent.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-            ? LANDSCAPE : PORTRAIT;
+        mDisplayMode =
+                (parent.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                        ? LANDSCAPE : PORTRAIT;
 
         /*
          * create keyboards & the view.
@@ -606,7 +622,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(parent);
         String skin = pref.getString("keyboard_skin",
-                                     mWnn.getResources().getString(R.string.keyboard_skin_id_default));
+                mWnn.getResources().getString(R.string.keyboard_skin_id_default));
         int id = parent.getResources().getIdentifier(skin, "layout", "jp.co.omronsoft.openwnn");
 
         mKeyboardView = (KeyboardView) mWnn.getLayoutInflater().inflate(id, null);
@@ -626,82 +642,82 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
 
         return mMainView;
     }
-    
+
     /**
      * Update the SHFIT/ALT keys indicator.
-     * 
+     *
      * @param mode  The state of SHIFT/ALT keys.
      */
     public void updateIndicator(int mode) {
         Resources res = mWnn.getResources();
-        TextView text1 = (TextView)mSubView.findViewById(R.id.shift);
-        TextView text2 = (TextView)mSubView.findViewById(R.id.alt);
+        TextView text1 = (TextView) mSubView.findViewById(R.id.shift);
+        TextView text2 = (TextView) mSubView.findViewById(R.id.alt);
 
         switch (mode) {
-        case HARD_KEYMODE_SHIFT_OFF_ALT_OFF:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_off));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_off));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            break;
-        case HARD_KEYMODE_SHIFT_ON_ALT_OFF:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_on));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_off));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            break;
-        case HARD_KEYMODE_SHIFT_LOCK_ALT_OFF:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_lock));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_off));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_background_lock_caps));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            break;
-        case HARD_KEYMODE_SHIFT_OFF_ALT_ON:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_off));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_on));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            break;
-        case HARD_KEYMODE_SHIFT_OFF_ALT_LOCK:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_off));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_lock));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_background_lock_alt));
-            break;
-        case HARD_KEYMODE_SHIFT_ON_ALT_ON:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_on));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_on));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            break;
-        case HARD_KEYMODE_SHIFT_ON_ALT_LOCK:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_on));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_lock));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_background_lock_alt));
-            break;
-        case HARD_KEYMODE_SHIFT_LOCK_ALT_ON:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_lock));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_on));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_background_lock_caps));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            break;
-        case HARD_KEYMODE_SHIFT_LOCK_ALT_LOCK:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_lock));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_lock));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_background_lock_caps));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_background_lock_alt));
-            break;
-        default:
-            text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_off));
-            text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_off));
-            text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
-            break;
+            case HARD_KEYMODE_SHIFT_OFF_ALT_OFF:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_off));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_off));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                break;
+            case HARD_KEYMODE_SHIFT_ON_ALT_OFF:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_on));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_off));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                break;
+            case HARD_KEYMODE_SHIFT_LOCK_ALT_OFF:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_lock));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_off));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_background_lock_caps));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                break;
+            case HARD_KEYMODE_SHIFT_OFF_ALT_ON:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_off));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_on));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                break;
+            case HARD_KEYMODE_SHIFT_OFF_ALT_LOCK:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_off));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_lock));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_background_lock_alt));
+                break;
+            case HARD_KEYMODE_SHIFT_ON_ALT_ON:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_on));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_on));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                break;
+            case HARD_KEYMODE_SHIFT_ON_ALT_LOCK:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_on));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_lock));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_background_lock_alt));
+                break;
+            case HARD_KEYMODE_SHIFT_LOCK_ALT_ON:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_lock));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_on));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_background_lock_caps));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                break;
+            case HARD_KEYMODE_SHIFT_LOCK_ALT_LOCK:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_lock));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_lock));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_background_lock_caps));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_background_lock_alt));
+                break;
+            default:
+                text1.setTextColor(res.getColor(R.color.indicator_textcolor_caps_off));
+                text2.setTextColor(res.getColor(R.color.indicator_textcolor_alt_off));
+                text1.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
+                break;
         }
         return;
     }
-    
+
     /** @see jp.co.omronsoft.openwnn.InputViewManager#getCurrentView */
     public View getCurrentView() {
         return mMainView;
@@ -739,7 +755,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         /* vibrator */
         try {
             if (pref.getBoolean("key_vibration", false)) {
-                mVibrator = (Vibrator)mWnn.getSystemService(Context.VIBRATOR_SERVICE);
+                mVibrator = (Vibrator) mWnn.getSystemService(Context.VIBRATOR_SERVICE);
             } else {
                 mVibrator = null;
             }
@@ -792,22 +808,28 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
      * onKeyboardActionListener
      ***********************************************************************/
     /** @see jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener#onKey */
-    public void onKey(int primaryCode, int[] keyCodes) { }
+    public void onKey(int primaryCode, int[] keyCodes) {
+    }
 
     /** @see jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener#swipeRight */
-    public void swipeRight() { }
+    public void swipeRight() {
+    }
 
     /** @see jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener#swipeLeft */
-    public void swipeLeft() { }
+    public void swipeLeft() {
+    }
 
     /** @see jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener#swipeDown */
-    public void swipeDown() { }
+    public void swipeDown() {
+    }
 
     /** @see jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener#swipeUp */
-    public void swipeUp() { }
+    public void swipeUp() {
+    }
 
     /** @see jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener#onRelease */
-    public void onRelease(int x) { }
+    public void onRelease(int x) {
+    }
 
     /** @see jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener#onPress */
     public void onPress(int x) {
@@ -825,19 +847,26 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     private void playSoundAndVibration() {
         /* key click sound & vibration */
         if (mVibrator != null) {
-            try { mVibrator.vibrate(5); } catch (Exception ex) { }
+            try {
+                mVibrator.vibrate(5);
+            } catch (Exception ex) {
+            }
         }
         if (mSound != null) {
-            try { mSound.seekTo(0); mSound.start(); } catch (Exception ex) { }
+            try {
+                mSound.seekTo(0); mSound.start();
+            } catch (Exception ex) {
+            }
         }
     }
 
     /** @see jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener#onText */
-    public void onText(CharSequence text) {}
+    public void onText(CharSequence text) {
+    }
 
     /**
      * Get current key mode.
-     * 
+     *
      * @return Current key mode
      */
     public int getKeyMode() {
@@ -846,7 +875,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
 
     /**
      * Get current keyboard type.
-     * 
+     *
      * @return Current keyboard type
      */
     public int getKeyboardType() {
@@ -855,7 +884,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
 
     /**
      * Set the H/W keyboard's state.
-     * 
+     *
      * @param hidden {@code true} if hidden.
      */
     public void setHardKeyboardHidden(boolean hidden) {

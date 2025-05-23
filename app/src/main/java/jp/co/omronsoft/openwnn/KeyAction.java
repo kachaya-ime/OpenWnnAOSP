@@ -19,5 +19,5 @@ public class KeyAction {
     /** KeyDownAction*/
     boolean mConsumeDownEvent;
     /** KeyCode*/
-    int  mKeyCode;
+    int mKeyCode;
 }

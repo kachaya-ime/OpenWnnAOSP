@@ -27,7 +27,8 @@ import android.preference.PreferenceActivity;
 public class OpenWnnControlPanelJAJP extends PreferenceActivity {
 
     /** @see android.preference.PreferenceActivity#onCreate */
-    @Override public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (OpenWnnJAJP.getInstance() == null) {
             new OpenWnnJAJP(this);

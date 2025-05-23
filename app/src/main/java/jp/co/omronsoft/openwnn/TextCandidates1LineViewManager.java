@@ -15,9 +15,7 @@
  */
 package jp.co.omronsoft.openwnn;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -26,8 +24,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.text.Layout;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.AlignmentSpan;
 import android.util.DisplayMetrics;
@@ -36,13 +32,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -70,7 +66,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
     private static final float SCROLL_DISTANCE = 0.9f;
 
     /** Body view of the candidates list */
-    private ViewGroup  mViewBody;
+    private ViewGroup mViewBody;
     /** Scroller */
     private HorizontalScrollView mViewBodyScroll;
     /** Left more button */
@@ -137,9 +133,10 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
     /** Whether candidates long click enable */
     private boolean mEnableCandidateLongClick = true;
 
-   /** {@code Handler} Handler for focus Candidate wait delay */
+    /** {@code Handler} Handler for focus Candidate wait delay */
     private Handler mHandler = new Handler() {
-            @Override public void handleMessage(Message msg) {
+        @Override
+        public void handleMessage(Message msg) {
 
             switch (msg.what) {
                 case MSG_SET_CANDIDATES:
@@ -148,9 +145,9 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
 
                 default:
                     break;
-                }
             }
-        };
+        }
+    };
 
     /** Event listener for touching a candidate */
     private OnClickListener mCandidateOnClick = new OnClickListener() {
@@ -161,7 +158,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
             playSoundAndVibration();
 
             if (v instanceof CandidateTextView) {
-                CandidateTextView text = (CandidateTextView)v;
+                CandidateTextView text = (CandidateTextView) v;
                 int wordcount = text.getId();
                 WnnWord word = getWnnWord(wordcount);
                 clearFocusCandidate();
@@ -183,7 +180,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
 
             clearFocusCandidate();
 
-            int wordcount = ((TextView)v).getId();
+            int wordcount = ((TextView) v).getId();
             mWord = mWnnWordArray.get(wordcount);
 
             displayDialog(v, mWord);
@@ -226,33 +223,33 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
 
         Resources r = mWnn.getResources();
 
-        mCandidateMinimumWidth = (int)(CANDIDATE_MINIMUM_WIDTH * mMetrics.density);
+        mCandidateMinimumWidth = (int) (CANDIDATE_MINIMUM_WIDTH * mMetrics.density);
         mCandidateMinimumHeight = r.getDimensionPixelSize(R.dimen.candidate_layout_height);
 
         LayoutInflater inflater = parent.getLayoutInflater();
-        mViewBody = (ViewGroup)inflater.inflate(R.layout.candidates_1line, null);
-        mViewBodyScroll = (HorizontalScrollView)mViewBody.findViewById(R.id.candview_scroll_1line);
+        mViewBody = (ViewGroup) inflater.inflate(R.layout.candidates_1line, null);
+        mViewBodyScroll = (HorizontalScrollView) mViewBody.findViewById(R.id.candview_scroll_1line);
         mViewBodyScroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mViewBodyScroll.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                case MotionEvent.ACTION_MOVE:
-                    if (mHandler.hasMessages(MSG_SET_CANDIDATES)) {
-                        mHandler.removeMessages(MSG_SET_CANDIDATES);
-                        mHandler.sendEmptyMessageDelayed(MSG_SET_CANDIDATES, CANDIDATE_DELAY_MILLIS);
-                    }
-                    break;
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_MOVE:
+                        if (mHandler.hasMessages(MSG_SET_CANDIDATES)) {
+                            mHandler.removeMessages(MSG_SET_CANDIDATES);
+                            mHandler.sendEmptyMessageDelayed(MSG_SET_CANDIDATES, CANDIDATE_DELAY_MILLIS);
+                        }
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
 
                 }
                 return false;
             }
         });
 
-        mLeftMoreButton = (ImageView)mViewBody.findViewById(R.id.left_more_imageview);
+        mLeftMoreButton = (ImageView) mViewBody.findViewById(R.id.left_more_imageview);
         mLeftMoreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (!v.isShown()) {
@@ -261,7 +258,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
                 playSoundAndVibration();
                 if (mViewBodyScroll.getScrollX() > 0) {
                     mViewBodyScroll.smoothScrollBy(
-                                        (int)(mViewBodyScroll.getWidth() * -SCROLL_DISTANCE), 0);
+                            (int) (mViewBodyScroll.getWidth() * -SCROLL_DISTANCE), 0);
                 }
             }
         });
@@ -277,7 +274,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
             }
         });
 
-        mRightMoreButton = (ImageView)mViewBody.findViewById(R.id.right_more_imageview);
+        mRightMoreButton = (ImageView) mViewBody.findViewById(R.id.right_more_imageview);
         mRightMoreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (!v.isShown()) {
@@ -287,7 +284,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
                 int scrollMax = mViewBodyScroll.getChildAt(0).getRight();
 
                 if ((mViewBodyScroll.getScrollX() + width) < scrollMax) {
-                    mViewBodyScroll.smoothScrollBy((int)(width * SCROLL_DISTANCE), 0);
+                    mViewBodyScroll.smoothScrollBy((int) (width * SCROLL_DISTANCE), 0);
                 }
             }
         });
@@ -303,29 +300,29 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
             }
         });
 
-        mViewLongPressDialog = (View)inflater.inflate(R.layout.candidate_longpress_dialog, null);
+        mViewLongPressDialog = (View) inflater.inflate(R.layout.candidate_longpress_dialog, null);
 
         /* select button */
-        Button longPressDialogButton = (Button)mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_select);
+        Button longPressDialogButton = (Button) mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_select);
         longPressDialogButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    playSoundAndVibration();
-                    clearFocusCandidate();
-                    selectCandidate(mWord);
-                    closeDialog();
-                }
-            });
+            public void onClick(View v) {
+                playSoundAndVibration();
+                clearFocusCandidate();
+                selectCandidate(mWord);
+                closeDialog();
+            }
+        });
 
         /* cancel button */
-        longPressDialogButton = (Button)mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_cancel);
+        longPressDialogButton = (Button) mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_cancel);
         longPressDialogButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    playSoundAndVibration();
-                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.LIST_CANDIDATES_NORMAL));
-                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.UPDATE_CANDIDATE));
-                    closeDialog();
-                }
-            });
+            public void onClick(View v) {
+                playSoundAndVibration();
+                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.LIST_CANDIDATES_NORMAL));
+                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.UPDATE_CANDIDATE));
+                closeDialog();
+            }
+        });
 
         int buttonWidth = r.getDimensionPixelSize(R.dimen.candidate_layout_width);
         mCandidateMaxWidth = (mViewWidth - buttonWidth * 2) / 2;
@@ -344,14 +341,14 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
      * Create normal candidate view
      */
     private void createNormalCandidateView() {
-        mViewCandidateList = (LinearLayout)mViewBody.findViewById(R.id.candidates_view_1line);
+        mViewCandidateList = (LinearLayout) mViewBody.findViewById(R.id.candidates_view_1line);
 
         Context context = mViewBodyScroll.getContext();
         for (int i = 0; i < mDisplayLimit; i++) {
             mViewCandidateList.addView(new CandidateTextView(context,
-                                                            mCandidateMinimumHeight,
-                                                            mCandidateMinimumWidth,
-                                                            mCandidateMaxWidth));
+                    mCandidateMinimumHeight,
+                    mCandidateMinimumWidth,
+                    mCandidateMaxWidth));
         }
     }
 
@@ -391,7 +388,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
         mConverter = converter;
 
         int isNextCandidate = IS_NEXTCANDIDATE_NORMAL;
-        while(isNextCandidate == IS_NEXTCANDIDATE_NORMAL) {
+        while (isNextCandidate == IS_NEXTCANDIDATE_NORMAL) {
             isNextCandidate = displayCandidatesNormal(converter);
         }
 
@@ -399,7 +396,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
             isNextCandidate = displayCandidatesDelay(converter);
         }
 
-        mViewBodyScroll.scrollTo(0,0);
+        mViewBodyScroll.scrollTo(0, 0);
     }
 
 
@@ -479,7 +476,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
         CandidateTextView candidateTextView =
                 (CandidateTextView) mViewCandidateList.getChildAt(mWordCount);
         candidateTextView.setCandidateTextView(word, mWordCount, mCandidateOnClick,
-                                                    mCandidateOnLongClick);
+                mCandidateOnLongClick);
         mWnnWordArray.add(mWordCount, word);
         mWordCount++;
         mTextViewArray.add(candidateTextView);
@@ -518,12 +515,12 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
     public void setPreferences(SharedPreferences pref) {
         try {
             if (pref.getBoolean("key_vibration", false)) {
-                mVibrator = (Vibrator)mWnn.getSystemService(Context.VIBRATOR_SERVICE);
+                mVibrator = (Vibrator) mWnn.getSystemService(Context.VIBRATOR_SERVICE);
             } else {
                 mVibrator = null;
             }
             if (pref.getBoolean("key_sound", false)) {
-                mSound = (AudioManager)mWnn.getSystemService(Context.AUDIO_SERVICE);
+                mSound = (AudioManager) mWnn.getSystemService(Context.AUDIO_SERVICE);
             } else {
                 mSound = null;
             }
@@ -571,24 +568,24 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
         }
 
         switch (key) {
-        case KeyEvent.KEYCODE_DPAD_LEFT:
-            moveFocus(-1);
-            break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                moveFocus(-1);
+                break;
 
-        case KeyEvent.KEYCODE_DPAD_RIGHT:
-            moveFocus(1);
-            break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                moveFocus(1);
+                break;
 
-        case KeyEvent.KEYCODE_DPAD_UP:
-            moveFocus(-1);
-            break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                moveFocus(-1);
+                break;
 
-        case KeyEvent.KEYCODE_DPAD_DOWN:
-            moveFocus(1);
-            break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                moveFocus(1);
+                break;
 
-        default:
-            break;
+            default:
+                break;
 
         }
     }
@@ -598,7 +595,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
      *
      * @return the Candidate is focused of a flag.
      */
-    public boolean isFocusCandidate(){
+    public boolean isFocusCandidate() {
         if (mCurrentFocusIndex != FOCUS_NONE) {
             return true;
         }
@@ -636,7 +633,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
     /**
      * Clear focus to selected candidate.
      */
-    private void clearFocusCandidate(){
+    private void clearFocusCandidate() {
         View view = mFocusedView;
         if (view != null) {
             view.setBackgroundDrawable(mFocusedViewBackground);
@@ -651,7 +648,7 @@ public class TextCandidates1LineViewManager extends CandidatesViewManager {
     /**
      * Select candidate that has focus.
      */
-    public void selectFocusCandidate(){
+    public void selectFocusCandidate() {
         if (mCurrentFocusIndex != FOCUS_NONE) {
             selectCandidate(getFocusedWnnWord());
         }

@@ -16,11 +16,17 @@
 
 package jp.co.omronsoft.openwnn.EN;
 
-import jp.co.omronsoft.openwnn.*;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
+
 import java.util.Comparator;
+
+import jp.co.omronsoft.openwnn.OpenWnnEN;
+import jp.co.omronsoft.openwnn.OpenWnnEvent;
+import jp.co.omronsoft.openwnn.R;
+import jp.co.omronsoft.openwnn.UserDictionaryToolsEdit;
+import jp.co.omronsoft.openwnn.UserDictionaryToolsList;
+import jp.co.omronsoft.openwnn.WnnWord;
 
 /**
  * The user dictionary tool class for English IME.
@@ -37,22 +43,25 @@ public class UserDictionaryToolsListEN extends UserDictionaryToolsList {
         }
         mListViewName = "jp.co.omronsoft.openwnn.EN.UserDictionaryToolsListEN";
         mEditViewName = "jp.co.omronsoft.openwnn.EN.UserDictionaryToolsEditEN";
-        mPackageName  = "jp.co.omronsoft.openwnn";
+        mPackageName = "jp.co.omronsoft.openwnn";
     }
 
     /** @see jp.co.omronsoft.iwnnime.ml.UserDictionaryToolsList#onCreate */
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.user_dictionary_list_words_en);
     }
 
     /** @see jp.co.omronsoft.openwnn.UserDictionaryToolsList#createUserDictionaryToolsEdit */
-    @Override protected UserDictionaryToolsEdit createUserDictionaryToolsEdit(View view1, View view2) {
+    @Override
+    protected UserDictionaryToolsEdit createUserDictionaryToolsEdit(View view1, View view2) {
         return new UserDictionaryToolsEditEN(view1, view2);
     }
 
     /** @see jp.co.omronsoft.openwnn.UserDictionaryToolsList#sendEventToIME */
-    @Override protected boolean sendEventToIME(OpenWnnEvent ev) {
+    @Override
+    protected boolean sendEventToIME(OpenWnnEvent ev) {
         try {
             return OpenWnnEN.getInstance().onEvent(ev);
         } catch (Exception ex) {
@@ -62,14 +71,17 @@ public class UserDictionaryToolsListEN extends UserDictionaryToolsList {
     }
 
     /** @see jp.co.omronsoft.openwnn.UserDictionaryToolsList#getComparator */
-    @Override protected Comparator<WnnWord> getComparator() {
-    	return new ListComparatorEN();
+    @Override
+    protected Comparator<WnnWord> getComparator() {
+        return new ListComparatorEN();
     }
 
     /** Comparator class for sorting the list of English user dictionary */
-    protected class ListComparatorEN implements Comparator<WnnWord>{
+    protected class ListComparatorEN implements Comparator<WnnWord> {
         public int compare(WnnWord word1, WnnWord word2) {
             return word1.stroke.compareTo(word2.stroke);
-        };
+        }
+
+        ;
     }
 }

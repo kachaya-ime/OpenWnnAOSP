@@ -17,7 +17,8 @@
 package jp.co.omronsoft.openwnn;
 
 import android.view.KeyEvent;
-import java.util.*;
+
+import java.util.HashMap;
 
 /**
  * The definition class of event message used by OpenWnn framework.
@@ -96,7 +97,7 @@ public class OpenWnnEvent {
      * <br>
      * This event processes a {@code keyEvent}.
      */
-    public static final int INPUT_KEY  = 0xF0000007;
+    public static final int INPUT_KEY = 0xF0000007;
 
     /**
      * Input Soft key.
@@ -104,27 +105,27 @@ public class OpenWnnEvent {
      * This event processes a {@code keyEvent}.
      * If the event is not processed in {@link OpenWnn}, the event is thrown to the IME's client.
      */
-    public static final int INPUT_SOFT_KEY  = 0xF000000E;
+    public static final int INPUT_SOFT_KEY = 0xF000000E;
 
     /**
      * Focus to the candidates view.
      */
-    public static final int FOCUS_TO_CANDIDATE_VIEW  = 0xF0000009;
+    public static final int FOCUS_TO_CANDIDATE_VIEW = 0xF0000009;
 
     /**
      * Focus out from the candidates view.
      */
-    public static final int FOCUS_OUT_CANDIDATE_VIEW  = 0xF000000A;
+    public static final int FOCUS_OUT_CANDIDATE_VIEW = 0xF000000A;
 
     /**
      * Select a candidate
      */
-    public static final int SELECT_CANDIDATE  = 0xF000000B;
+    public static final int SELECT_CANDIDATE = 0xF000000B;
 
     /**
      * Change Mode
      */
-    public static final int CHANGE_MODE  = 0xF000000F;
+    public static final int CHANGE_MODE = 0xF000000F;
 
     /**
      * Key long press event.
@@ -136,29 +137,29 @@ public class OpenWnnEvent {
      */
     public static final class Mode {
         /** Default (use both of the letterConverter and the {@link WnnEngine}) */
-        public static final int DEFAULT      = 0;
+        public static final int DEFAULT = 0;
         /** Direct input (not use the letterConverter and the {@link WnnEngine}) */
-        public static final int DIRECT       = 1;
+        public static final int DIRECT = 1;
         /** Do not use the {@link LetterConverter} */
-        public static final int NO_LV1_CONV  = 2;
+        public static final int NO_LV1_CONV = 2;
         /** Do not use the {@link WnnEngine} */
-        public static final int NO_LV2_CONV  = 3;
+        public static final int NO_LV2_CONV = 3;
     }
 
     /**
      * Commit the composing text
      */
-    public static final int COMMIT_COMPOSING_TEXT  = 0xF0000010;
+    public static final int COMMIT_COMPOSING_TEXT = 0xF0000010;
 
     /**
      * List symbols
      */
-    public static final int LIST_SYMBOLS  = 0xF0000011;
+    public static final int LIST_SYMBOLS = 0xF0000011;
 
     /**
      * Switch Language
      */
-    public static final int SWITCH_LANGUAGE  = 0xF0000012;
+    public static final int SWITCH_LANGUAGE = 0xF0000012;
 
     /**
      * Initialize the user dictionary.
@@ -182,22 +183,22 @@ public class OpenWnnEvent {
      * <br>
      * Get a word from top of the list made by {@code LIST_WORDS_IN_USER_DICTIONARY}.
      */
-    public static final int GET_WORD  = 0xF0000018;
+    public static final int GET_WORD = 0xF0000018;
 
     /**
      * Add word to the user dictionary.
      */
-    public static final int ADD_WORD     = 0xF0000016;
+    public static final int ADD_WORD = 0xF0000016;
 
     /**
      * Delete a word from the dictionary.
      */
-    public static final int DELETE_WORD  = 0xF0000017;
+    public static final int DELETE_WORD = 0xF0000017;
 
     /**
      * Update the candidate view
      */
-    public static final int UPDATE_CANDIDATE = 0xF0000019; 
+    public static final int UPDATE_CANDIDATE = 0xF0000019;
 
     /**
      * Edit words in the user dictionary.
@@ -207,7 +208,7 @@ public class OpenWnnEvent {
     /**
      * Undo
      */
-    public static final int UNDO  = 0xF000001B;
+    public static final int UNDO = 0xF000001B;
 
     /**
      * Change input view
@@ -270,14 +271,14 @@ public class OpenWnnEvent {
     /** Key event */
     public KeyEvent keyEvent = null;
     /** Mapping table for toggle input */
-    public String[]  toggleTable = null;
+    public String[] toggleTable = null;
     /** Mapping table for toggle input */
-    public HashMap<?,?> replaceTable = null;
+    public HashMap<?, ?> replaceTable = null;
     /** Word's information */
-    public WnnWord  word = null;
-    /** Error code */ 
+    public WnnWord word = null;
+    /** Error code */
     public int errorCode;
-    
+
     /**
      * Generate {@link OpenWnnEvent}
      *
@@ -286,6 +287,7 @@ public class OpenWnnEvent {
     public OpenWnnEvent(int code) {
         this.code = code;
     }
+
     /**
      * Generate {@link OpenWnnEvent} for changing the mode
      *
@@ -293,9 +295,10 @@ public class OpenWnnEvent {
      * @param mode      The mode
      */
     public OpenWnnEvent(int code, int mode) {
-        this.code = code;       
+        this.code = code;
         this.mode = mode;
     }
+
     /**
      * Generate {@link OpenWnnEvent} for a inputing character
      *
@@ -303,10 +306,11 @@ public class OpenWnnEvent {
      * @param c         The inputing character
      */
     public OpenWnnEvent(int code, char c) {
-        this.code = code;       
+        this.code = code;
         this.chars = new char[1];
         this.chars[0] = c;
-     }
+    }
+
     /**
      * Generate {@link OpenWnnEvent} for inputing characters
      *
@@ -314,9 +318,10 @@ public class OpenWnnEvent {
      * @param c         The array of inputing character
      */
     public OpenWnnEvent(int code, char c[]) {
-        this.code = code;       
+        this.code = code;
         this.chars = c;
     }
+
     /**
      * Generate {@link OpenWnnEvent} for toggle inputing a character
      *
@@ -327,16 +332,18 @@ public class OpenWnnEvent {
         this.code = code;
         this.toggleTable = toggleTable;
     }
+
     /**
      * Generate {@link OpenWnnEvent} for replacing a character
      *
      * @param code          The code
      * @param replaceTable  The replace table
      */
-    public OpenWnnEvent(int code, HashMap<?,?> replaceTable) {
+    public OpenWnnEvent(int code, HashMap<?, ?> replaceTable) {
         this.code = code;
         this.replaceTable = replaceTable;
     }
+
     /**
      * Generate {@link OpenWnnEvent} from {@link KeyEvent}
      * <br>
@@ -345,13 +352,14 @@ public class OpenWnnEvent {
      * @param ev    The key event
      */
     public OpenWnnEvent(KeyEvent ev) {
-        if(ev.getAction() != KeyEvent.ACTION_UP){
+        if (ev.getAction() != KeyEvent.ACTION_UP) {
             this.code = INPUT_KEY;
-        }else{
+        } else {
             this.code = KEYUP;
         }
         this.keyEvent = ev;
     }
+
     /**
      * Generate {@link OpenWnnEvent} from {@link KeyEvent}
      *
@@ -362,6 +370,7 @@ public class OpenWnnEvent {
         this.code = code;
         this.keyEvent = ev;
     }
+
     /**
      * Generate {@link OpenWnnEvent} for selecting a candidate
      *
@@ -369,7 +378,7 @@ public class OpenWnnEvent {
      * @param word      The selected candidate
      */
     public OpenWnnEvent(int code, WnnWord word) {
-        this.code = code;       
+        this.code = code;
         this.word = word;
     }
 

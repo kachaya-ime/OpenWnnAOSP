@@ -16,14 +16,14 @@
 
 package jp.co.omronsoft.openwnn;
 
-import android.widget.Button;
-import android.view.MotionEvent;
-import android.view.View;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.content.Context;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 
-/** 
+/**
  * The button for the candidate-view
  * @author Copyright (C) 2009, OMRON SOFTWARE CO., LTD.  All Rights Reserved.
  */
@@ -50,14 +50,14 @@ public class CandidateViewButton extends Button {
         Drawable d = getBackground();
 
         switch (me.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            mUpState = d.getState();
-            d.setState(View.PRESSED_ENABLED_SELECTED_WINDOW_FOCUSED_STATE_SET);
-            break;
-        case MotionEvent.ACTION_UP:
-        default:
-            d.setState(mUpState);
-            break;
+            case MotionEvent.ACTION_DOWN:
+                mUpState = d.getState();
+                d.setState(View.PRESSED_ENABLED_SELECTED_WINDOW_FOCUSED_STATE_SET);
+                break;
+            case MotionEvent.ACTION_UP:
+            default:
+                d.setState(mUpState);
+                break;
         }
 
         return ret;

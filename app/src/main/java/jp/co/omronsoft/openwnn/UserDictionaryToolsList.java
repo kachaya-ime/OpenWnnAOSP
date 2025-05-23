@@ -30,21 +30,21 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnFocusChangeListener;
-import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,14 +57,14 @@ import java.util.Comparator;
  * @author Copyright (C) 2009, OMRON SOFTWARE CO., LTD.  All Rights Reserved.
  */
 public abstract class UserDictionaryToolsList extends Activity
-    implements View.OnClickListener, OnTouchListener, OnFocusChangeListener {
+        implements View.OnClickListener, OnTouchListener, OnFocusChangeListener {
 
     /** The class name of the user dictionary tool */
-    protected String  mListViewName;
+    protected String mListViewName;
     /** The class name of the user dictionary editor */
-    protected String  mEditViewName;
+    protected String mEditViewName;
     /** The package name of the user dictionary editor */
-    protected String  mPackageName;
+    protected String mPackageName;
 
     /** ID of the menu item (add) */
     private final int MENU_ITEM_ADD = 0;
@@ -74,7 +74,7 @@ public abstract class UserDictionaryToolsList extends Activity
     private final int MENU_ITEM_DELETE = 2;
     /** ID of the menu item (initialize) */
     private final int MENU_ITEM_INIT = 3;
-    
+
     /** ID of the dialog control (confirm deletion) */
     private final int DIALOG_CONTROL_DELETE_CONFIRM = 0;
     /** ID of the dialog control (confirm initialize) */
@@ -158,6 +158,7 @@ public abstract class UserDictionaryToolsList extends Activity
      * @return      {@code true} if this event is processed
      */
     protected abstract boolean sendEventToIME(OpenWnnEvent ev);
+
     /** Get the comparator for sorting the list */
     protected abstract Comparator<WnnWord> getComparator();
 
@@ -165,45 +166,47 @@ public abstract class UserDictionaryToolsList extends Activity
     private int mDialogShow = -1;
 
     /** @see android.app.Activity#onCreate */
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
 
         /* create XML layout */
         setContentView(R.layout.user_dictionary_tools_list);
-        mTableLayout = (TableLayout)findViewById(R.id.user_dictionary_tools_table);
+        mTableLayout = (TableLayout) findViewById(R.id.user_dictionary_tools_table);
 
-        Button b = (Button)findViewById(R.id.user_dictionary_left_button);
+        Button b = (Button) findViewById(R.id.user_dictionary_left_button);
         b.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    int pos = mWordCount - MAX_LIST_WORD_COUNT;
-                    if (0 <= pos) {
-                        mWordCount = pos;
-                        updateWordList();
-                        mTableLayout.findViewById(1).requestFocus();
-                    }
+            public void onClick(View v) {
+                int pos = mWordCount - MAX_LIST_WORD_COUNT;
+                if (0 <= pos) {
+                    mWordCount = pos;
+                    updateWordList();
+                    mTableLayout.findViewById(1).requestFocus();
                 }
-            });
+            }
+        });
         mLeftButton = b;
 
-        b = (Button)findViewById(R.id.user_dictionary_right_button);
+        b = (Button) findViewById(R.id.user_dictionary_right_button);
         b.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    int pos = mWordCount + MAX_LIST_WORD_COUNT;
-                    if (pos < mWordList.size()) {
-                        mWordCount = pos;
-                        updateWordList();
-                        mTableLayout.findViewById(1).requestFocus();
-                    }
+            public void onClick(View v) {
+                int pos = mWordCount + MAX_LIST_WORD_COUNT;
+                if (pos < mWordList.size()) {
+                    mWordCount = pos;
+                    updateWordList();
+                    mTableLayout.findViewById(1).requestFocus();
                 }
-            });
+            }
+        });
         mRightButton = b;
 
     }
 
     /** @see android.app.Activity#onStart */
-    @Override protected void onStart() {
+    @Override
+    protected void onStart() {
         super.onStart();
         mDialogShow = -1;
         sBeforeSelectedViewID = -1;
@@ -214,8 +217,8 @@ public abstract class UserDictionaryToolsList extends Activity
         leftText.setText(mWordList.size() + "/" + MAX_WORD_COUNT);
 
         mIsXLarge = ((getResources().getConfiguration().screenLayout &
-                      Configuration.SCREENLAYOUT_SIZE_MASK)
-                      == Configuration.SCREENLAYOUT_SIZE_XLARGE);
+                Configuration.SCREENLAYOUT_SIZE_MASK)
+                == Configuration.SCREENLAYOUT_SIZE_XLARGE);
         updateWordList();
     }
 
@@ -224,12 +227,13 @@ public abstract class UserDictionaryToolsList extends Activity
      *
      * @see android.app.Activity#onPause
      */
-    @Override protected void onPause() {
+    @Override
+    protected void onPause() {
 
         if (mDialogShow == DIALOG_CONTROL_DELETE_CONFIRM) {
             dismissDialog(DIALOG_CONTROL_DELETE_CONFIRM);
             mDialogShow = -1;
-        } else if (mDialogShow == DIALOG_CONTROL_INIT_CONFIRM){
+        } else if (mDialogShow == DIALOG_CONTROL_INIT_CONFIRM) {
             dismissDialog(DIALOG_CONTROL_INIT_CONFIRM);
             mDialogShow = -1;
         }
@@ -242,14 +246,15 @@ public abstract class UserDictionaryToolsList extends Activity
      *
      * @param  w        The width of the table
      * @param  h        The height of the table
-     * @return          The information of the layout
+     * @return The information of the layout
      */
     private TableLayout.LayoutParams tableCreateParam(int w, int h) {
         return new TableLayout.LayoutParams(w, h);
     }
 
     /** @see android.app.Activity#onCreateOptionsMenu */
-    @Override public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
 
         /* initialize the menu */
@@ -258,20 +263,20 @@ public abstract class UserDictionaryToolsList extends Activity
         setOptionsMenuEnabled();
         /* [menu] add a word */
         menu.add(0, MENU_ITEM_ADD, 0, R.string.user_dictionary_add)
-            .setIcon(android.R.drawable.ic_menu_add)
-            .setEnabled(mAddMenuEnabled);
+                .setIcon(android.R.drawable.ic_menu_add)
+                .setEnabled(mAddMenuEnabled);
         /* [menu] edit a word */
         menu.add(0, MENU_ITEM_EDIT, 0, R.string.user_dictionary_edit)
-            .setIcon(android.R.drawable.ic_menu_edit)
-            .setEnabled(mEditMenuEnabled);
+                .setIcon(android.R.drawable.ic_menu_edit)
+                .setEnabled(mEditMenuEnabled);
         /* [menu] delete a word */
         menu.add(0, MENU_ITEM_DELETE, 0, R.string.user_dictionary_delete)
-            .setIcon(android.R.drawable.ic_menu_delete)
-            .setEnabled(mDeleteMenuEnabled);
+                .setIcon(android.R.drawable.ic_menu_delete)
+                .setEnabled(mDeleteMenuEnabled);
         /* [menu] clear the dictionary */
         menu.add(1, MENU_ITEM_INIT, 0, R.string.user_dictionary_init)
-            .setIcon(android.R.drawable.ic_menu_delete)
-            .setEnabled(mInitMenuEnabled);
+                .setIcon(android.R.drawable.ic_menu_delete)
+                .setEnabled(mInitMenuEnabled);
 
         mMenu = menu;
         mInitializedMenu = true;
@@ -293,7 +298,7 @@ public abstract class UserDictionaryToolsList extends Activity
         } else {
             mAddMenuEnabled = true;
         }
-        
+
         /* [menu] edit a word/delete a word */
         if (mWordList.size() <= MIN_WORD_COUNT) {
             /* disable if no word is registered or no word is selected */
@@ -307,82 +312,85 @@ public abstract class UserDictionaryToolsList extends Activity
                 mDeleteMenuEnabled = false;
             }
         }
-        
+
         /* [menu] clear the dictionary (always enabled) */
         mInitMenuEnabled = true;
 
     }
 
     /** @see android.app.Activity#onOptionsItemSelected */
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         boolean ret;
         switch (item.getItemId()) {
-        case MENU_ITEM_ADD:
-            /* add a word */
-            wordAdd();
-            ret = true;
-            break;
+            case MENU_ITEM_ADD:
+                /* add a word */
+                wordAdd();
+                ret = true;
+                break;
 
-        case MENU_ITEM_EDIT:
-            /* edit the word (show dialog) */
-            wordEdit(sFocusingView, sFocusingPairView);
-            ret = true;
-            break;
+            case MENU_ITEM_EDIT:
+                /* edit the word (show dialog) */
+                wordEdit(sFocusingView, sFocusingPairView);
+                ret = true;
+                break;
 
-        case MENU_ITEM_DELETE:
-            /* delete the word (show dialog) */
-            showDialog(DIALOG_CONTROL_DELETE_CONFIRM);
-            mDialogShow = DIALOG_CONTROL_DELETE_CONFIRM;
-            ret = true;
-            break;
+            case MENU_ITEM_DELETE:
+                /* delete the word (show dialog) */
+                showDialog(DIALOG_CONTROL_DELETE_CONFIRM);
+                mDialogShow = DIALOG_CONTROL_DELETE_CONFIRM;
+                ret = true;
+                break;
 
-        case MENU_ITEM_INIT:
-            /* clear the dictionary (show dialog) */
-            showDialog(DIALOG_CONTROL_INIT_CONFIRM);
-            mDialogShow = DIALOG_CONTROL_INIT_CONFIRM;
-            ret = true;
-            break;
+            case MENU_ITEM_INIT:
+                /* clear the dictionary (show dialog) */
+                showDialog(DIALOG_CONTROL_INIT_CONFIRM);
+                mDialogShow = DIALOG_CONTROL_INIT_CONFIRM;
+                ret = true;
+                break;
 
-        default:
-            ret = false;
+            default:
+                ret = false;
         }
 
         return ret;
     }
 
     /** @see android.app.Activity#onKeyUp */
-    @Override public boolean onKeyUp(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         /* open the menu if KEYCODE_DPAD_CENTER is pressed */
         if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
             openOptionsMenu();
             return true;
         }
-         return super.onKeyUp(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
     /** @see android.app.Activity#onCreateDialog */
-    @Override protected Dialog onCreateDialog(int id) {
+    @Override
+    protected Dialog onCreateDialog(int id) {
         switch (id) {
-        case DIALOG_CONTROL_DELETE_CONFIRM:
-            return new AlertDialog.Builder(UserDictionaryToolsList.this)
-                .setMessage(R.string.user_dictionary_delete_confirm)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok, mDialogDeleteWords)
-                .setCancelable(true)
-                .create();
+            case DIALOG_CONTROL_DELETE_CONFIRM:
+                return new AlertDialog.Builder(UserDictionaryToolsList.this)
+                        .setMessage(R.string.user_dictionary_delete_confirm)
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(android.R.string.ok, mDialogDeleteWords)
+                        .setCancelable(true)
+                        .create();
 
-        case DIALOG_CONTROL_INIT_CONFIRM:
-            return new AlertDialog.Builder(UserDictionaryToolsList.this)
-                .setMessage(R.string.dialog_clear_user_dictionary_message)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok, mDialogInitWords)
-                .setCancelable(true)
-                .create();
+            case DIALOG_CONTROL_INIT_CONFIRM:
+                return new AlertDialog.Builder(UserDictionaryToolsList.this)
+                        .setMessage(R.string.dialog_clear_user_dictionary_message)
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(android.R.string.ok, mDialogInitWords)
+                        .setCancelable(true)
+                        .create();
 
-        default:
-            Log.e("OpenWnn", "onCreateDialog : Invaled Get DialogID. ID=" + id);
-            break;
+            default:
+                Log.e("OpenWnn", "onCreateDialog : Invaled Get DialogID. ID=" + id);
+                break;
         }
 
 
@@ -396,50 +404,50 @@ public abstract class UserDictionaryToolsList extends Activity
      * @param  button    The button that is pushed
      */
     private DialogInterface.OnClickListener mDialogDeleteWords =
-        new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int button) {
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int button) {
 
-                mDialogShow = -1;
-                CharSequence focusString = ((TextView)sFocusingView).getText();
-                CharSequence focusPairString = ((TextView)sFocusingPairView).getText();
-                WnnWord wnnWordSearch = new WnnWord();
+                    mDialogShow = -1;
+                    CharSequence focusString = ((TextView) sFocusingView).getText();
+                    CharSequence focusPairString = ((TextView) sFocusingPairView).getText();
+                    WnnWord wnnWordSearch = new WnnWord();
 
-                if (mSelectedViewID > MAX_WORD_COUNT) {
-                    wnnWordSearch.stroke = focusPairString.toString();
-                    wnnWordSearch.candidate = focusString.toString();
-                } else {
-                    wnnWordSearch.stroke = focusString.toString();
-                    wnnWordSearch.candidate = focusPairString.toString();
+                    if (mSelectedViewID > MAX_WORD_COUNT) {
+                        wnnWordSearch.stroke = focusPairString.toString();
+                        wnnWordSearch.candidate = focusString.toString();
+                    } else {
+                        wnnWordSearch.stroke = focusString.toString();
+                        wnnWordSearch.candidate = focusPairString.toString();
+                    }
+                    boolean deleted = deleteWord(wnnWordSearch);
+                    if (deleted) {
+                        Toast.makeText(getApplicationContext(),
+                                R.string.user_dictionary_delete_complete,
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                R.string.user_dictionary_delete_fail,
+                                Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    mWordList = getWords();
+                    int size = mWordList.size();
+                    if (size <= mWordCount) {
+                        int newPos = (mWordCount - MAX_LIST_WORD_COUNT);
+                        mWordCount = (0 <= newPos) ? newPos : 0;
+                    }
+                    updateWordList();
+
+                    TextView leftText = (TextView) findViewById(R.id.user_dictionary_tools_list_title_words_count);
+                    leftText.setText(size + "/" + MAX_WORD_COUNT);
+
+                    if (mInitializedMenu) {
+                        onCreateOptionsMenu(mMenu);
+                    }
                 }
-                boolean deleted = deleteWord(wnnWordSearch);
-                if (deleted) {
-                    Toast.makeText(getApplicationContext(),
-                                   R.string.user_dictionary_delete_complete,
-                                   Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                                   R.string.user_dictionary_delete_fail,
-                                   Toast.LENGTH_LONG).show();
-                    return;
-                }
+            };
 
-                mWordList = getWords();
-                int size = mWordList.size();
-                if (size <= mWordCount) {
-                    int newPos = (mWordCount - MAX_LIST_WORD_COUNT);
-                    mWordCount = (0 <= newPos) ? newPos : 0;
-                }
-                updateWordList();
-
-                TextView leftText = (TextView) findViewById(R.id.user_dictionary_tools_list_title_words_count);
-                leftText.setText(size + "/" + MAX_WORD_COUNT);
-
-                if (mInitializedMenu) {
-                    onCreateOptionsMenu(mMenu);
-                }
-            }
-        };
-    
     /**
      * Process the event when the button on the "Initialize" dialog is pushed
      *
@@ -447,30 +455,30 @@ public abstract class UserDictionaryToolsList extends Activity
      * @param  button    The button that is pushed
      */
     private DialogInterface.OnClickListener mDialogInitWords =
-        new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int button) {
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int button) {
 
-                mDialogShow = -1;
-                /* clear the user dictionary */
-                OpenWnnEvent ev = new OpenWnnEvent(OpenWnnEvent.INITIALIZE_USER_DICTIONARY, new WnnWord());
+                    mDialogShow = -1;
+                    /* clear the user dictionary */
+                    OpenWnnEvent ev = new OpenWnnEvent(OpenWnnEvent.INITIALIZE_USER_DICTIONARY, new WnnWord());
 
-                sendEventToIME(ev);
-                /* show the message */
-                Toast.makeText(getApplicationContext(), R.string.dialog_clear_user_dictionary_done,
-                               Toast.LENGTH_LONG).show();
-                mWordList = new ArrayList<WnnWord>();
-                mWordCount = 0;
-                updateWordList();
-                TextView leftText = (TextView) findViewById(R.id.user_dictionary_tools_list_title_words_count);
-                leftText.setText(mWordList.size() + "/" + MAX_WORD_COUNT);
+                    sendEventToIME(ev);
+                    /* show the message */
+                    Toast.makeText(getApplicationContext(), R.string.dialog_clear_user_dictionary_done,
+                            Toast.LENGTH_LONG).show();
+                    mWordList = new ArrayList<WnnWord>();
+                    mWordCount = 0;
+                    updateWordList();
+                    TextView leftText = (TextView) findViewById(R.id.user_dictionary_tools_list_title_words_count);
+                    leftText.setText(mWordList.size() + "/" + MAX_WORD_COUNT);
 
-                if (mInitializedMenu) {
-                    onCreateOptionsMenu(mMenu);
+                    if (mInitializedMenu) {
+                        onCreateOptionsMenu(mMenu);
+                    }
                 }
-            }
-        };
+            };
 
-    
+
     /** @see android.view.View.OnClickListener#onClick */
     public void onClick(View arg0) {
     }
@@ -479,24 +487,24 @@ public abstract class UserDictionaryToolsList extends Activity
     public boolean onTouch(View v, MotionEvent e) {
 
 
-        mSelectedViewID = ((TextView)v).getId();
+        mSelectedViewID = ((TextView) v).getId();
         switch (e.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            /* double tap handling */
-            if (sBeforeSelectedViewID != ((TextView)v).getId()) {
-                /* save the view id if the id is not same as previously selected one */
-                sBeforeSelectedViewID = ((TextView)v).getId();
-            } else {
-                if ((e.getDownTime() - sJustBeforeActionTime) < DOUBLE_TAP_TIME) {
-                    /* edit the word if double tapped */
-                    sFocusingView = v;
-                    sFocusingPairView = ((UserDictionaryToolsListFocus)v).getPairView();
-                    wordEdit(sFocusingView, sFocusingPairView);
+            case MotionEvent.ACTION_DOWN:
+                /* double tap handling */
+                if (sBeforeSelectedViewID != ((TextView) v).getId()) {
+                    /* save the view id if the id is not same as previously selected one */
+                    sBeforeSelectedViewID = ((TextView) v).getId();
+                } else {
+                    if ((e.getDownTime() - sJustBeforeActionTime) < DOUBLE_TAP_TIME) {
+                        /* edit the word if double tapped */
+                        sFocusingView = v;
+                        sFocusingPairView = ((UserDictionaryToolsListFocus) v).getPairView();
+                        wordEdit(sFocusingView, sFocusingPairView);
+                    }
                 }
-            }
-            /* save the action time */
-            sJustBeforeActionTime = e.getDownTime();
-            break;
+                /* save the action time */
+                sJustBeforeActionTime = e.getDownTime();
+                break;
         }
 
         return false;
@@ -505,20 +513,20 @@ public abstract class UserDictionaryToolsList extends Activity
     /** @see android.view.View.OnFocusChangeListener#onFocusChange */
     public void onFocusChange(View v, boolean hasFocus) {
 
-        mSelectedViewID = ((TextView)v).getId();
+        mSelectedViewID = ((TextView) v).getId();
         sFocusingView = v;
-        sFocusingPairView = ((UserDictionaryToolsListFocus)v).getPairView();
+        sFocusingPairView = ((UserDictionaryToolsListFocus) v).getPairView();
         if (hasFocus) {
-            ((TextView)v).setTextColor(Color.BLACK);
+            ((TextView) v).setTextColor(Color.BLACK);
             v.setBackgroundColor(FOCUS_BACKGROUND_COLOR);
-            ((TextView)sFocusingPairView).setTextColor(Color.BLACK);
+            ((TextView) sFocusingPairView).setTextColor(Color.BLACK);
             sFocusingPairView.setBackgroundColor(FOCUS_BACKGROUND_COLOR);
             mSelectedWords = true;
         } else {
             mSelectedWords = false;
-            ((TextView)v).setTextColor(Color.LTGRAY);
+            ((TextView) v).setTextColor(Color.LTGRAY);
             v.setBackgroundColor(UNFOCUS_BACKGROUND_COLOR);
-            ((TextView)sFocusingPairView).setTextColor(Color.LTGRAY);
+            ((TextView) sFocusingPairView).setTextColor(Color.LTGRAY);
             sFocusingPairView.setBackgroundColor(UNFOCUS_BACKGROUND_COLOR);
         }
         if (mInitializedMenu) {
@@ -565,15 +573,15 @@ public abstract class UserDictionaryToolsList extends Activity
      */
     public boolean deleteWord(WnnWord searchword) {
         OpenWnnEvent event = new OpenWnnEvent(OpenWnnEvent.LIST_WORDS_IN_USER_DICTIONARY,
-                                              WnnEngine.DICTIONARY_TYPE_USER,
-                                              searchword);
+                WnnEngine.DICTIONARY_TYPE_USER,
+                searchword);
 
         boolean deleted = false;
         sendEventToIME(event);
-        for( int i=0; i < MAX_WORD_COUNT; i++) {
+        for (int i = 0; i < MAX_WORD_COUNT; i++) {
             WnnWord getword = new WnnWord();
             event = new OpenWnnEvent(OpenWnnEvent.GET_WORD,
-                                     getword);
+                    getword);
             sendEventToIME(event);
             getword = event.word;
             int len = getword.candidate.length();
@@ -586,12 +594,12 @@ public abstract class UserDictionaryToolsList extends Activity
                 delword.candidate = searchword.candidate;
                 delword.id = i;
                 event = new OpenWnnEvent(OpenWnnEvent.DELETE_WORD,
-                                         delword);
+                        delword);
                 deleted = sendEventToIME(event);
                 break;
             }
         }
-        
+
         if (mInitializedMenu) {
             onCreateOptionsMenu(mMenu);
         }
@@ -625,8 +633,8 @@ public abstract class UserDictionaryToolsList extends Activity
     private ArrayList<WnnWord> getWords() {
         WnnWord word = new WnnWord();
         OpenWnnEvent event = new OpenWnnEvent(OpenWnnEvent.LIST_WORDS_IN_USER_DICTIONARY,
-                                              WnnEngine.DICTIONARY_TYPE_USER,
-                                              word);
+                WnnEngine.DICTIONARY_TYPE_USER,
+                word);
         sendEventToIME(event);
 
         ArrayList<WnnWord> list = new ArrayList<WnnWord>();
@@ -650,7 +658,7 @@ public abstract class UserDictionaryToolsList extends Activity
     protected void compareTo(ArrayList<WnnWord> array) {
         mSortData = new WnnWord[array.size()];
         array.toArray(mSortData);
-        Arrays.sort(mSortData, getComparator());   
+        Arrays.sort(mSortData, getComparator());
     }
 
 
@@ -672,17 +680,17 @@ public abstract class UserDictionaryToolsList extends Activity
             TextPaint paint = dummy.getPaint();
             FontMetricsInt fontMetrics = paint.getFontMetricsInt();
             int row_hight = (Math.abs(fontMetrics.top) + fontMetrics.bottom) * 2;
- 
+
             for (int i = 1; i <= MAX_LIST_WORD_COUNT; i++) {
                 TableRow row = new TableRow(this);
                 UserDictionaryToolsListFocus stroke = new UserDictionaryToolsListFocus(this);
                 stroke.setId(i);
-                stroke.setWidth(system_width/2);
+                stroke.setWidth(system_width / 2);
                 stroke.setTextSize(WORD_TEXT_SIZE);
                 stroke.setTextColor(Color.LTGRAY);
                 stroke.setBackgroundColor(UNFOCUS_BACKGROUND_COLOR);
                 stroke.setSingleLine();
-                stroke.setPadding(1,0,1,1);
+                stroke.setPadding(1, 0, 1, 1);
                 stroke.setEllipsize(TextUtils.TruncateAt.END);
                 stroke.setClickable(true);
                 stroke.setFocusable(true);
@@ -695,13 +703,13 @@ public abstract class UserDictionaryToolsList extends Activity
                 }
 
                 UserDictionaryToolsListFocus candidate = new UserDictionaryToolsListFocus(this);
-                candidate.setId(i+MAX_WORD_COUNT);
-                candidate.setWidth(system_width/2);
+                candidate.setId(i + MAX_WORD_COUNT);
+                candidate.setWidth(system_width / 2);
                 candidate.setTextSize(WORD_TEXT_SIZE);
                 candidate.setTextColor(Color.LTGRAY);
                 candidate.setBackgroundColor(UNFOCUS_BACKGROUND_COLOR);
                 candidate.setSingleLine();
-                candidate.setPadding(1,0,1,1);
+                candidate.setPadding(1, 0, 1, 1);
                 candidate.setEllipsize(TextUtils.TruncateAt.END);
                 candidate.setClickable(true);
                 candidate.setFocusable(true);
@@ -725,11 +733,11 @@ public abstract class UserDictionaryToolsList extends Activity
         int size = mWordList.size();
         int start = mWordCount;
 
-        TextView t = (TextView)findViewById(R.id.user_dictionary_position_indicator);
+        TextView t = (TextView) findViewById(R.id.user_dictionary_position_indicator);
         if (size <= MAX_LIST_WORD_COUNT) {
-            ((View)mLeftButton.getParent()).setVisibility(View.GONE);
+            ((View) mLeftButton.getParent()).setVisibility(View.GONE);
         } else {
-            ((View)mLeftButton.getParent()).setVisibility(View.VISIBLE);
+            ((View) mLeftButton.getParent()).setVisibility(View.VISIBLE);
             int last = (start + MAX_LIST_WORD_COUNT);
             t.setText((start + 1) + " - " + Math.min(last, size));
 
@@ -738,14 +746,14 @@ public abstract class UserDictionaryToolsList extends Activity
         }
 
         int selectedId = mSelectedViewID - ((MAX_WORD_COUNT < mSelectedViewID) ? MAX_WORD_COUNT : 0);
-        
+
         for (int i = 0; i < MAX_LIST_WORD_COUNT; i++) {
             if ((size - 1) < (start + i)) {
                 if ((0 < i) && (selectedId == (i + 1))) {
                     mTableLayout.findViewById(i).requestFocus();
                 }
 
-                ((View)(mTableLayout.findViewById(i + 1)).getParent()).setVisibility(View.GONE);
+                ((View) (mTableLayout.findViewById(i + 1)).getParent()).setVisibility(View.GONE);
                 continue;
             }
 
@@ -761,11 +769,11 @@ public abstract class UserDictionaryToolsList extends Activity
                 mTableLayout.findViewById(i + 1).requestFocus();
             }
 
-            TextView text = (TextView)mTableLayout.findViewById(i + 1);
+            TextView text = (TextView) mTableLayout.findViewById(i + 1);
             text.setText(wnnWordGet.stroke);
-            text = (TextView)mTableLayout.findViewById(i + 1 + MAX_WORD_COUNT);
+            text = (TextView) mTableLayout.findViewById(i + 1 + MAX_WORD_COUNT);
             text.setText(wnnWordGet.candidate);
-            ((View)text.getParent()).setVisibility(View.VISIBLE);
+            ((View) text.getParent()).setVisibility(View.VISIBLE);
         }
         mTableLayout.requestLayout();
     }

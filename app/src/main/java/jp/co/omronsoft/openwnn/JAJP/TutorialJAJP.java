@@ -16,13 +16,13 @@
 
 /*
  * Copyright (C) 2008-2009 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -32,7 +32,6 @@
 
 package jp.co.omronsoft.openwnn.JAJP;
 
-import jp.co.omronsoft.openwnn.*;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -40,10 +39,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Layout;
 import android.text.SpannableStringBuilder;
-import android.text.StaticLayout;
 import android.text.Spanned;
-import android.text.style.ImageSpan;
+import android.text.StaticLayout;
 import android.text.style.DynamicDrawableSpan;
+import android.text.style.ImageSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -55,19 +54,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.omronsoft.openwnn.OpenWnnJAJP;
+import jp.co.omronsoft.openwnn.R;
+
 public class TutorialJAJP implements OnTouchListener {
-    
+
     private List<Bubble> mBubbles = new ArrayList<Bubble>();
     private static final int LONG_PRESS_INDEX = 8;
     private View mInputView;
     private OpenWnnJAJP mIme;
     private int[] mLocation = new int[2];
     private static final int MSG_SHOW_BUBBLE = 0;
-    
+
     private int mBubbleIndex;
     private DefaultSoftKeyboardJAJP mInputManager;
     private boolean mEnableKeyTouch = false;
-    
+
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -94,7 +96,7 @@ public class TutorialJAJP implements OnTouchListener {
         View inputView;
 
         Bubble(Context context, View inputView,
-                int backgroundResource, int bx, int by, int description, int guide) {
+               int backgroundResource, int bx, int by, int description, int guide) {
 
             CharSequence text = context.getResources().getText(description);
             init(context, inputView, backgroundResource, bx, by, text, guide, false);
@@ -104,7 +106,7 @@ public class TutorialJAJP implements OnTouchListener {
                CharSequence description, int guide, boolean leftAlign) {
             init(context, inputView, backgroundResource, bx, by, description, guide, leftAlign);
         }
-        
+
         void init(Context context, View inputView, int backgroundResource,
                   int bx, int by, CharSequence description, int guide, boolean leftAlign) {
             bubbleBackground = context.getResources().getDrawable(backgroundResource);
@@ -113,17 +115,17 @@ public class TutorialJAJP implements OnTouchListener {
             width = (int) (inputView.getWidth() * 0.9);
             this.gravity = Gravity.TOP | Gravity.LEFT;
             text = new SpannableStringBuilder()
-                .append(description)
-                .append("\n") 
-                .append(context.getResources().getText(guide));
+                    .append(description)
+                    .append("\n")
+                    .append(context.getResources().getText(guide));
             this.dismissOnTouch = true;
             this.dismissOnClose = false;
             this.inputView = inputView;
             window = new PopupWindow(context);
             window.setBackgroundDrawable(null);
             LayoutInflater inflate =
-                (LayoutInflater) context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    (LayoutInflater) context
+                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             textView = (TextView) inflate.inflate(R.layout.bubble_text, null);
             textView.setBackgroundDrawable(bubbleBackground);
             textView.setText(text);
@@ -147,7 +149,7 @@ public class TutorialJAJP implements OnTouchListener {
             int cap = width - wid;
 
             Layout l = new StaticLayout(text, tv.getPaint(), cap,
-                                        Layout.Alignment.ALIGN_NORMAL, 1, 0, true);
+                    Layout.Alignment.ALIGN_NORMAL, 1, 0, true);
             float max = 0;
             for (int i = 0; i < l.getLineCount(); i++) {
                 max = Math.max(max, l.getLineWidth(i));
@@ -164,7 +166,7 @@ public class TutorialJAJP implements OnTouchListener {
         void show(int offx, int offy) {
             int textHeight = chooseSize(window, inputView, text, textView);
             offy -= textView.getPaddingTop() + textHeight;
-            if (inputView.getVisibility() == View.VISIBLE 
+            if (inputView.getVisibility() == View.VISIBLE
                     && inputView.getWindowVisibility() == View.VISIBLE) {
                 try {
                     if ((gravity & Gravity.BOTTOM) == Gravity.BOTTOM) offy -= window.getHeight();
@@ -174,15 +176,15 @@ public class TutorialJAJP implements OnTouchListener {
 
                             boolean ret = !mEnableKeyTouch;
                             switch (me.getAction()) {
-                            case MotionEvent.ACTION_UP:
-                                if (mBubbleIndex >= mBubbles.size()) {
-                                    mInputView.setOnTouchListener(null);
-                                } else {
-                                    TutorialJAJP.this.next();
-                                }
-                                break;
-                            default:
-                                break;
+                                case MotionEvent.ACTION_UP:
+                                    if (mBubbleIndex >= mBubbles.size()) {
+                                        mInputView.setOnTouchListener(null);
+                                    } else {
+                                        TutorialJAJP.this.next();
+                                    }
+                                    break;
+                                default:
+                                    break;
                             }
                             return ret;
                         }
@@ -192,14 +194,14 @@ public class TutorialJAJP implements OnTouchListener {
                 }
             }
         }
-        
+
         void hide() {
             if (window.isShowing()) {
                 textView.setOnTouchListener(null);
                 window.dismiss();
             }
         }
-        
+
         boolean isShowing() {
             return window.isShowing();
         }
@@ -224,8 +226,8 @@ public class TutorialJAJP implements OnTouchListener {
         spannable.append(r.getText(R.string.tip_to_step1));
 
         setSpan(spannable, "\u25cb", R.drawable.tutorial_12key_key);
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble, x, 0,
                 spannable, R.string.touch_to_continue, false);
         mBubbles.add(button);
 
@@ -233,8 +235,8 @@ public class TutorialJAJP implements OnTouchListener {
         spannable.append(r.getText(R.string.tip_to_step2_a));
 
         setSpan(spannable, "\u25cb", R.drawable.tutorial_12key_toggle);
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble, x, 0,
                 spannable, R.string.touch_to_continue, true);
         mBubbles.add(button);
 
@@ -242,8 +244,8 @@ public class TutorialJAJP implements OnTouchListener {
 
         setSpan(spannable, "\u2192", R.drawable.tutorial_12key_right);
 
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble, x, 0,
                 spannable, R.string.touch_to_continue, true);
         mBubbles.add(button);
 
@@ -251,8 +253,8 @@ public class TutorialJAJP implements OnTouchListener {
 
         setSpan(spannable, "\u25cb", R.drawable.tutorial_12key_toggle);
 
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble, x, 0,
                 spannable, R.string.touch_to_continue, true);
         mBubbles.add(button);
 
@@ -262,8 +264,8 @@ public class TutorialJAJP implements OnTouchListener {
 
         setSpan(spannable, "\u2193", R.drawable.tutorial_12key_enter);
 
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble, x, 0,
                 spannable, R.string.touch_to_continue, true);
         mBubbles.add(button);
 
@@ -271,18 +273,18 @@ public class TutorialJAJP implements OnTouchListener {
         spannable.append(r.getText(R.string.tip_to_step3_a));
 
         setSpan(spannable, "\u25a0", R.drawable.tutorial_12key_mode);
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble_moji, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble_moji, x, 0,
                 spannable, R.string.touch_to_continue, false);
         mBubbles.add(button);
 
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble_moji, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble_moji, x, 0,
                 R.string.tip_to_step3_b, R.string.touch_to_continue);
         mBubbles.add(button);
 
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble_moji, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble_moji, x, 0,
                 R.string.tip_to_step3_c, R.string.touch_to_continue);
         mBubbles.add(button);
 
@@ -290,23 +292,23 @@ public class TutorialJAJP implements OnTouchListener {
         spannable.append(r.getText(R.string.tip_to_step4));
 
         setSpan(spannable, "\u25a0", R.drawable.tutorial_12key_mode);
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble_moji, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble_moji, x, 0,
                 spannable, R.string.touch_to_try, false);
         mBubbles.add(button);
 
         spannable.clear();
         spannable.append(r.getText(R.string.tip_to_step5));
- 
+
         setSpan(spannable, "\u2190", R.drawable.tutorial_back);
- 
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble, x, 0, 
+
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble, x, 0,
                 spannable, R.string.touch_to_continue, false);
         mBubbles.add(button);
 
-        button = new Bubble(context, inputView, 
-                R.drawable.dialog_bubble, x, 0, 
+        button = new Bubble(context, inputView,
+                R.drawable.dialog_bubble, x, 0,
                 R.string.tip_to_step6, R.string.touch_to_finish);
         mBubbles.add(button);
     }
@@ -317,11 +319,11 @@ public class TutorialJAJP implements OnTouchListener {
         while (0 <= target) {
             ImageSpan span = new ImageSpan(mIme, imageResourceId,
                     DynamicDrawableSpan.ALIGN_BOTTOM);
-            spannable.setSpan(span, target, target + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
+            spannable.setSpan(span, target, target + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             target = text.indexOf(marker, target + 1);
         }
     }
-    
+
     public void start() {
         mInputView.getLocationInWindow(mLocation);
         mBubbleIndex = -1;
@@ -360,7 +362,7 @@ public class TutorialJAJP implements OnTouchListener {
                 mHandler.obtainMessage(MSG_SHOW_BUBBLE, mBubbles.get(mBubbleIndex)), 500);
         return true;
     }
-    
+
     void hide() {
         for (int i = 0; i < mBubbles.size(); i++) {
             mBubbles.get(i).hide();

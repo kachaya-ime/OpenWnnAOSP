@@ -20,7 +20,11 @@ import android.content.Context;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.widget.Toast;
-import jp.co.omronsoft.openwnn.*;
+
+import jp.co.omronsoft.openwnn.OpenWnnEvent;
+import jp.co.omronsoft.openwnn.OpenWnnJAJP;
+import jp.co.omronsoft.openwnn.R;
+import jp.co.omronsoft.openwnn.WnnWord;
 
 /**
  * The preference class to clear learning dictionary for Japanese IME.
@@ -41,7 +45,7 @@ public class ClearLearnDictionaryDialogPreferenceJAJP extends DialogPreference {
         super(context, attrs);
         mContext = context;
     }
-    
+
     /**
      * Constructor
      *
@@ -52,7 +56,8 @@ public class ClearLearnDictionaryDialogPreferenceJAJP extends DialogPreference {
     }
 
     /** @see android.preference.DialogPreference#onDialogClosed */
-    @Override protected void onDialogClosed(boolean positiveResult) {
+    @Override
+    protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
             /* clear the learning dictionary */
             OpenWnnEvent ev = new OpenWnnEvent(OpenWnnEvent.INITIALIZE_LEARNING_DICTIONARY, new WnnWord());
@@ -60,7 +65,7 @@ public class ClearLearnDictionaryDialogPreferenceJAJP extends DialogPreference {
 
             /* show the message */
             Toast.makeText(mContext.getApplicationContext(), R.string.dialog_clear_learning_dictionary_done,
-                           Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_LONG).show();
         }
     }
 

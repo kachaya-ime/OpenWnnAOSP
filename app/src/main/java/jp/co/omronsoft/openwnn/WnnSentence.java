@@ -16,7 +16,6 @@
 
 package jp.co.omronsoft.openwnn;
 
-import java.lang.StringBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -45,7 +44,7 @@ public class WnnSentence extends WnnWord {
             this.attribute = 0;
         } else {
             this.elements = clauses;
-            WnnClause headClause = (WnnClause)clauses.get(0);
+            WnnClause headClause = (WnnClause) clauses.get(0);
 
             if (clauses.size() == 1) {
                 this.id = headClause.id;
@@ -61,8 +60,8 @@ public class WnnSentence extends WnnWord {
                     WnnClause clause = ci.next();
                     candidate.append(clause.candidate);
                 }
-                WnnClause lastClause = (WnnClause)clauses.get(clauses.size() - 1);
-                
+                WnnClause lastClause = (WnnClause) clauses.get(clauses.size() - 1);
+
                 this.id = headClause.id;
                 this.candidate = candidate.toString();
                 this.stroke = input;
@@ -135,7 +134,7 @@ public class WnnSentence extends WnnWord {
             this.frequency = head.frequency + tail.frequency;
             this.partOfSpeech = new WnnPOS(head.partOfSpeech.left, tail.partOfSpeech.right);
             this.attribute = 2;
-            
+
             this.elements = new ArrayList<WnnClause>();
             this.elements.add(head);
             this.elements.addAll(tail.elements);

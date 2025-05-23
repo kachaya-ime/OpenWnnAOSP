@@ -16,8 +16,8 @@
 
 package jp.co.omronsoft.openwnn;
 
-import android.view.View;
 import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -41,7 +41,7 @@ public class UserDictionaryToolsListFocus extends TextView {
     /**
      * Get the pair of view
      *
-     * @return               The information of the pair of view
+     * @return The information of the pair of view
      */
     public View getPairView() {
         return mPairView;

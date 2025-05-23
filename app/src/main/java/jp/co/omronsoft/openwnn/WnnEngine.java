@@ -32,11 +32,12 @@ public interface WnnEngine {
     /** The identifier of the learning dictionary */
     public static final int DICTIONARY_TYPE_LEARN = 1;
     /** The identifier of the user dictionary */
-    public static final int DICTIONARY_TYPE_USER  = 2;
+    public static final int DICTIONARY_TYPE_USER = 2;
 
     /*
      * DEFINITION OF METHODS
      */
+
     /**
      * Initialize parameters.
      */
@@ -56,7 +57,7 @@ public interface WnnEngine {
      * @param text      The input string
      * @param minLen    The minimum length of a word to predict (0  : no limit)
      * @param maxLen    The maximum length of a word to predict (-1 : no limit)
-     * @return          Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
+     * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
     public int predict(ComposingText text, int minLen, int maxLen);
 
@@ -71,7 +72,7 @@ public interface WnnEngine {
      * To get other candidates of each clause, call {@link #makeCandidateListOf(int)}.
      *
      * @param text      The input string
-     * @return      Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
+     * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
     public int convert(ComposingText text);
 
@@ -79,7 +80,7 @@ public interface WnnEngine {
      * Search words from the dictionaries.
      * <br>
      * @param key       The search key (stroke)
-     * @return      Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
+     * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
     public int searchWords(String key);
 
@@ -87,7 +88,7 @@ public interface WnnEngine {
      * Search words from the dictionaries.
      * <br>
      * @param word      A word to search
-     * @return          Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
+     * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
     public int searchWords(WnnWord word);
 
@@ -101,7 +102,7 @@ public interface WnnEngine {
      * {@link #makeCandidateListOf(int)}, in increasing character code order for
      * {@code searchWords()}.
      *
-     * @return          The candidate; {@code null} if there is no more candidate.
+     * @return The candidate; {@code null} if there is no more candidate.
      */
     public WnnWord getNextCandidate();
 
@@ -128,7 +129,7 @@ public interface WnnEngine {
      * Register a word to the user's dictionary.
      * <br>
      * @param word      A word to register
-     * @return          Number of registered words in the user's dictionary after the operation; minus value if a error occurs.
+     * @return Number of registered words in the user's dictionary after the operation; minus value if a error occurs.
      */
     public int addWord(WnnWord word);
 
@@ -183,7 +184,7 @@ public interface WnnEngine {
      * To get the elements of the list, call {@link #getNextCandidate()}.
      *
      * @param clausePosition  The position of a clause
-     * @return                  Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
+     * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
     public int makeCandidateListOf(int clausePosition);
 }

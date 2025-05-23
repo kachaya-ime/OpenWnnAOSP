@@ -19,7 +19,7 @@ package jp.co.omronsoft.openwnn;
 /**
  * The filter class for candidates.
  * This class is used for filtering candidates by {link WnnEngine}.
- * 
+ *
  * @author Copyright (C) 2009 OMRON SOFTWARE CO., LTD.  All Rights Reserved.
  *
  */
@@ -34,7 +34,7 @@ public class CandidateFilter {
 
     /**
      * Checking whether a specified word is filtered.
-     * 
+     *
      * @param word      A word
      * @return          {@code true} if the word is allowed; {@code false} if the word is denied.
      */

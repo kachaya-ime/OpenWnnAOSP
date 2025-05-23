@@ -23,17 +23,17 @@ package jp.co.omronsoft.openwnn;
  */
 public class WnnWord {
     /** The word's Id */
-    public int      id;
+    public int id;
     /** The string of this word. */
-    public String   candidate;
+    public String candidate;
     /** The reading of this word. */
-    public String   stroke;
+    public String stroke;
     /** The score of this word. */
-    public int      frequency;
+    public int frequency;
     /** The part of speech this word. */
-    public WnnPOS   partOfSpeech;
+    public WnnPOS partOfSpeech;
     /** The attribute of this word when it is assumed a candidate. */
-    public int      attribute;
+    public int attribute;
 
     /**
      * Constructor

@@ -24,7 +24,7 @@ package jp.co.omronsoft.openwnn;
 public class StrSegmentClause extends StrSegment {
     /** Clause information */
     public WnnClause clause;
-    
+
     /**
      * Constructor
      *

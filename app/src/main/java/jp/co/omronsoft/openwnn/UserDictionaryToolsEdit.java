@@ -35,14 +35,14 @@ import android.widget.Toast;
 
 /**
  * The abstract class for user dictionary's word editor.
- * 
+ *
  * @author Copyright (C) 2009, OMRON SOFTWARE CO., LTD.  All Rights Reserved.
  */
 public abstract class UserDictionaryToolsEdit extends Activity implements View.OnClickListener {
     /** The class information for intent(Set this informations in the extend class) */
-    protected String  mListViewName;
+    protected String mListViewName;
     /** The class information for intent(Set this informations in the extend class) */
-    protected String  mPackageName;
+    protected String mPackageName;
 
     /** The operation mode (Unknown) */
     private static final int STATE_UNKNOWN = 0;
@@ -98,7 +98,7 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         sFocusingView = focusView;
         sFocusingPairView = focusPairView;
     }
-    
+
     /**
      * Send the specified event to IME
      *
@@ -108,7 +108,8 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
     protected abstract boolean sendEventToIME(OpenWnnEvent ev);
 
     /** @see android.app.Activity#onCreate */
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
@@ -116,10 +117,10 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         setContentView(R.layout.user_dictionary_tools_edit);
 
         /* get widgets */
-        mEntryButton = (Button)findViewById(R.id.addButton);
-        mCancelButton = (Button)findViewById(R.id.cancelButton);
-        mReadEditText = (EditText)findViewById(R.id.editRead);
-        mCandidateEditText = (EditText)findViewById(R.id.editCandidate);
+        mEntryButton = (Button) findViewById(R.id.addButton);
+        mCancelButton = (Button) findViewById(R.id.cancelButton);
+        mReadEditText = (EditText) findViewById(R.id.editRead);
+        mCandidateEditText = (EditText) findViewById(R.id.editCandidate);
 
         /* set the listener */
         mEntryButton.setOnClickListener(this);
@@ -129,7 +130,7 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         mRequestState = STATE_UNKNOWN;
         mReadEditText.setSingleLine();
         mCandidateEditText.setSingleLine();
-        
+
         /* get the request and do it */
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -140,14 +141,14 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         } else if (action.equals(Intent.ACTION_EDIT)) {
             /* edit a word */
             mEntryButton.setEnabled(true);
-            mReadEditText.setText(((TextView)sFocusingView).getText());
-            mCandidateEditText.setText(((TextView)sFocusingPairView).getText());
+            mReadEditText.setText(((TextView) sFocusingView).getText());
+            mCandidateEditText.setText(((TextView) sFocusingPairView).getText());
             mRequestState = STATE_EDIT;
 
             /* save the word's information before this edit */
             mBeforeEditWnnWord = new WnnWord();
-            mBeforeEditWnnWord.stroke = ((TextView)sFocusingView).getText().toString();
-            mBeforeEditWnnWord.candidate = ((TextView)sFocusingPairView).getText().toString();
+            mBeforeEditWnnWord.stroke = ((TextView) sFocusingView).getText().toString();
+            mBeforeEditWnnWord.candidate = ((TextView) sFocusingPairView).getText().toString();
         } else {
             /* finish if it is unknown request */
             Log.e("OpenWnn", "onCreate() : Invaled Get Intent. ID=" + intent);
@@ -156,7 +157,7 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         }
 
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
-                                  R.layout.user_dictionary_tools_edit_header);
+                R.layout.user_dictionary_tools_edit_header);
 
         /* set control buttons */
         setAddButtonControl();
@@ -164,7 +165,8 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
     }
 
     /** @see android.app.Activity#onKeyDown */
-    @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             /* go back to the word list view */
             screenTransition();
@@ -182,12 +184,14 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         mReadEditText.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
             }
+
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 /* Enable/disable the "Add" button */
-                if ((mReadEditText.getText().toString().length() != 0) && 
-                    (mCandidateEditText.getText().toString().length() != 0)) {
+                if ((mReadEditText.getText().toString().length() != 0) &&
+                        (mCandidateEditText.getText().toString().length() != 0)) {
                     mEntryButton.setEnabled(true);
                 } else {
                     mEntryButton.setEnabled(false);
@@ -198,12 +202,14 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         mCandidateEditText.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
             }
+
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-            	/* Enable/disable the "Add" button */
-                if ((mReadEditText.getText().toString().length() != 0) && 
-                    (mCandidateEditText.getText().toString().length() != 0)) {
+                /* Enable/disable the "Add" button */
+                if ((mReadEditText.getText().toString().length() != 0) &&
+                        (mCandidateEditText.getText().toString().length() != 0)) {
                     mEntryButton.setEnabled(true);
                 } else {
                     mEntryButton.setEnabled(false);
@@ -237,21 +243,21 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
     private void doSaveAction() {
 
         switch (mRequestState) {
-        case STATE_INSERT:
-            /* register a word */
-            if (inputDataCheck(mReadEditText) && inputDataCheck(mCandidateEditText)) {
+            case STATE_INSERT:
+                /* register a word */
+                if (inputDataCheck(mReadEditText) && inputDataCheck(mCandidateEditText)) {
                     String stroke = mReadEditText.getText().toString();
                     String candidate = mCandidateEditText.getText().toString();
                     if (addDictionary(stroke, candidate)) {
                         screenTransition();
                     }
                 }
-            break;
-            
-        case STATE_EDIT:
-            /* edit a word (=delete the word selected & add the word edited) */
-            if (inputDataCheck(mReadEditText) && inputDataCheck(mCandidateEditText)) {
-                deleteDictionary(mBeforeEditWnnWord);
+                break;
+
+            case STATE_EDIT:
+                /* edit a word (=delete the word selected & add the word edited) */
+                if (inputDataCheck(mReadEditText) && inputDataCheck(mCandidateEditText)) {
+                    deleteDictionary(mBeforeEditWnnWord);
                     String stroke = mReadEditText.getText().toString();
                     String candidate = mCandidateEditText.getText().toString();
                     if (addDictionary(stroke, candidate)) {
@@ -260,14 +266,14 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
                         addDictionary(mBeforeEditWnnWord.stroke, mBeforeEditWnnWord.candidate);
                     }
                 }
-            break;
+                break;
 
-        default:
-            Log.e("OpenWnn", "doSaveAction: Invalid Add Status. Status=" + mRequestState);
-            break;
+            default:
+                Log.e("OpenWnn", "doSaveAction: Invalid Add Status. Status=" + mRequestState);
+                break;
         }
     }
-    
+
     /**
      * Process the cancel action
      */
@@ -280,9 +286,10 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
      * Create the alert dialog for notifying the error
      *
      * @param  id        The dialog ID
-     * @return           The information of the dialog
+     * @return The information of the dialog
      */
-    @Override protected Dialog onCreateDialog(int id) {
+    @Override
+    protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DIALOG_CONTROL_WORDS_DUPLICATE:
                 /* there is the same word in the dictionary */
@@ -337,8 +344,8 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         wnnWordAdd.candidate = candidate;
         /* add word event */
         OpenWnnEvent event = new OpenWnnEvent(OpenWnnEvent.ADD_WORD,
-                                  WnnEngine.DICTIONARY_TYPE_USER,
-                                  wnnWordAdd);
+                WnnEngine.DICTIONARY_TYPE_USER,
+                wnnWordAdd);
         /* notify the event to IME */
         ret = sendEventToIME(event);
         if (ret == false) {
@@ -365,8 +372,8 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         boolean deleted = mListInstance.deleteWord(word);
         if (!deleted) {
             Toast.makeText(getApplicationContext(),
-                           R.string.user_dictionary_delete_fail,
-                           Toast.LENGTH_LONG).show();
+                    R.string.user_dictionary_delete_fail,
+                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -384,7 +391,7 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
     private boolean inputDataCheck(View v) {
 
         /* return false if the length of the string exceeds the limit. */
-        if ((((TextView)v).getText().length()) > MAX_TEXT_SIZE) {
+        if ((((TextView) v).getText().length()) > MAX_TEXT_SIZE) {
             showDialog(DIALOG_CONTROL_OVER_MAX_TEXT_SIZE);
             Log.e("OpenWnn", "inputDataCheck() : over max string length.");
             return false;
@@ -403,7 +410,7 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         Intent intent = new Intent();
         intent.setClassName(mPackageName, mListViewName);
         startActivity(intent);
-        
+
     }
 
 }

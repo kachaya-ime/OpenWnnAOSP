@@ -16,8 +16,8 @@
 
 package jp.co.omronsoft.openwnn;
 
-import android.view.View;
 import android.content.SharedPreferences;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
 /**
@@ -33,14 +33,14 @@ public interface InputViewManager {
      * @param width     The width of the display
      * @param height    The height of the display
      *
-     * @return      The input view created in the initialize process; {@code null} if cannot create a input view.
+     * @return The input view created in the initialize process; {@code null} if cannot create a input view.
      */
     public View initView(OpenWnn parent, int width, int height);
 
     /**
      * Get the input view being used currently.
      *
-     * @return  The input view; {@code null} if no input view is used currently.
+     * @return The input view; {@code null} if no input view is used currently.
      */
     public View getCurrentView();
 
@@ -63,7 +63,7 @@ public interface InputViewManager {
      * Close the input view.
      */
     public void closing();
- 
+
     /**
      * Show the input view.
      */
