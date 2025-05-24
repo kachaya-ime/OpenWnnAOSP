@@ -94,140 +94,138 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
 
     /** Toggle cycle table for full-width HIRAGANA */
     private static final String[][] JP_FULL_HIRAGANA_CYCLE_TABLE = {
-            {"\u3042", "\u3044", "\u3046", "\u3048", "\u304a", "\u3041", "\u3043", "\u3045", "\u3047", "\u3049"},
-            {"\u304b", "\u304d", "\u304f", "\u3051", "\u3053"},
-            {"\u3055", "\u3057", "\u3059", "\u305b", "\u305d"},
-            {"\u305f", "\u3061", "\u3064", "\u3066", "\u3068", "\u3063"},
-            {"\u306a", "\u306b", "\u306c", "\u306d", "\u306e"},
-            {"\u306f", "\u3072", "\u3075", "\u3078", "\u307b"},
-            {"\u307e", "\u307f", "\u3080", "\u3081", "\u3082"},
-            {"\u3084", "\u3086", "\u3088", "\u3083", "\u3085", "\u3087"},
-            {"\u3089", "\u308a", "\u308b", "\u308c", "\u308d"},
-            {"\u308f", "\u3092", "\u3093", "\u308e", "\u30fc"},
-            {"\u3001", "\u3002", "\uff1f", "\uff01", "\u30fb", "\u3000"},
+            {"あ", "い", "う", "え", "お", "ぁ", "ぃ", "ぅ", "ぇ", "ぉ"},
+            {"か", "き", "く", "け", "こ"},
+            {"さ", "し", "す", "せ", "そ"},
+            {"た", "ち", "つ", "て", "と", "っ"},
+            {"な", "に", "ぬ", "ね", "の"},
+            {"は", "ひ", "ふ", "へ", "ほ"},
+            {"ま", "み", "む", "め", "も"},
+            {"や", "ゆ", "よ", "ゃ", "ゅ", "ょ"},
+            {"ら", "り", "る", "れ", "ろ"},
+            {"わ", "を", "ん", "ゎ", "ー"},
+            {"、", "。", "？", "！", "・", "\u3000"}
     };
 
-    /** Replace table for full-width HIRAGANA */
     private static final HashMap<String, String> JP_FULL_HIRAGANA_REPLACE_TABLE = new HashMap<String, String>() {{
-        put("\u3042", "\u3041"); put("\u3044", "\u3043"); put("\u3046", "\u3045"); put("\u3048", "\u3047"); put("\u304a", "\u3049");
-        put("\u3041", "\u3042"); put("\u3043", "\u3044"); put("\u3045", "\u30f4"); put("\u3047", "\u3048"); put("\u3049", "\u304a");
-        put("\u304b", "\u304c"); put("\u304d", "\u304e"); put("\u304f", "\u3050"); put("\u3051", "\u3052"); put("\u3053", "\u3054");
-        put("\u304c", "\u304b"); put("\u304e", "\u304d"); put("\u3050", "\u304f"); put("\u3052", "\u3051"); put("\u3054", "\u3053");
-        put("\u3055", "\u3056"); put("\u3057", "\u3058"); put("\u3059", "\u305a"); put("\u305b", "\u305c"); put("\u305d", "\u305e");
-        put("\u3056", "\u3055"); put("\u3058", "\u3057"); put("\u305a", "\u3059"); put("\u305c", "\u305b"); put("\u305e", "\u305d");
-        put("\u305f", "\u3060"); put("\u3061", "\u3062"); put("\u3064", "\u3063"); put("\u3066", "\u3067"); put("\u3068", "\u3069");
-        put("\u3060", "\u305f"); put("\u3062", "\u3061"); put("\u3063", "\u3065"); put("\u3067", "\u3066"); put("\u3069", "\u3068");
-        put("\u3065", "\u3064"); put("\u30f4", "\u3046");
-        put("\u306f", "\u3070"); put("\u3072", "\u3073"); put("\u3075", "\u3076"); put("\u3078", "\u3079"); put("\u307b", "\u307c");
-        put("\u3070", "\u3071"); put("\u3073", "\u3074"); put("\u3076", "\u3077"); put("\u3079", "\u307a"); put("\u307c", "\u307d");
-        put("\u3071", "\u306f"); put("\u3074", "\u3072"); put("\u3077", "\u3075"); put("\u307a", "\u3078"); put("\u307d", "\u307b");
-        put("\u3084", "\u3083"); put("\u3086", "\u3085"); put("\u3088", "\u3087");
-        put("\u3083", "\u3084"); put("\u3085", "\u3086"); put("\u3087", "\u3088");
-        put("\u308f", "\u308e");
-        put("\u308e", "\u308f");
-        put("\u309b", "\u309c");
-        put("\u309c", "\u309b");
+        put("あ", "ぁ"); put("い", "ぃ"); put("う", "ぅ"); put("え", "ぇ"); put("お", "ぉ");
+        put("ぁ", "あ"); put("ぃ", "い"); put("ぅ", "ヴ"); put("ぇ", "え"); put("ぉ", "お");
+        put("か", "が"); put("き", "ぎ"); put("く", "ぐ"); put("け", "げ"); put("こ", "ご");
+        put("が", "か"); put("ぎ", "き"); put("ぐ", "く"); put("げ", "け"); put("ご", "こ");
+        put("さ", "ざ"); put("し", "じ"); put("す", "ず"); put("せ", "ぜ"); put("そ", "ぞ");
+        put("ざ", "さ"); put("じ", "し"); put("ず", "す"); put("ぜ", "せ"); put("ぞ", "そ");
+        put("た", "だ"); put("ち", "ぢ"); put("つ", "っ"); put("て", "で"); put("と", "ど");
+        put("だ", "た"); put("ぢ", "ち"); put("っ", "づ"); put("で", "て"); put("ど", "と");
+        put("づ", "つ"); put("ヴ", "う");
+        put("は", "ば"); put("ひ", "び"); put("ふ", "ぶ"); put("へ", "べ"); put("ほ", "ぼ");
+        put("ば", "ぱ"); put("び", "ぴ"); put("ぶ", "ぷ"); put("べ", "ぺ"); put("ぼ", "ぽ");
+        put("ぱ", "は"); put("ぴ", "ひ"); put("ぷ", "ふ"); put("ぺ", "へ"); put("ぽ", "ほ");
+        put("や", "ゃ"); put("ゆ", "ゅ"); put("よ", "ょ");
+        put("ゃ", "や"); put("ゅ", "ゆ"); put("ょ", "よ");
+        put("わ", "ゎ");
+        put("ゎ", "わ");
+        put("゛", "゜");
+        put("゜", "゛");
     }};
 
     /** Toggle cycle table for full-width KATAKANA */
     private static final String[][] JP_FULL_KATAKANA_CYCLE_TABLE = {
-            {"\u30a2", "\u30a4", "\u30a6", "\u30a8", "\u30aa", "\u30a1", "\u30a3",
-                    "\u30a5", "\u30a7", "\u30a9"},
-            {"\u30ab", "\u30ad", "\u30af", "\u30b1", "\u30b3"},
-            {"\u30b5", "\u30b7", "\u30b9", "\u30bb", "\u30bd"},
-            {"\u30bf", "\u30c1", "\u30c4", "\u30c6", "\u30c8", "\u30c3"},
-            {"\u30ca", "\u30cb", "\u30cc", "\u30cd", "\u30ce"},
-            {"\u30cf", "\u30d2", "\u30d5", "\u30d8", "\u30db"},
-            {"\u30de", "\u30df", "\u30e0", "\u30e1", "\u30e2"},
-            {"\u30e4", "\u30e6", "\u30e8", "\u30e3", "\u30e5", "\u30e7"},
-            {"\u30e9", "\u30ea", "\u30eb", "\u30ec", "\u30ed"},
-            {"\u30ef", "\u30f2", "\u30f3", "\u30ee", "\u30fc"},
-            {"\u3001", "\u3002", "\uff1f", "\uff01", "\u30fb", "\u3000"}
+            {"ア", "イ", "ウ", "エ", "オ", "ァ", "ィ", "ゥ", "ェ", "ォ"},
+            {"カ", "キ", "ク", "ケ", "コ"},
+            {"サ", "シ", "ス", "セ", "ソ"},
+            {"タ", "チ", "ツ", "テ", "ト", "ッ"},
+            {"ナ", "ニ", "ヌ", "ネ", "ノ"},
+            {"ハ", "ヒ", "フ", "ヘ", "ホ"},
+            {"マ", "ミ", "ム", "メ", "モ"},
+            {"ヤ", "ユ", "ヨ", "ャ", "ュ", "ョ"},
+            {"ラ", "リ", "ル", "レ", "ロ"},
+            {"ワ", "ヲ", "ン", "ヮ", "ー"},
+            {"、", "。", "？", "！", "・", "\u3000"}
     };
 
     /** Replace table for full-width KATAKANA */
     private static final HashMap<String, String> JP_FULL_KATAKANA_REPLACE_TABLE = new HashMap<String, String>() {{
-        put("\u30a2", "\u30a1"); put("\u30a4", "\u30a3"); put("\u30a6", "\u30a5"); put("\u30a8", "\u30a7"); put("\u30aa", "\u30a9");
-        put("\u30a1", "\u30a2"); put("\u30a3", "\u30a4"); put("\u30a5", "\u30f4"); put("\u30a7", "\u30a8"); put("\u30a9", "\u30aa");
-        put("\u30ab", "\u30ac"); put("\u30ad", "\u30ae"); put("\u30af", "\u30b0"); put("\u30b1", "\u30b2"); put("\u30b3", "\u30b4");
-        put("\u30ac", "\u30ab"); put("\u30ae", "\u30ad"); put("\u30b0", "\u30af"); put("\u30b2", "\u30b1"); put("\u30b4", "\u30b3");
-        put("\u30b5", "\u30b6"); put("\u30b7", "\u30b8"); put("\u30b9", "\u30ba"); put("\u30bb", "\u30bc"); put("\u30bd", "\u30be");
-        put("\u30b6", "\u30b5"); put("\u30b8", "\u30b7"); put("\u30ba", "\u30b9"); put("\u30bc", "\u30bb"); put("\u30be", "\u30bd");
-        put("\u30bf", "\u30c0"); put("\u30c1", "\u30c2"); put("\u30c4", "\u30c3"); put("\u30c6", "\u30c7"); put("\u30c8", "\u30c9");
-        put("\u30c0", "\u30bf"); put("\u30c2", "\u30c1"); put("\u30c3", "\u30c5"); put("\u30c7", "\u30c6"); put("\u30c9", "\u30c8");
-        put("\u30c5", "\u30c4"); put("\u30f4", "\u30a6");
-        put("\u30cf", "\u30d0"); put("\u30d2", "\u30d3"); put("\u30d5", "\u30d6"); put("\u30d8", "\u30d9"); put("\u30db", "\u30dc");
-        put("\u30d0", "\u30d1"); put("\u30d3", "\u30d4"); put("\u30d6", "\u30d7"); put("\u30d9", "\u30da"); put("\u30dc", "\u30dd");
-        put("\u30d1", "\u30cf"); put("\u30d4", "\u30d2"); put("\u30d7", "\u30d5"); put("\u30da", "\u30d8"); put("\u30dd", "\u30db");
-        put("\u30e4", "\u30e3"); put("\u30e6", "\u30e5"); put("\u30e8", "\u30e7");
-        put("\u30e3", "\u30e4"); put("\u30e5", "\u30e6"); put("\u30e7", "\u30e8");
-        put("\u30ef", "\u30ee");
-        put("\u30ee", "\u30ef");
+        put("ア", "ァ"); put("イ", "ィ"); put("ウ", "ゥ"); put("エ", "ェ"); put("オ", "ォ");
+        put("ァ", "ア"); put("ィ", "イ"); put("ゥ", "ヴ"); put("ェ", "エ"); put("ォ", "オ");
+        put("カ", "ガ"); put("キ", "ギ"); put("ク", "グ"); put("ケ", "ゲ"); put("コ", "ゴ");
+        put("ガ", "カ"); put("ギ", "キ"); put("グ", "ク"); put("ゲ", "ケ"); put("ゴ", "コ");
+        put("サ", "ザ"); put("シ", "ジ"); put("ス", "ズ"); put("セ", "ゼ"); put("ソ", "ゾ");
+        put("ザ", "サ"); put("ジ", "シ"); put("ズ", "ス"); put("ゼ", "セ"); put("ゾ", "ソ");
+        put("タ", "ダ"); put("チ", "ヂ"); put("ツ", "ッ"); put("テ", "デ"); put("ト", "ド");
+        put("ダ", "タ"); put("ヂ", "チ"); put("ッ", "ヅ"); put("デ", "テ"); put("ド", "ト");
+        put("ヅ", "ツ"); put("ヴ", "ウ");
+        put("ハ", "バ"); put("ヒ", "ビ"); put("フ", "ブ"); put("ヘ", "ベ"); put("ホ", "ボ");
+        put("バ", "パ"); put("ビ", "ピ"); put("ブ", "プ"); put("ベ", "ペ"); put("ボ", "ポ");
+        put("パ", "ハ"); put("ピ", "ヒ"); put("プ", "フ"); put("ペ", "ヘ"); put("ポ", "ホ");
+        put("ヤ", "ャ"); put("ユ", "ュ"); put("ヨ", "ョ");
+        put("ャ", "ヤ"); put("ュ", "ユ"); put("ョ", "ヨ");
+        put("ワ", "ヮ");
+        put("ヮ", "ワ");
     }};
 
     /** Toggle cycle table for half-width KATAKANA */
     private static final String[][] JP_HALF_KATAKANA_CYCLE_TABLE = {
-            {"\uff71", "\uff72", "\uff73", "\uff74", "\uff75", "\uff67", "\uff68", "\uff69", "\uff6a", "\uff6b"},
-            {"\uff76", "\uff77", "\uff78", "\uff79", "\uff7a"},
-            {"\uff7b", "\uff7c", "\uff7d", "\uff7e", "\uff7f"},
-            {"\uff80", "\uff81", "\uff82", "\uff83", "\uff84", "\uff6f"},
-            {"\uff85", "\uff86", "\uff87", "\uff88", "\uff89"},
-            {"\uff8a", "\uff8b", "\uff8c", "\uff8d", "\uff8e"},
-            {"\uff8f", "\uff90", "\uff91", "\uff92", "\uff93"},
-            {"\uff94", "\uff95", "\uff96", "\uff6c", "\uff6d", "\uff6e"},
-            {"\uff97", "\uff98", "\uff99", "\uff9a", "\uff9b"},
-            {"\uff9c", "\uff66", "\uff9d", "\uff70"},
-            {"\uff64", "\uff61", "?", "!", "\uff65", " "},
+            {"ｱ", "ｲ", "ｳ", "ｴ", "ｵ", "ｧ", "ｨ", "ｩ", "ｪ", "ｫ"},
+            {"ｶ", "ｷ", "ｸ", "ｹ", "ｺ"},
+            {"ｻ", "ｼ", "ｽ", "ｾ", "ｿ"},
+            {"ﾀ", "ﾁ", "ﾂ", "ﾃ", "ﾄ", "ｯ"},
+            {"ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ"},
+            {"ﾊ", "ﾋ", "ﾌ", "ﾍ", "ﾎ"},
+            {"ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ"},
+            {"ﾔ", "ﾕ", "ﾖ", "ｬ", "ｭ", "ｮ"},
+            {"ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ"},
+            {"ﾜ", "ｦ", "ﾝ", "ｰ"},
+            {"､", "｡", "?", "!", "･", " "}
     };
 
     /** Replace table for half-width KATAKANA */
     private static final HashMap<String, String> JP_HALF_KATAKANA_REPLACE_TABLE = new HashMap<String, String>() {{
-        put("\uff71", "\uff67"); put("\uff72", "\uff68"); put("\uff73", "\uff69"); put("\uff74", "\uff6a"); put("\uff75", "\uff6b");
-        put("\uff67", "\uff71"); put("\uff68", "\uff72"); put("\uff69", "\uff73\uff9e"); put("\uff6a", "\uff74"); put("\uff6b", "\uff75");
-        put("\uff76", "\uff76\uff9e"); put("\uff77", "\uff77\uff9e"); put("\uff78", "\uff78\uff9e"); put("\uff79", "\uff79\uff9e"); put("\uff7a", "\uff7a\uff9e");
-        put("\uff76\uff9e", "\uff76"); put("\uff77\uff9e", "\uff77"); put("\uff78\uff9e", "\uff78"); put("\uff79\uff9e", "\uff79"); put("\uff7a\uff9e", "\uff7a");
-        put("\uff7b", "\uff7b\uff9e"); put("\uff7c", "\uff7c\uff9e"); put("\uff7d", "\uff7d\uff9e"); put("\uff7e", "\uff7e\uff9e"); put("\uff7f", "\uff7f\uff9e");
-        put("\uff7b\uff9e", "\uff7b"); put("\uff7c\uff9e", "\uff7c"); put("\uff7d\uff9e", "\uff7d"); put("\uff7e\uff9e", "\uff7e"); put("\uff7f\uff9e", "\uff7f");
-        put("\uff80", "\uff80\uff9e"); put("\uff81", "\uff81\uff9e"); put("\uff82", "\uff6f"); put("\uff83", "\uff83\uff9e"); put("\uff84", "\uff84\uff9e");
-        put("\uff80\uff9e", "\uff80"); put("\uff81\uff9e", "\uff81"); put("\uff6f", "\uff82\uff9e"); put("\uff83\uff9e", "\uff83"); put("\uff84\uff9e", "\uff84");
-        put("\uff82\uff9e", "\uff82");
-        put("\uff8a", "\uff8a\uff9e"); put("\uff8b", "\uff8b\uff9e"); put("\uff8c", "\uff8c\uff9e"); put("\uff8d", "\uff8d\uff9e"); put("\uff8e", "\uff8e\uff9e");
-        put("\uff8a\uff9e", "\uff8a\uff9f"); put("\uff8b\uff9e", "\uff8b\uff9f"); put("\uff8c\uff9e", "\uff8c\uff9f"); put("\uff8d\uff9e", "\uff8d\uff9f"); put("\uff8e\uff9e", "\uff8e\uff9f");
-        put("\uff8a\uff9f", "\uff8a"); put("\uff8b\uff9f", "\uff8b"); put("\uff8c\uff9f", "\uff8c"); put("\uff8d\uff9f", "\uff8d"); put("\uff8e\uff9f", "\uff8e");
-        put("\uff94", "\uff6c"); put("\uff95", "\uff6d"); put("\uff96", "\uff6e");
-        put("\uff6c", "\uff94"); put("\uff6d", "\uff95"); put("\uff6e", "\uff96");
-        put("\uff9c", "\uff9c"); put("\uff73\uff9e", "\uff73");
+        put("ｱ", "ｧ"); put("ｲ", "ｨ"); put("ｳ", "ｩ"); put("ｴ", "ｪ"); put("ｵ", "ｫ");
+        put("ｧ", "ｱ"); put("ｨ", "ｲ"); put("ｩ", "ｳﾞ"); put("ｪ", "ｴ"); put("ｫ", "ｵ");
+        put("ｶ", "ｶﾞ"); put("ｷ", "ｷﾞ"); put("ｸ", "ｸﾞ"); put("ｹ", "ｹﾞ"); put("ｺ", "ｺﾞ");
+        put("ｶﾞ", "ｶ"); put("ｷﾞ", "ｷ"); put("ｸﾞ", "ｸ"); put("ｹﾞ", "ｹ"); put("ｺﾞ", "ｺ");
+        put("ｻ", "ｻﾞ"); put("ｼ", "ｼﾞ"); put("ｽ", "ｽﾞ"); put("ｾ", "ｾﾞ"); put("ｿ", "ｿﾞ");
+        put("ｻﾞ", "ｻ"); put("ｼﾞ", "ｼ"); put("ｽﾞ", "ｽ"); put("ｾﾞ", "ｾ"); put("ｿﾞ", "ｿ");
+        put("ﾀ", "ﾀﾞ"); put("ﾁ", "ﾁﾞ"); put("ﾂ", "ｯ"); put("ﾃ", "ﾃﾞ"); put("ﾄ", "ﾄﾞ");
+        put("ﾀﾞ", "ﾀ"); put("ﾁﾞ", "ﾁ"); put("ｯ", "ﾂﾞ"); put("ﾃﾞ", "ﾃ"); put("ﾄﾞ", "ﾄ");
+        put("ﾂﾞ", "ﾂ");
+        put("ﾊ", "ﾊﾞ"); put("ﾋ", "ﾋﾞ"); put("ﾌ", "ﾌﾞ"); put("ﾍ", "ﾍﾞ"); put("ﾎ", "ﾎﾞ");
+        put("ﾊﾞ", "ﾊﾟ"); put("ﾋﾞ", "ﾋﾟ"); put("ﾌﾞ", "ﾌﾟ"); put("ﾍﾞ", "ﾍﾟ"); put("ﾎﾞ", "ﾎﾟ");
+        put("ﾊﾟ", "ﾊ"); put("ﾋﾟ", "ﾋ"); put("ﾌﾟ", "ﾌ"); put("ﾍﾟ", "ﾍ"); put("ﾎﾟ", "ﾎ");
+        put("ﾔ", "ｬ"); put("ﾕ", "ｭ"); put("ﾖ", "ｮ");
+        put("ｬ", "ﾔ"); put("ｭ", "ﾕ"); put("ｮ", "ﾖ");
+        put("ﾜ", "ﾜ"); put("ｳﾞ", "ｳ");
     }};
 
     /** Toggle cycle table for full-width alphabet */
     private static final String[][] JP_FULL_ALPHABET_CYCLE_TABLE = {
-            {"\uff0e", "\uff20", "\uff0d", "\uff3f", "\uff0f", "\uff1a", "\uff5e", "\uff11"},
-            {"\uff41", "\uff42", "\uff43", "\uff21", "\uff22", "\uff23", "\uff12"},
-            {"\uff44", "\uff45", "\uff46", "\uff24", "\uff25", "\uff26", "\uff13"},
-            {"\uff47", "\uff48", "\uff49", "\uff27", "\uff28", "\uff29", "\uff14"},
-            {"\uff4a", "\uff4b", "\uff4c", "\uff2a", "\uff2b", "\uff2c", "\uff15"},
-            {"\uff4d", "\uff4e", "\uff4f", "\uff2d", "\uff2e", "\uff2f", "\uff16"},
-            {"\uff50", "\uff51", "\uff52", "\uff53", "\uff30", "\uff31", "\uff32", "\uff33", "\uff17"},
-            {"\uff54", "\uff55", "\uff56", "\uff34", "\uff35", "\uff36", "\uff18"},
-            {"\uff57", "\uff58", "\uff59", "\uff5a", "\uff37", "\uff38", "\uff39", "\uff3a", "\uff19"},
-            {"\uff0d", "\uff10"},
-            {"\uff0c", "\uff0e", "\uff1f", "\uff01", "\u30fb", "\u3000"}
+            {"．", "＠", "－", "＿", "／", "：", "～", "１"},
+            {"ａ", "ｂ", "ｃ", "Ａ", "Ｂ", "Ｃ", "２"},
+            {"ｄ", "ｅ", "ｆ", "Ｄ", "Ｅ", "Ｆ", "３"},
+            {"ｇ", "ｈ", "ｉ", "Ｇ", "Ｈ", "Ｉ", "４"},
+            {"ｊ", "ｋ", "ｌ", "Ｊ", "Ｋ", "Ｌ", "５"},
+            {"ｍ", "ｎ", "ｏ", "Ｍ", "Ｎ", "Ｏ", "６"},
+            {"ｐ", "ｑ", "ｒ", "ｓ", "Ｐ", "Ｑ", "Ｒ", "Ｓ", "７"},
+            {"ｔ", "ｕ", "ｖ", "Ｔ", "Ｕ", "Ｖ", "８"},
+            {"ｗ", "ｘ", "ｙ", "ｚ", "Ｗ", "Ｘ", "Ｙ", "Ｚ", "９"},
+            {"－", "０"},
+            {"，", "．", "？", "！", "・", "\u3000"}
     };
 
     /** Replace table for full-width alphabet */
     private static final HashMap<String, String> JP_FULL_ALPHABET_REPLACE_TABLE = new HashMap<String, String>() {{
-        put("\uff21", "\uff41"); put("\uff22", "\uff42"); put("\uff23", "\uff43"); put("\uff24", "\uff44"); put("\uff25", "\uff45");
-        put("\uff41", "\uff21"); put("\uff42", "\uff22"); put("\uff43", "\uff23"); put("\uff44", "\uff24"); put("\uff45", "\uff25");
-        put("\uff26", "\uff46"); put("\uff27", "\uff47"); put("\uff28", "\uff48"); put("\uff29", "\uff49"); put("\uff2a", "\uff4a");
-        put("\uff46", "\uff26"); put("\uff47", "\uff27"); put("\uff48", "\uff28"); put("\uff49", "\uff29"); put("\uff4a", "\uff2a");
-        put("\uff2b", "\uff4b"); put("\uff2c", "\uff4c"); put("\uff2d", "\uff4d"); put("\uff2e", "\uff4e"); put("\uff2f", "\uff4f");
-        put("\uff4b", "\uff2b"); put("\uff4c", "\uff2c"); put("\uff4d", "\uff2d"); put("\uff4e", "\uff2e"); put("\uff4f", "\uff2f");
-        put("\uff30", "\uff50"); put("\uff31", "\uff51"); put("\uff32", "\uff52"); put("\uff33", "\uff53"); put("\uff34", "\uff54");
-        put("\uff50", "\uff30"); put("\uff51", "\uff31"); put("\uff52", "\uff32"); put("\uff53", "\uff33"); put("\uff54", "\uff34");
-        put("\uff35", "\uff55"); put("\uff36", "\uff56"); put("\uff37", "\uff57"); put("\uff38", "\uff58"); put("\uff39", "\uff59");
-        put("\uff55", "\uff35"); put("\uff56", "\uff36"); put("\uff57", "\uff37"); put("\uff58", "\uff38"); put("\uff59", "\uff39");
-        put("\uff3a", "\uff5a");
-        put("\uff5a", "\uff3a");
+        put("Ａ", "ａ"); put("Ｂ", "ｂ"); put("Ｃ", "ｃ"); put("Ｄ", "ｄ"); put("Ｅ", "ｅ");
+        put("ａ", "Ａ"); put("ｂ", "Ｂ"); put("ｃ", "Ｃ"); put("ｄ", "Ｄ"); put("ｅ", "Ｅ");
+        put("Ｆ", "ｆ"); put("Ｇ", "ｇ"); put("Ｈ", "ｈ"); put("Ｉ", "ｉ"); put("Ｊ", "ｊ");
+        put("ｆ", "Ｆ"); put("ｇ", "Ｇ"); put("ｈ", "Ｈ"); put("ｉ", "Ｉ"); put("ｊ", "Ｊ");
+        put("Ｋ", "ｋ"); put("Ｌ", "ｌ"); put("Ｍ", "ｍ"); put("Ｎ", "ｎ"); put("Ｏ", "ｏ");
+        put("ｋ", "Ｋ"); put("ｌ", "Ｌ"); put("ｍ", "Ｍ"); put("ｎ", "Ｎ"); put("ｏ", "Ｏ");
+        put("Ｐ", "ｐ"); put("Ｑ", "ｑ"); put("Ｒ", "ｒ"); put("Ｓ", "ｓ"); put("Ｔ", "ｔ");
+        put("ｐ", "Ｐ"); put("ｑ", "Ｑ"); put("ｒ", "Ｒ"); put("ｓ", "Ｓ"); put("ｔ", "Ｔ");
+        put("Ｕ", "ｕ"); put("Ｖ", "ｖ"); put("Ｗ", "ｗ"); put("Ｘ", "ｘ"); put("Ｙ", "ｙ");
+        put("ｕ", "Ｕ"); put("ｖ", "Ｖ"); put("ｗ", "Ｗ"); put("ｘ", "Ｘ"); put("ｙ", "Ｙ");
+        put("Ｚ", "ｚ");
+        put("ｚ", "Ｚ");
     }};
 
     /** Toggle cycle table for half-width alphabet */
@@ -262,12 +260,10 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
     }};
 
     /** Character table for full-width number */
-    private static final char[] INSTANT_CHAR_CODE_FULL_NUMBER =
-            "\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19\uff10\uff03\uff0a".toCharArray();
+    private static final char[] INSTANT_CHAR_CODE_FULL_NUMBER = "１２３４５６７８９０＃＊".toCharArray();
 
     /** Character table for half-width number */
-    private static final char[] INSTANT_CHAR_CODE_HALF_NUMBER =
-            "1234567890#*".toCharArray();
+    private static final char[] INSTANT_CHAR_CODE_HALF_NUMBER = "1234567890#*".toCharArray();
 
     /** The constant for mFixedKeyMode. It means that input mode is not fixed. */
     private static final int INVALID_KEYMODE = -1;
