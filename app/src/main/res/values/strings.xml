@@ -32,96 +32,96 @@
 <resources>
   <!-- common part -->
     <!-- Preferences -->
-    <string name="preference_ime_setting_app">Setting</string>
+    <string name="preference_ime_setting_app">Japanese IMEの設定</string>
 
-    <string name="preference_key_setting_menu">Software Keyboard</string>
+    <string name="preference_key_setting_menu">キーボード設定</string>
 
-    <string name="preference_key_sound_title"> Sound on Key Press </string>
-    <string name="preference_key_sound_summary"> Enable key click sound. </string>
+    <string name="preference_key_sound_title">キー操作音</string>
+    <string name="preference_key_sound_summary">キーを押した時に音を鳴らす</string>
 
-    <string name="preference_key_vibration_title"> Vibrate on Key Press </string>
-    <string name="preference_key_vibration_summary"> Enable key click vibration. </string>
+    <string name="preference_key_vibration_title">キー操作バイブ</string>
+    <string name="preference_key_vibration_summary">キーを押した時に振動で知らせる</string>
 
-    <string name="preference_preview_title"> Key Preview </string>
-    <string name="preference_preview_summary"> Enable key preview. </string>
+    <string name="preference_preview_title">キーポップアップ</string>
+    <string name="preference_preview_summary">入力時に選択したキーを拡大表示する</string>
 
-    <string name="preference_auto_caps_title"> Auto Capitalization </string>
-    <string name="preference_auto_caps_summary"> Automatically capitalize the 1st char of a sentence in alphabet mode. </string>
+    <string name="preference_auto_caps_title">自動大文字変換</string>
+    <string name="preference_auto_caps_summary">英字入力で文頭文字を大文字にする</string>
 
-    <string name="preference_keyboard_skin_title">Keyboard Image</string>
-    <string name="preference_keyboard_skin_summary">Change keyboard image.</string>
+    <string name="preference_keyboard_skin_title">キーボードのデザイン</string>
+    <string name="preference_keyboard_skin_summary">キーボードのデザインを切り替える</string>
 
-    <string name="preference_keyboard_android_default">Standard</string>
-    <string name="preference_keyboard_simple">Simple</string>
-    <string name="preference_keyboard_metal">Metal</string>
+    <string name="preference_keyboard_android_default">標準</string>
+    <string name="preference_keyboard_simple">シンプル</string>
+    <string name="preference_keyboard_metal">メタリック</string>
 
     <string name="preference_conversion_menu">Conversion</string>
-    <string name="preference_conversion_menu_ja">Japanese Conversion</string>
-    <string name="preference_conversion_menu_en">English Conversion</string>
+    <string name="preference_conversion_menu_ja">日本語変換設定</string>
+    <string name="preference_conversion_menu_en">英語変換設定</string>
 
     <string name="preference_prediction_title">Word Prediction</string>
-    <string name="preference_prediction_title_ja">Japanese Word Prediction</string>
-    <string name="preference_prediction_title_en">English Word Prediction</string>
-    <string name="preference_prediction_summary">Display predicted words as conversion candidates.</string>
+    <string name="preference_prediction_title_ja">日本語予測変換</string>
+    <string name="preference_prediction_title_en">英語予測変換</string>
+    <string name="preference_prediction_summary">文字を入力すると変換候補を表示する</string>
 
     <string name="preference_correct_spell_title">Typing Error Correction</string>
-    <string name="preference_correct_spell_title_en">English Typing Error Correction</string>
-    <string name="preference_correct_spell_summary">Display predicted words for correcting typing error.</string>
+    <string name="preference_correct_spell_title_en">英語入力ミス補正</string>
+    <string name="preference_correct_spell_summary">入力間違いの修正候補を表示する</string>
 
     <string name="preference_input_learning_title">Input Word Learning</string>
-    <string name="preference_input_learning_title_ja">Japanese Input Word Learning</string>
-    <string name="preference_input_learning_title_en">English Input Word Learning</string>
-    <string name="preference_input_learning_summary">Learn input words.</string>
+    <string name="preference_input_learning_title_ja">日本語候補学習</string>
+    <string name="preference_input_learning_title_en">英語候補学習</string>
+    <string name="preference_input_learning_summary">変換で確定した語句を学習する</string>
 
-    <string name="preference_aboutime_menu"> About IME </string>
+    <string name="preference_aboutime_menu">IMEについて</string>
 
-    <string name="preference_dictionary_menu"> Dictionary </string>
-    <string name="preference_dictionary_menu_ja"> Japanese User Dictionary </string>
-    <string name="preference_dictionary_menu_en"> English User Dictionary </string>
-    <string name="preference_dictionary_menu_zhcn"> Chinese User Dictionary </string>   
+    <string name="preference_dictionary_menu">辞書</string>
+    <string name="preference_dictionary_menu_ja">日本語ユーザー辞書</string>
+    <string name="preference_dictionary_menu_en">英語ユーザー辞書</string>
+    <string name="preference_dictionary_menu_zhcn">中国語ユーザー辞書</string>
 
-    <string name="preference_user_dictionary">User Dictionary</string>
+    <string name="preference_user_dictionary">ユーザー辞書</string>
 
-    <string name="preference_user_dictionary_edit_words_title">User Dictionary</string>
-    <string name="preference_user_dictionary_edit_words_summary">List/add/edit/delete words in user dictionary.</string>
-    <string name="preference_user_dictionary_edit_words_summary_ja">List/add/edit/delete words in Japanese user dictionary.</string>
-    <string name="preference_user_dictionary_edit_words_summary_en">List/add/edit/delete words in English user dictionary.</string>
-    <string name="preference_user_dictionary_edit_words_summary_zhcn">List/add/edit/delete words in Chinese user dictionary.</string>
+    <string name="preference_user_dictionary_edit_words_title">単語登録/編集/削除</string>
+    <string name="preference_user_dictionary_edit_words_summary">ユーザー辞書の単語を編集する</string>
+    <string name="preference_user_dictionary_edit_words_summary_ja">日本語ユーザー辞書の単語を編集する</string>
+    <string name="preference_user_dictionary_edit_words_summary_en">英語ユーザー辞書の単語を編集する</string>
+    <string name="preference_user_dictionary_edit_words_summary_zhcn">中国語ユーザー辞書の単語を編集する</string>
 
-    <string name="preference_user_dictionary_clear_learning_title">Clear Learning Dictionary</string>
-    <string name="preference_user_dictionary_clear_learning_summary">Remove all words from learning dictionary.</string>
+    <string name="preference_user_dictionary_clear_learning_title">学習辞書リセット</string>
+    <string name="preference_user_dictionary_clear_learning_summary">学習辞書の内容をすべて消去する</string>
 
-    <string name="preference_user_dictionary_clear_user_title">Clear User Dictionary</string>
-    <string name="preference_user_dictionary_clear_user_summary">Remove all words from user dictionary.</string>
+    <string name="preference_user_dictionary_clear_user_title">ユーザー辞書全消去</string>
+    <string name="preference_user_dictionary_clear_user_summary">ユーザー辞書の内容をすべて消去する</string>
 
     <!-- Dialog Messages -->
     <string name="dialog_button_ok">OK</string>
-    <string name="dialog_button_cancel">Cancel</string>
-    <string name="dialog_button_close">Close</string>
+    <string name="dialog_button_cancel">キャンセル</string>
+    <string name="dialog_button_close">閉じる</string>
 
-    <string name="dialog_clear_user_dictionary_message">Clear user dictionary?</string>
-    <string name="dialog_clear_learning_dictionary_message">Clear learning dictionary?</string>
-    <string name="dialog_clear_user_dictionary_done">Cleared.</string>
-    <string name="dialog_clear_learning_dictionary_done">Cleared.</string>
+    <string name="dialog_clear_user_dictionary_message">ユーザー辞書の内容をすべて消去しますか？</string>
+    <string name="dialog_clear_learning_dictionary_message">学習辞書の内容をすべて消去しますか？</string>
+    <string name="dialog_clear_user_dictionary_done">ユーザー辞書の内容をすべて消去しました。</string>
+    <string name="dialog_clear_learning_dictionary_done">学習辞書の内容をすべて消去しました。</string>
 
     <!-- user dictionary -->
-    <string name="user_dictionary_list_words">Registered words</string>
+    <string name="user_dictionary_list_words">単語一覧</string>
     <string name="user_dictionary_list_words_en">@string/preference_dictionary_menu_en</string>
     <string name="user_dictionary_list_words_ja">@string/preference_dictionary_menu_ja</string>
     <string name="user_dictionary_list_words_zhcn">@string/preference_dictionary_menu_zhcn</string>
-    <string name="user_dictionary_edit_words">Edit</string>
-    <string name="user_dictionary_title_read">Reading</string>
-    <string name="user_dictionary_title_candidate">Word</string>
-    <string name="user_dictionary_add">Add</string>
-    <string name="user_dictionary_edit">Edit</string>
-    <string name="user_dictionary_delete">Delete</string>
-    <string name="user_dictionary_delete_confirm">Delete the selected word?</string>
-    <string name="user_dictionary_delete_complete">Deleted.</string>
-    <string name="user_dictionary_delete_fail">Fail to delete it</string>
-    <string name="user_dictionary_words_duplication_message">Already registered.</string>
-    <string name="user_dictionary_over_max_text_size_message">Length of the string exceeds the limit.</string>
-    <string name="user_dictionary_creating_wordlist">Loading</string>
-    <string name="user_dictionary_init">Initialize?</string>
+    <string name="user_dictionary_edit_words">単語編集</string>
+    <string name="user_dictionary_title_read">読み</string>
+    <string name="user_dictionary_title_candidate">表記</string>
+    <string name="user_dictionary_add">登録</string>
+    <string name="user_dictionary_edit">編集</string>
+    <string name="user_dictionary_delete">削除</string>
+    <string name="user_dictionary_delete_confirm">選択した単語を削除しますか？</string>
+    <string name="user_dictionary_delete_complete">削除しました。</string>
+    <string name="user_dictionary_delete_fail">削除に失敗しました。</string>
+    <string name="user_dictionary_words_duplication_message">すでに登録されています。</string>
+    <string name="user_dictionary_over_max_text_size_message">登録できる最大文字数を超えています。</string>
+    <string name="user_dictionary_creating_wordlist">生成中</string>
+    <string name="user_dictionary_init">ユーザー辞書全消去</string>
     <string name="user_dictionary_prev_button">　≪　</string>
     <string name="user_dictionary_next_button">　≫　</string>
 
@@ -148,21 +148,21 @@
     <string name="cn_word_separators">.,;:!?</string>
 
     <!-- Candidate Delete -->
-    <string name="button_candidate_select">Select</string>
-    <string name="button_candidate_delete">Delete learning?</string>
+    <string name="button_candidate_select">選　択</string>
+    <string name="button_candidate_delete">学習削除</string>
 
     <!-- Candidate -->
-    <string name="cand_tab_symbol_txt">Symbol</string>
-    <string name="cand_tab_emoticon_txt">Emoticon</string>
+    <string name="cand_tab_symbol_txt">記号</string>
+    <string name="cand_tab_emoticon_txt">顔文字</string>
 
     <!-- Symbol -->
     <string name="half_symbol_categories_txt">[Half Symbol Categories]</string>
     <string name="full_symbol_categories_txt">[Full Symbol Categories]</string>
-    <string name="half_symbol_txt">Symbol(Half)</string>
-    <string name="full_symbol_txt">Symbol(Full)</string>
+    <string name="half_symbol_txt">記号(半角)</string>
+    <string name="full_symbol_txt">記号(全角)</string>
 
     <!-- Symbol keyboard -->
-    <string name="key_symbol_mode">Cancel</string>
+    <string name="key_symbol_mode">戻る</string>
 
     <!-- Key top -->
     <string name="key_left_arrow">↤</string>
