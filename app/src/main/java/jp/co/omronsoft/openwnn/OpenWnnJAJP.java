@@ -32,7 +32,6 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -47,7 +46,6 @@ import jp.co.omronsoft.openwnn.JAJP.OpenWnnEngineJAJP;
 import jp.co.omronsoft.openwnn.JAJP.Romkan;
 import jp.co.omronsoft.openwnn.JAJP.RomkanFullKatakana;
 import jp.co.omronsoft.openwnn.JAJP.RomkanHalfKatakana;
-import jp.co.omronsoft.openwnn.JAJP.TutorialJAJP;
 
 /**
  * The OpenWnn Japanese IME class
@@ -139,9 +137,6 @@ public class OpenWnnJAJP extends OpenWnn {
 
     /** Message for {@code mHandler} (execute prediction) */
     private static final int MSG_PREDICTION = 0;
-
-    /** Message for {@code mHandler} (execute tutorial) */
-    private static final int MSG_START_TUTORIAL = 1;
 
     /** Message for {@code mHandler} (close) */
     private static final int MSG_CLOSE = 2;
@@ -410,12 +405,6 @@ public class OpenWnnJAJP extends OpenWnn {
     /** List of words in the user dictionary */
     private WnnWord[] mUserDictionaryWords = null;
 
-    /** Tutorial */
-    private TutorialJAJP mTutorial;
-
-    /** Whether tutorial mode or not */
-    private boolean mEnableTutorial;
-
     /** Whether there is a continued predicted candidate */
     private boolean mHasContinuedPrediction = false;
 
@@ -433,24 +422,13 @@ public class OpenWnnJAJP extends OpenWnn {
                 case MSG_PREDICTION:
                     updatePrediction();
                     break;
-                case MSG_START_TUTORIAL:
-                    if (mTutorial == null) {
-                        if (isInputViewShown()) {
-                            DefaultSoftKeyboardJAJP inputManager = ((DefaultSoftKeyboardJAJP) mInputViewManager);
-                            View v = inputManager.getKeyboardView();
-                            mTutorial = new TutorialJAJP(OpenWnnJAJP.this, v, inputManager);
-
-                            mTutorial.start();
-                        } else {
-                            /* Try again soon if the view is not yet showing */
-                            sendMessageDelayed(obtainMessage(MSG_START_TUTORIAL), 100);
-                        }
-                    }
-                    break;
                 case MSG_CLOSE:
-                    if (mConverterJAJP != null) mConverterJAJP.close();
-                    if (mConverterEN != null) mConverterEN.close();
-                    if (mConverterSymbolEngineBack != null) mConverterSymbolEngineBack.close();
+                    if (mConverterJAJP != null)
+                        mConverterJAJP.close();
+                    if (mConverterEN != null)
+                        mConverterEN.close();
+                    if (mConverterSymbolEngineBack != null)
+                        mConverterSymbolEngineBack.close();
                     break;
             }
         }
@@ -529,7 +507,6 @@ public class OpenWnnJAJP extends OpenWnn {
         ((DefaultSoftKeyboardJAJP) mInputViewManager).setHardKeyboardHidden(hidden);
         ((DefaultSoftKeyboard) mInputViewManager).setHardware12Keyboard(type12Key);
         mTextCandidatesViewManager.setHardKeyboardHidden(hidden);
-        mEnableTutorial = hidden;
         mEnableHardware12Keyboard = type12Key;
         return super.onCreateInputView();
     }
@@ -593,12 +570,7 @@ public class OpenWnnJAJP extends OpenWnn {
         mComposingText.clear();
         mInputViewManager.onUpdateState(this);
         clearCommitInfo();
-        mHandler.removeMessages(MSG_START_TUTORIAL);
         mInputViewManager.closing();
-        if (mTutorial != null) {
-            mTutorial.close();
-            mTutorial = null;
-        }
 
         if (OpenWnn.isXLarge()) {
             mTextCandidates1LineViewManager.closeDialog();
@@ -688,7 +660,6 @@ public class OpenWnnJAJP extends OpenWnn {
                 ((DefaultSoftKeyboardJAJP) mInputViewManager).setHardKeyboardHidden(hidden);
                 ((DefaultSoftKeyboard) mInputViewManager).setHardware12Keyboard(type12Key);
                 mTextCandidatesViewManager.setHardKeyboardHidden(hidden);
-                mEnableTutorial = hidden;
                 mEnableHardware12Keyboard = type12Key;
             }
         } catch (Exception ex) {
@@ -1052,9 +1023,6 @@ public class OpenWnnJAJP extends OpenWnn {
                     case KeyEvent.KEYCODE_DPAD_LEFT:
                     case KeyEvent.KEYCODE_DPAD_RIGHT:
                     case KeyEvent.KEYCODE_DPAD_UP:
-                        if (mTutorial != null) {
-                            return true;
-                        }
                         break;
 
                     case KeyEvent.KEYCODE_ALT_LEFT:
@@ -2772,9 +2740,6 @@ public class OpenWnnJAJP extends OpenWnn {
         updateEngineState(state);
         updateMetaKeyStateDisplay();
 
-        if (!OpenWnn.isXLarge()) {
-            checkTutorial(info.privateImeOptions);
-        }
     }
 
     /**
@@ -3016,51 +2981,6 @@ public class OpenWnnJAJP extends OpenWnn {
             mPrevCommitCount = 0;
             clearCommitInfo();
         }
-    }
-
-    /**
-     * Check and start the tutorial if it is the tutorial mode.
-     *
-     * @param privateImeOptions IME's options
-     */
-    private void checkTutorial(String privateImeOptions) {
-        if (privateImeOptions == null) return;
-        if (privateImeOptions.equals("com.google.android.setupwizard:ShowTutorial")) {
-            if ((mTutorial == null) && mEnableTutorial) startTutorial();
-        } else if (privateImeOptions.equals("com.google.android.setupwizard:HideTutorial")) {
-            if (mTutorial != null) {
-                if (mTutorial.close()) {
-                    mTutorial = null;
-                }
-            }
-        }
-    }
-
-    /**
-     * Start the tutorial
-     */
-    private void startTutorial() {
-        DefaultSoftKeyboardJAJP manager = (DefaultSoftKeyboardJAJP) mInputViewManager;
-        manager.setDefaultKeyboard();
-        if (mEngineState.keyboard == EngineState.KEYBOARD_QWERTY) {
-            manager.changeKeyboardType(DefaultSoftKeyboard.KEYBOARD_12KEY);
-        }
-
-        DefaultSoftKeyboardJAJP inputManager = ((DefaultSoftKeyboardJAJP) mInputViewManager);
-        View v = inputManager.getKeyboardView();
-        v.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_START_TUTORIAL), 500);
-    }
-
-    /**
-     * Close the tutorial
-     */
-    public void tutorialDone() {
-        mTutorial = null;
     }
 
     /** @see OpenWnn#close */

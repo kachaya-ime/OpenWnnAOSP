@@ -37,7 +37,6 @@ import android.view.inputmethod.EditorInfo;
 
 import jp.co.omronsoft.openwnn.EN.DefaultSoftKeyboardEN;
 import jp.co.omronsoft.openwnn.EN.OpenWnnEngineEN;
-import jp.co.omronsoft.openwnn.EN.TutorialEN;
 
 /**
  * The OpenWnn English IME class.
@@ -108,17 +107,8 @@ public class OpenWnnEN extends OpenWnn {
     /** Whether dismissing the keyboard when the enter key is pressed */
     private boolean mEnableAutoHideKeyboard = true;
 
-    /** Tutorial */
-    private TutorialEN mTutorial;
-
-    /** Whether tutorial mode or not */
-    private boolean mEnableTutorial;
-
     /** Message for {@code mHandler} (execute prediction) */
     private static final int MSG_PREDICTION = 0;
-
-    /** Message for {@code mHandler} (execute tutorial) */
-    private static final int MSG_START_TUTORIAL = 1;
 
     /** Message for {@code mHandler} (close) */
     private static final int MSG_CLOSE = 2;
@@ -136,20 +126,6 @@ public class OpenWnnEN extends OpenWnn {
             switch (msg.what) {
                 case MSG_PREDICTION:
                     updatePrediction();
-                    break;
-                case MSG_START_TUTORIAL:
-                    if (mTutorial == null) {
-                        if (isInputViewShown()) {
-                            DefaultSoftKeyboardEN inputManager = ((DefaultSoftKeyboardEN) mInputViewManager);
-                            View v = inputManager.getKeyboardView();
-                            mTutorial = new TutorialEN(OpenWnnEN.this, v, inputManager);
-
-                            mTutorial.start();
-                        } else {
-                            /* Try again soon if the view is not yet showing */
-                            sendMessageDelayed(obtainMessage(MSG_START_TUTORIAL), 100);
-                        }
-                    }
                     break;
                 case MSG_CLOSE:
                     if (mConverterEN != null) mConverterEN.close();
@@ -307,7 +283,6 @@ public class OpenWnnEN extends OpenWnn {
         int hiddenState = getResources().getConfiguration().hardKeyboardHidden;
         boolean hidden = (hiddenState == Configuration.HARDKEYBOARDHIDDEN_YES);
         ((DefaultSoftKeyboardEN) mInputViewManager).setHardKeyboardHidden(hidden);
-        mEnableTutorial = hidden;
 
         return super.onCreateInputView();
     }
@@ -356,12 +331,7 @@ public class OpenWnnEN extends OpenWnn {
         ((BaseInputView) ((DefaultSoftKeyboard) mInputViewManager).getCurrentView()).closeDialog();
         mComposingText.clear();
         mInputViewManager.onUpdateState(this);
-        mHandler.removeMessages(MSG_START_TUTORIAL);
         mInputViewManager.closing();
-        if (mTutorial != null) {
-            mTutorial.close();
-            mTutorial = null;
-        }
 
         super.hideWindow();
     }
@@ -394,7 +364,6 @@ public class OpenWnnEN extends OpenWnn {
             /* Hardware keyboard */
             int hiddenState = newConfig.hardKeyboardHidden;
             boolean hidden = (hiddenState == Configuration.HARDKEYBOARDHIDDEN_YES);
-            mEnableTutorial = hidden;
         } catch (Exception ex) {
         }
     }
@@ -1042,46 +1011,6 @@ public class OpenWnnEN extends OpenWnn {
         } else {
             mConverterEN.setDictionary(OpenWnnEngineEN.DICT_DEFAULT);
         }
-        checkTutorial(info.privateImeOptions);
-    }
-
-    /**
-     * Check and start the tutorial if it is the tutorial mode.
-     *
-     * @param privateImeOptions IME's options
-     */
-    private void checkTutorial(String privateImeOptions) {
-        if (privateImeOptions == null) return;
-        if (privateImeOptions.equals("com.google.android.setupwizard:ShowTutorial")) {
-            if ((mTutorial == null) && mEnableTutorial) startTutorial();
-        } else if (privateImeOptions.equals("com.google.android.setupwizard:HideTutorial")) {
-            if (mTutorial != null) {
-                if (mTutorial.close()) {
-                    mTutorial = null;
-                }
-            }
-        }
-    }
-
-    /**
-     * Start the tutorial
-     */
-    private void startTutorial() {
-        DefaultSoftKeyboardEN inputManager = ((DefaultSoftKeyboardEN) mInputViewManager);
-        View v = inputManager.getKeyboardView();
-        v.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_START_TUTORIAL), 500);
-    }
-
-    /**
-     * Close the tutorial
-     */
-    public void tutorialDone() {
-        mTutorial = null;
     }
 
     /** @see OpenWnn#close */

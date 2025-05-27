@@ -127,20 +127,20 @@
 
   <!-- IME dependency -->
     <!-- OpenWnn English -->
-    <string name="openwnn_english_copyright">Ver.1.3.6\nOMRON SOFTWARE Co.,Ltd.</string>
+    <string name="openwnn_english_copyright">Ver.1.3.6\nオムロン ソフトウェア(株)</string>
     <string name="openwnn_english">OpenWnn English</string>
     <string name="openwnn_english_system_dictionary">/data/data/jp.co.omronsoft.openwnn/lib/libWnnEngDic.so</string>
     <string name="openwnn_english_writable_dictionary">/data/data/jp.co.omronsoft.openwnn/writableEN.dic</string>
     <string name="en_word_separators">.,;:!?</string>
 
     <!-- OpenWnn Japanese -->
-    <string name="openwnn_japanese_copyright">Ver.1.3.6\nOMRON SOFTWARE Co.,Ltd.</string>
+    <string name="openwnn_japanese_copyright">Ver.1.3.6\nオムロン ソフトウェア(株)</string>
     <string name="openwnn_japanese">Japanese IME</string>
     <string name="openwnn_japanese_system_dictionary">/data/data/jp.co.omronsoft.openwnn/lib/libWnnJpnDic.so</string>
     <string name="openwnn_japanese_writable_dictionary">/data/data/jp.co.omronsoft.openwnn/writableJAJP.dic</string>
 
     <!-- OpenWnn Chinese -->
-    <string name="openwnn_china_copyright">Ver.1.3.6\nOMRON SOFTWARE Co.,Ltd.</string>
+    <string name="openwnn_china_copyright">Ver.1.3.6\nオムロン ソフトウェア(株)</string>
     <string name="openwnn_china">OpenWnn Chinese</string>
     <string name="openwnn_china_system_dictionary">/data/data/jp.co.omronsoft.openwnn/lib/libWnnZHCNDic.so</string>
     <!-- After Config Change -->
@@ -269,38 +269,18 @@
     <string name="indicator_caps">CAPS</string>
     <string name="indicator_alt">ALT</string>
 
-    <!-- Tutorial -->
-    <string name="touch_to_continue">Next »</string>
-    <string name="touch_to_try">Try it on the button below.</string>
-    <string name="touch_to_finish">Try typing and using the keyboard yourself!</string>
-    <string name="tip_to_step1"><b>Like a normal mobile keyboard, tapping ○ three times will result\nin *C*.</b></string>
-    <string name="tip_to_step2_a"><b>For example, let\'s type \"hi.\"\n- Tap ○ twice to get \"h\"</b></string>
-    <string name="tip_to_step2_b"><b>\n- Tap → to advance to the right</b></string>
-    <string name="tip_to_step2_c"><b>\n- Tap ○ three times to get \"i\"</b></string>
-    <string name="tip_to_step2_d"><b>\n- Use touch or ↓ to set the word.</b></string>
-    <string name="tip_to_step3_a"><b>The ■ key switches between Japanese, English, and number input.</b></string>
-    <string name="tip_to_step3_b"><b>We\'ve switched from English to numbers. Next is Japanese.</b></string>
-    <string name="tip_to_step3_c"><b>Let\'s return to English now.</b></string>
-    <string name="tip_to_step4"><b>For other input modes (like full width)\nor a PC style keyboard, hold ■\nfor 3 seconds to show the input menu.</b></string>
-    <string name="tip_to_step5"><b>When you\'re done typing, hit the \"back\" key (←) to close the keyboard.</b></string>
-    <string name="tip_to_step6"><b>This is the end of the tutorial.</b></string>
-
-    <string name="tip_en_to_open_keyboard"><b>The keyboard opens any time you touch a text field.</b></string>
-    <string name="tip_en_to_close_keyboard"><b>Press \"back\" (←) to close the keyboard.</b></string>
-    <string name="tip_en_end_of_tutorial"><b>This is the end of the tutorial.</b></string>
-
     <!-- subtype String -->
     <string name="label_subtype_generic">%s</string>
 
-    <string name="ti_input_mode_full_hirakana_title_txt">Hiragana-Kanji</string>
-    <string name="ti_input_mode_full_katakana_title_txt">Full-width Katakana</string>
-    <string name="ti_input_mode_half_katakana_title_txt">Half-width Katakana</string>
-    <string name="ti_input_mode_full_alphabet_title_txt">Full-width Alphabet</string>
-    <string name="ti_input_mode_half_alphabet_title_txt">Half-width Alphabet</string>
-    <string name="ti_input_mode_full_number_title_txt">Full-width Numeric</string>
-    <string name="ti_input_mode_half_number_title_txt">Half-width Numeric</string>
+    <string name="ti_input_mode_full_hirakana_title_txt">ひらがな漢字</string>
+    <string name="ti_input_mode_full_katakana_title_txt">全角カタカナ</string>
+    <string name="ti_input_mode_half_katakana_title_txt">半角カタカナ</string>
+    <string name="ti_input_mode_full_alphabet_title_txt">全角英字</string>
+    <string name="ti_input_mode_half_alphabet_title_txt">半角英字</string>
+    <string name="ti_input_mode_full_number_title_txt">全角数字</string>
+    <string name="ti_input_mode_half_number_title_txt">半角数字</string>
 
-    <string name="ti_long_press_dialog_input_mode_txt">Input Mode</string>
+    <string name="ti_long_press_dialog_input_mode_txt">入力モード切替</string>
 
 </resources>
 
