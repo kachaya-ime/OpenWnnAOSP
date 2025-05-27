@@ -221,6 +221,11 @@ public class OpenWnnEvent {
     public static final int CANDIDATE_VIEW_TOUCH = 0xF000001D;
 
     /**
+     * Delete a candidate
+     */
+    public static final int DELETE_CANDIDATE = 0xF000001E;
+
+    /**
      * Key up event.
      */
     public static final int KEYUP = 0xF000001F;

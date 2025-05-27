@@ -527,9 +527,21 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
 
         /* cancel button */
         longPressDialogButton = (Button) mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_cancel);
-        longPressDialogButton.setOnClickListener(new View.OnClickListener() {
+        longPressDialogButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 playSoundAndVibration();
+                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.LIST_CANDIDATES_NORMAL));
+                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.UPDATE_CANDIDATE));
+                closeDialog();
+            }
+        });
+
+        /* delete button */
+        longPressDialogButton = (Button) mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_delete);
+        longPressDialogButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                playSoundAndVibration();
+                deleteCandidate(mWord);
                 mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.LIST_CANDIDATES_NORMAL));
                 mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.UPDATE_CANDIDATE));
                 closeDialog();
@@ -1288,6 +1300,22 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
         }
         mIsSymbolSelected = mIsSymbolMode;
         mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.SELECT_CANDIDATE, word));
+    }
+
+    /**
+     * Delete a candidate.
+     * <br>
+     * This method notices the selected word to {@link OpenWnn}.
+     *
+     * @param word  The selected word
+     */
+    private void deleteCandidate(WnnWord word) {
+        if (!mIsSymbolMode) {
+            mIsFullView = false;
+            mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.LIST_CANDIDATES_NORMAL));
+        }
+        mIsSymbolSelected = mIsSymbolMode;
+        mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.DELETE_CANDIDATE, word));
     }
 
     private void playSoundAndVibration() {

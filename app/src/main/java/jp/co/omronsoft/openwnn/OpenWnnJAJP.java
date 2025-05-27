@@ -746,6 +746,10 @@ public class OpenWnnJAJP extends OpenWnn {
                 mConverterJAJP.deleteWord(ev.word);
                 return true;
 
+            case OpenWnnEvent.DELETE_CANDIDATE:
+                mConverterJAJP.deleteCandidate(ev.word);
+                return true;
+
             case OpenWnnEvent.CHANGE_MODE:
                 changeEngineMode(ev.mode);
                 if (!(ev.mode == ENGINE_MODE_SYMBOL || ev.mode == ENGINE_MODE_EISU_KANA)) {

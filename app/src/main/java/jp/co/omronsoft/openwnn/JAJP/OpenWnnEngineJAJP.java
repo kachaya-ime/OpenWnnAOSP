@@ -546,6 +546,13 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         return false;
     }
 
+    /** @see jp.co.omronsoft.openwnn.WnnEngine#deleteCandidate */
+    public void deleteCandidate(WnnWord word) {
+        mDictionaryJP.setInUseState(true);
+        mDictionaryJP.removeWordFromLearnDictionary(word);
+        mDictionaryJP.setInUseState(false);
+    }
+
     /** @see jp.co.omronsoft.openwnn.WnnEngine#setPreferences */
     public void setPreferences(SharedPreferences pref) {
     }

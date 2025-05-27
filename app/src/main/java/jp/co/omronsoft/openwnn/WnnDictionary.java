@@ -359,5 +359,13 @@ public interface WnnDictionary {
      * @return 0 if no error occur; <0 if an error occur
      */
     public int learnWord(WnnWord word, WnnWord previousWord);
+
+    /**
+     * Remove the word from learn dictionary.
+     *
+     * @param word      The word
+     * @return 0 if no error occur; <0 if an error occur
+     */
+    public int removeWordFromLearnDictionary(WnnWord word);
 }
 
