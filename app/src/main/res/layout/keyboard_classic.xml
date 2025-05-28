@@ -15,11 +15,12 @@
  limitations under the License.
 -->
 <android.inputmethodservice.KeyboardView
-   xmlns:android="http://schemas.android.com/apk/res/android"
-   android:id="@+id/keyboard"
-   android:layout_alignParentBottom="true"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:keyBackground="@drawable/keybg_classic_def"
-   android:background="@drawable/keybg_classic_bg"
-/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wnn="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@drawable/keybg_classic_bg"
+    wnn:keyBackground="@drawable/keybg_classic_def"
+    />

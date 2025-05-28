@@ -15,16 +15,36 @@
  limitations under the License.
 -->
 
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:wnn="http://schemas.android.com/apk/res/jp.co.omronsoft.openwnn"
-    android:keyHeight="@dimen/key_height_4key"
+<Keyboard
+    xmlns:wnn="http://schemas.android.com/apk/res-auto"
+    wnn:keyHeight="@dimen/key_height_4key"
     >
 
     <Row>
-        <Key android:codes="-300" android:keyLabel="@string/key_symbol_mode" android:keyEdgeFlags="left" android:keyWidth="25%p" wnn:isSecondKey="true"/>
-        <Key android:codes="-301" android:keyWidth="25%p" android:keyLabel="\u25b2" wnn:isSecondKey="true" />
-        <Key android:codes="-302" android:keyWidth="25%p" android:keyLabel="\u25bc" wnn:isSecondKey="true" />
-        <Key android:codes="-303" android:keyIcon="@drawable/key_del" android:iconPreview="@drawable/key_del_b" android:isRepeatable="true" android:keyEdgeFlags="right" android:keyWidth="25%p" wnn:isSecondKey="true" />
+        <Key wnn:codes="-300"
+            wnn:isSecondKey="true"
+            wnn:keyEdgeFlags="left"
+            wnn:keyLabel="@string/key_symbol_mode"
+            wnn:keyWidth="25%p"
+            />
+        <Key wnn:codes="-301"
+            wnn:isSecondKey="true"
+            wnn:keyLabel="\u25b2"
+            wnn:keyWidth="25%p"
+            />
+        <Key wnn:codes="-302"
+            wnn:isSecondKey="true"
+            wnn:keyLabel="\u25bc"
+            wnn:keyWidth="25%p"
+            />
+        <Key wnn:codes="-303"
+            wnn:iconPreview="@drawable/key_del_b"
+            wnn:isRepeatable="true"
+            wnn:isSecondKey="true"
+            wnn:keyEdgeFlags="right"
+            wnn:keyIcon="@drawable/key_del"
+            wnn:keyWidth="25%p"
+            />
     </Row>
 </Keyboard>
 

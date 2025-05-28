@@ -18,10 +18,10 @@
 <!-- for the Search Manager. -->
 
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
-              android:settingsActivity="jp.co.omronsoft.openwnn.OpenWnnControlPanelJAJP"
-              >
-   <subtype android:label="@string/label_subtype_generic"
-           android:imeSubtypeLocale="ja"
-           android:imeSubtypeMode="keyboard"
-   />
+    android:settingsActivity="jp.co.omronsoft.openwnn.OpenWnnControlPanelJAJP"
+    >
+    <subtype android:imeSubtypeLocale="ja"
+        android:imeSubtypeMode="keyboard"
+        android:label="@string/label_subtype_generic"
+        />
 </input-method>

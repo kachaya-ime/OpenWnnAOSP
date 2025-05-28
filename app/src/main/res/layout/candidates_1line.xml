@@ -16,62 +16,65 @@
 -->
 <!-- candidate list -->
 <LinearLayout
-   xmlns:android="http://schemas.android.com/apk/res/android"
-   android:orientation="horizontal"
-   android:layout_width="match_parent"
-   android:layout_height="@dimen/candidate_layout_height"
-   >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/candidate_layout_height"
+    android:orientation="horizontal"
+    >
 
-  <LinearLayout
-     android:id="@+id/left_more"
-     android:layout_width="wrap_content"
-     android:layout_height="@dimen/candidate_layout_height"
-     android:orientation="horizontal"
-     android:background="@drawable/cand_back_1line"
-     >
-    <ImageView
-       android:id="@+id/left_more_imageview"
-       android:src="@drawable/cand_left"
-       android:layout_width="@dimen/candidate_layout_width"
-       android:layout_height="match_parent"
-       android:clickable="true"
-       android:background="@color/candidate_back_1line"
-       android:soundEffectsEnabled="false"
-       />
-  </LinearLayout>
-
-  <HorizontalScrollView
-     android:id="@+id/candview_scroll_1line"
-     android:layout_width="wrap_content"
-     android:layout_height="@dimen/candidate_layout_height"
-     android:scrollbars="none"
-     android:layout_weight="1"
-     android:fadingEdge="horizontal"
-     android:background="@color/candidate_back_1line"
-     >
     <LinearLayout
-       android:id="@+id/candidates_view_1line"
-       android:layout_width="match_parent"
-       android:layout_height="@dimen/candidate_layout_height"
-       android:background="@color/candidate_back_1line"
-       />
-  </HorizontalScrollView>
+        android:id="@+id/left_more"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/candidate_layout_height"
+        android:background="@drawable/cand_back_1line"
+        android:orientation="horizontal"
+        >
 
-  <LinearLayout
-     android:id="@+id/right_more"
-     android:layout_width="wrap_content"
-     android:layout_height="@dimen/candidate_layout_height"
-     android:orientation="horizontal"
-     android:background="@drawable/cand_back_1line"
-     >
-    <ImageView
-       android:id="@+id/right_more_imageview"
-       android:src="@drawable/cand_right"
-       android:layout_width="@dimen/candidate_layout_width"
-       android:layout_height="match_parent"
-       android:clickable="true"
-       android:background="@color/candidate_back_1line"
-       android:soundEffectsEnabled="false"
-       />
-  </LinearLayout>
+        <ImageView
+            android:id="@+id/left_more_imageview"
+            android:layout_width="@dimen/candidate_layout_width"
+            android:layout_height="match_parent"
+            android:background="@color/candidate_back_1line"
+            android:clickable="true"
+            android:soundEffectsEnabled="false"
+            android:src="@drawable/cand_left"
+            />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/candview_scroll_1line"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/candidate_layout_height"
+        android:layout_weight="1"
+        android:background="@color/candidate_back_1line"
+        android:fadingEdge="horizontal"
+        android:scrollbars="none"
+        >
+
+        <LinearLayout
+            android:id="@+id/candidates_view_1line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/candidate_layout_height"
+            android:background="@color/candidate_back_1line"
+            />
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/right_more"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/candidate_layout_height"
+        android:background="@drawable/cand_back_1line"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/right_more_imageview"
+            android:layout_width="@dimen/candidate_layout_width"
+            android:layout_height="match_parent"
+            android:background="@color/candidate_back_1line"
+            android:clickable="true"
+            android:soundEffectsEnabled="false"
+            android:src="@drawable/cand_right"
+            />
+    </LinearLayout>
 </LinearLayout>

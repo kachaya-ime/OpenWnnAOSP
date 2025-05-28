@@ -14,26 +14,26 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<android.inputmethodservice.KeyboardView
-   xmlns:android="http://schemas.android.com/apk/res/android"
-   xmlns:pj="http://schemas.android.com/apk/res/jp.co.omronsoft.openwnn"
-   android:id="@+id/keyboard"
-   android:layout_alignParentBottom="true"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:background="@drawable/keyboard_background"
-   android:keyBackground="@drawable/btn_keyboard_key"
-   android:verticalCorrection="-10dip"
-   android:keyPreviewLayout="@layout/keyboard_key_preview"
-   android:keyPreviewOffset="-12dip"
-   android:keyPreviewHeight="80dip"
-   android:keyTextSize="22dip"
-   android:keyTextColor="@color/key_text_color"
-   android:labelTextSize="@dimen/key_label_text_size"
-   android:popupLayout="@layout/keyboard_popup_keyboard"
-   android:shadowColor="#BB000000"
-   android:shadowRadius="0.5"
-   pj:keyBackground2nd="@drawable/btn_keyboard_key_2nd"
-   pj:keyTextColor2nd="@color/key_text_color_2nd"
-   />
+<jp.co.omronsoft.openwnn.KeyboardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wnn="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@drawable/keyboard_background"
+    wnn:keyBackground="@drawable/btn_keyboard_key"
+    wnn:keyBackground2nd="@drawable/btn_keyboard_key_2nd"
+    wnn:keyPreviewHeight="80dip"
+    wnn:keyPreviewLayout="@layout/keyboard_key_preview"
+    wnn:keyPreviewOffset="-12dip"
+    wnn:keyTextColor="@color/key_text_color"
+    wnn:keyTextColor2nd="@color/key_text_color_2nd"
+    wnn:keyTextSize="22dip"
+    wnn:labelTextSize="@dimen/key_label_text_size"
+    wnn:popupLayout="@layout/keyboard_popup_keyboard"
+    wnn:shadowColor="#BB000000"
+    wnn:shadowRadius="0.5"
+    wnn:verticalCorrection="-10dip"
+    />
 

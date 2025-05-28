@@ -30,7 +30,7 @@
  limitations under the License.
 -->
 <resources>
-  <!-- common part -->
+    <!-- common part -->
     <!-- Preferences -->
     <string name="preference_ime_setting_app">Japanese IMEの設定</string>
 
@@ -125,7 +125,7 @@
     <string name="user_dictionary_prev_button">　≪　</string>
     <string name="user_dictionary_next_button">　≫　</string>
 
-  <!-- IME dependency -->
+    <!-- IME dependency -->
     <!-- OpenWnn English -->
     <string name="openwnn_english_copyright">Ver.1.3.6\nオムロン ソフトウェア(株)</string>
     <string name="openwnn_english">OpenWnn English</string>

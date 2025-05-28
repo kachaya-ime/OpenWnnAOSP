@@ -14,26 +14,44 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-	  android:keyWidth="15%p"
-	  android:horizontalGap="0dip"
-	  android:verticalGap="0dip"
-	  android:keyHeight="50dip"
-	  >
-  <Row>
-    <Key android:codes="-301" android:keyLabel="@string/key_12key_switch_full_hiragana"
-	 android:keyEdgeFlags="left"/>
-    <Key android:codes="-302" android:keyLabel="@string/key_12key_switch_full_katakana"/>
-    <Key android:codes="-303" android:keyLabel="@string/key_12key_switch_full_alphabet"/>
-    <Key android:codes="-304" android:keyLabel="@string/key_12key_switch_full_number"
-	 android:keyEdgeFlags="right"/>
-  </Row>
-  <Row>
-    <Key android:codes="-104" android:keyIcon="@drawable/key_mode_panel_kbd_12key" android:iconPreview="@drawable/key_mode_panel_kbd_12key_b"
-	 android:keyEdgeFlags="left"/>
-    <Key android:codes="-306" android:keyLabel="@string/key_12key_switch_half_katakana"/>
-    <Key android:codes="-307" android:keyLabel="@string/key_12key_switch_half_alphabet"/>
-    <Key android:codes="-308" android:keyLabel="@string/key_12key_switch_half_number"
-	 android:keyEdgeFlags="right"/>
-  </Row>
+<Keyboard
+    xmlns:wnn="http://schemas.android.com/apk/res-auto"
+    wnn:horizontalGap="0dip"
+    wnn:keyHeight="50dip"
+    wnn:keyWidth="15%p"
+    wnn:verticalGap="0dip"
+    >
+    <Row>
+        <Key wnn:codes="-301"
+            wnn:keyEdgeFlags="left"
+            wnn:keyLabel="@string/key_12key_switch_full_hiragana"
+            />
+        <Key wnn:codes="-302"
+            wnn:keyLabel="@string/key_12key_switch_full_katakana"
+            />
+        <Key wnn:codes="-303"
+            wnn:keyLabel="@string/key_12key_switch_full_alphabet"
+            />
+        <Key wnn:codes="-304"
+            wnn:keyEdgeFlags="right"
+            wnn:keyLabel="@string/key_12key_switch_full_number"
+            />
+    </Row>
+    <Row>
+        <Key wnn:codes="-104"
+            wnn:iconPreview="@drawable/key_mode_panel_kbd_12key_b"
+            wnn:keyEdgeFlags="left"
+            wnn:keyIcon="@drawable/key_mode_panel_kbd_12key"
+            />
+        <Key wnn:codes="-306"
+            wnn:keyLabel="@string/key_12key_switch_half_katakana"
+            />
+        <Key wnn:codes="-307"
+            wnn:keyLabel="@string/key_12key_switch_half_alphabet"
+            />
+        <Key wnn:codes="-308"
+            wnn:keyEdgeFlags="right"
+            wnn:keyLabel="@string/key_12key_switch_half_number"
+            />
+    </Row>
 </Keyboard>

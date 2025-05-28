@@ -16,8 +16,10 @@
 -->
 
 <resources>
+
     <style name="WnnKeyboardView" parent="@android:style/Widget.KeyboardView">
     </style>
+
     <style name="Dialog" parent="android:style/Theme.Holo.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
     </style>

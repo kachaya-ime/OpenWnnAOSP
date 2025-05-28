@@ -34,12 +34,13 @@
 -->
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" 
+    xmlns:wnn="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="14sp"
-    android:textColor="?android:attr/textColorPrimary"
-    android:minWidth="32dip"
     android:gravity="center"
-    android:shadowRadius="2.75"
-    android:shadowColor="#BB000000"
+    android:minWidth="32dip"
+    android:textColor="?android:attr/textColorPrimary"
+    android:textSize="14sp"
+    wnn:shadowColor="#BB000000"
+    wnn:shadowRadius="2.75"
     />

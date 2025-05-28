@@ -15,53 +15,60 @@
  limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
         android:text="@string/user_dictionary_title_read"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-    <EditText android:id="@+id/editRead"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editRead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLength="20"/>
+        android:maxLength="20" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
         android:text="@string/user_dictionary_title_candidate"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-    <EditText android:id="@+id/editCandidate"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editCandidate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLength="20"/>
+        android:maxLength="20" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_marginTop="1dip"
         android:background="@android:drawable/bottom_bar">
-        <Button android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:text="@string/dialog_button_cancel"
-            android:minWidth="120dip"
-            android:minHeight="48dip"/>
 
-        <Button android:id="@+id/addButton"
+        <Button
+            android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:text="@string/user_dictionary_add"
             android:minWidth="120dip"
-            android:minHeight="48dip"/>
+            android:minHeight="48dip"
+            android:text="@string/dialog_button_cancel" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:minWidth="120dip"
+            android:minHeight="48dip"
+            android:text="@string/user_dictionary_add" />
     </RelativeLayout>
 </LinearLayout>

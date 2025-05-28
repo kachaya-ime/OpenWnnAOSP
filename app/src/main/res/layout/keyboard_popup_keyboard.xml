@@ -15,39 +15,40 @@
  limitations under the License.
 -->
 
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wnn="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/keyboard_popup_panel_background"
+    android:orientation="horizontal">
+
+    <jp.co.omronsoft.openwnn.KeyboardView
+        android:id="@+id/keyboardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/keyboard_popup_panel_background"
-        >
-
-    <android.inputmethodservice.KeyboardView
-            android:id="@+id/keyboardView"
-            android:background="@android:color/transparent"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:keyBackground="@drawable/btn_keyboard_key_std"
-            android:verticalCorrection="-10dip"
-            android:keyPreviewLayout="@layout/keyboard_key_preview"
-            android:keyPreviewOffset="-12dip"
-            android:keyPreviewHeight="80dip"
-            android:keyTextSize="22dip"
-            android:keyTextColor="@color/key_text_color_std"
-            android:labelTextSize="14dip"
-            android:popupLayout="@layout/keyboard_popup_keyboard"
-            android:shadowColor="#BB000000"
-            android:shadowRadius="0.5"
-            />
-    <ImageButton android:id="@+id/closeButton"
+        android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
-        android:src="@drawable/btn_close"
+        wnn:keyBackground="@drawable/btn_keyboard_key_std"
+        wnn:keyPreviewHeight="80dip"
+        wnn:keyPreviewLayout="@layout/keyboard_key_preview"
+        wnn:keyPreviewOffset="-12dip"
+        wnn:keyTextColor="@color/key_text_color_std"
+        wnn:keyTextSize="22dip"
+        wnn:labelTextSize="14dip"
+        wnn:popupLayout="@layout/keyboard_popup_keyboard"
+        wnn:shadowColor="#BB000000"
+        wnn:shadowRadius="0.5"
+        wnn:verticalCorrection="-10dip"
+        />
+
+    <ImageButton
+        android:id="@+id/closeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="8dp"
+        android:background="@android:color/transparent"
         android:clickable="true"
+        android:src="@drawable/btn_close"
         />
 </LinearLayout>

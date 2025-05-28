@@ -15,127 +15,140 @@
  limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
-   <LinearLayout android:orientation="vertical"
-     android:layout_width="fill_parent"
-     android:layout_height="wrap_content">
-
-     <LinearLayout android:orientation="horizontal"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/debug_texttype_anything"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <EditText
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-        />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/debug_texttype_anything"
+                />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
 
-           <LinearLayout android:orientation="horizontal"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content">
-              <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/debug_texttype_integer"
-              />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-              <EditText 
-                 android:numeric="integer"
-                 android:layout_width="fill_parent" 
-                 android:layout_height="wrap_content" 	
-              />
-           </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/debug_texttype_integer"
+                />
 
-           <LinearLayout android:orientation="horizontal"
-                 android:layout_width="fill_parent"
-                 android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:numeric="integer"
+                />
+        </LinearLayout>
 
-                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/debug_texttype_signed"
-                 />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                 <EditText
-                    android:numeric="signed"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                 />
-             </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/debug_texttype_signed"
+                />
 
-             <LinearLayout android:orientation="horizontal"
-                 android:layout_width="fill_parent"
-                 android:layout_height="wrap_content">
-                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/debug_texttype_demical"
-                 />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:numeric="signed"
+                />
+        </LinearLayout>
 
-                 <EditText
-                    android:numeric="decimal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                 />
-                 </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                 <LinearLayout android:orientation="horizontal"
-                     android:layout_width="fill_parent"
-                     android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/debug_texttype_demical"
+                />
 
-                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/debug_texttype_password"
-                     />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:numeric="decimal"
+                />
+        </LinearLayout>
 
-                     <EditText
-                        android:password="true"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                     />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                 </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/debug_texttype_password"
+                />
 
-                 <LinearLayout android:orientation="horizontal"
-                     android:layout_width="fill_parent"
-                     android:layout_height="wrap_content">
-                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/debug_texttype_phone"
-                     />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:password="true"
+                />
 
-                     <EditText
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:phoneNumber="true"
-                     />
-                  </LinearLayout>
+        </LinearLayout>
 
-                  <LinearLayout android:orientation="horizontal"
-                     android:layout_width="fill_parent"
-                     android:layout_height="wrap_content">
-                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/debug_texttype_singleLine"
-                     />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                     <EditText
-                        android:id="@+id/singleLine"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                     />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/debug_texttype_phone"
+                />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:phoneNumber="true"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/debug_texttype_singleLine"
+                />
+
+            <EditText
+                android:id="@+id/singleLine"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

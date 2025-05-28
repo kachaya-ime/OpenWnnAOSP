@@ -20,7 +20,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.inputmethodservice.Keyboard;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,6 +32,7 @@ import java.util.Locale;
 
 import jp.co.omronsoft.openwnn.BaseInputView;
 import jp.co.omronsoft.openwnn.DefaultSoftKeyboard;
+import jp.co.omronsoft.openwnn.Keyboard;
 import jp.co.omronsoft.openwnn.OpenWnn;
 import jp.co.omronsoft.openwnn.OpenWnnEvent;
 import jp.co.omronsoft.openwnn.OpenWnnJAJP;

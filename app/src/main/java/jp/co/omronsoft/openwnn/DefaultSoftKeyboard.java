@@ -20,8 +20,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.KeyboardView;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -32,6 +30,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.TextView;
+
+import jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener;
 
 /**
  * The default software keyboard class.
@@ -299,7 +299,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     protected String[] mCurrentCycleTable;
 
     /** Event listener for symbol keyboard */
-    private KeyboardView.OnKeyboardActionListener mSymbolOnKeyboardAction = new KeyboardView.OnKeyboardActionListener() {
+    private OnKeyboardActionListener mSymbolOnKeyboardAction = new OnKeyboardActionListener() {
         public void onKey(int primaryCode, int[] keyCodes) {
             switch (primaryCode) {
                 case KEYCODE_4KEY_MODE:
@@ -779,7 +779,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
             mKeyboardView.setPreviewEnabled(false);
         } else {
             mKeyboardView.setPreviewEnabled(pref.getBoolean("popup_preview", true));
-//            mKeyboardView.clearWindowInfo();
+            mKeyboardView.clearWindowInfo();
         }
 
     }

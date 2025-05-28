@@ -16,55 +16,61 @@
 -->
 <!-- candidate list -->
 <LinearLayout
-   xmlns:android="http://schemas.android.com/apk/res/android"
-   android:orientation="vertical"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:gravity="center"
-   >
-  <TextView
-     android:id="@+id/candidate_longpress_dialog_text"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:textSize="@dimen/candidate_longpress_dialog_candidate_word_size"
-     android:textColor="@color/candidate_longpress_dialog_text"
-     android:gravity="center"
-   />
-  <HorizontalScrollView
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="wrap_content"
-     android:layout_height="match_parent"
-     >
-    <LinearLayout
-       android:orientation="horizontal"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:gravity="center"
-       >
-      <Button
-         android:id="@+id/candidate_longpress_dialog_cancel"
-         android:layout_height="match_parent"
-         android:layout_width="wrap_content"
-         android:text="@string/dialog_button_cancel"
-         android:textSize="@dimen/candidate_longpress_dialog_button_word_size"
-         android:soundEffectsEnabled="false"
-         />
-      <Button
-         android:id="@+id/candidate_longpress_dialog_select"
-         android:layout_height="match_parent"
-         android:layout_width="wrap_content"
-         android:text="@string/button_candidate_select"
-         android:textSize="@dimen/candidate_longpress_dialog_button_word_size"
-         android:soundEffectsEnabled="false"
-         />
-      <Button
-         android:id="@+id/candidate_longpress_dialog_delete"
-         android:layout_height="match_parent"
-         android:layout_width="wrap_content"
-         android:text="@string/button_candidate_delete"
-         android:textSize="@dimen/candidate_longpress_dialog_button_word_size"
-         android:soundEffectsEnabled="false"
-         />
-    </LinearLayout>
-  </HorizontalScrollView>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/candidate_longpress_dialog_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/candidate_longpress_dialog_text"
+        android:textSize="@dimen/candidate_longpress_dialog_candidate_word_size"
+        />
+
+    <HorizontalScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/candidate_longpress_dialog_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:soundEffectsEnabled="false"
+                android:text="@string/dialog_button_cancel"
+                android:textSize="@dimen/candidate_longpress_dialog_button_word_size"
+                />
+
+            <Button
+                android:id="@+id/candidate_longpress_dialog_select"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:soundEffectsEnabled="false"
+                android:text="@string/button_candidate_select"
+                android:textSize="@dimen/candidate_longpress_dialog_button_word_size"
+                />
+
+            <Button
+                android:id="@+id/candidate_longpress_dialog_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:soundEffectsEnabled="false"
+                android:text="@string/button_candidate_delete"
+                android:textSize="@dimen/candidate_longpress_dialog_button_word_size"
+                />
+        </LinearLayout>
+    </HorizontalScrollView>
 </LinearLayout>
