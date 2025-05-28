@@ -54,6 +54,11 @@
     <string name="preference_keyboard_android_default">標準</string>
     <string name="preference_keyboard_simple">シンプル</string>
     <string name="preference_keyboard_metal">メタリック</string>
+    <string name="preference_keyboard_classic">クラシック</string>
+    <string name="preference_keyboard_ice">氷</string>
+    <string name="preference_keyboard_wood">木</string>
+    <string name="preference_keyboard_light">ライト</string>
+    <string name="preference_keyboard_kyoto">京都</string>
 
     <string name="preference_conversion_menu">Conversion</string>
     <string name="preference_conversion_menu_ja">日本語変換設定</string>

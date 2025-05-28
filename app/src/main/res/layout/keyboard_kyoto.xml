@@ -14,7 +14,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<android.inputmethodservice.KeyboardView
+<jp.co.omronsoft.openwnn.KeyboardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:wnn="http://schemas.android.com/apk/res-auto"
     android:id="@+id/keyboard"
@@ -23,4 +23,9 @@
     android:layout_alignParentBottom="true"
     android:background="@drawable/keybg_kyoto_bg"
     wnn:keyBackground="@drawable/keybg_kyoto_def"
+    wnn:keyBackground2nd="@drawable/keybg_kyoto_def"
+    wnn:keyPreviewLayout="@layout/keyboard_key_preview"
+    wnn:keyTextColor="@color/key_text_color"
+    wnn:keyTextColor2nd="@color/key_text_color"
+    wnn:popupLayout="@layout/keyboard_popup_keyboard"
     />
