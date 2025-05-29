@@ -29,7 +29,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
-import android.graphics.Region;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -673,7 +672,7 @@ public class KeyboardView extends View implements View.OnClickListener {
             mKeyboardChanged = false;
         }
         final Canvas canvas = mCanvas;
-        canvas.clipRect(mDirtyRect);
+//        canvas.clipRect(mDirtyRect);
 
         if (mKeyboard == null)
             return;
@@ -982,14 +981,11 @@ public class KeyboardView extends View implements View.OnClickListener {
         }
 
         if (previewPopup.isShowing()) {
-            previewPopup.update(mPopupPreviewX, mPopupPreviewY,
-                    popupWidth, popupHeight);
-        } else {
-            previewPopup.setWidth(popupWidth);
-            previewPopup.setHeight(popupHeight);
-            previewPopup.showAtLocation(mPopupParent, Gravity.NO_GRAVITY,
-                    mPopupPreviewX, mPopupPreviewY);
+            previewPopup.dismiss();
         }
+        previewPopup.setWidth(popupWidth);
+        previewPopup.setHeight(popupHeight);
+        previewPopup.showAtLocation(mPopupParent, Gravity.NO_GRAVITY, mPopupPreviewX, mPopupPreviewY);
         mPreviewText.setVisibility(VISIBLE);
     }
 
