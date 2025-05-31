@@ -305,10 +305,10 @@ public class OpenWnnEvent {
     }
 
     /**
-     * Generate {@link OpenWnnEvent} for a inputing character
+     * Generate {@link OpenWnnEvent} for a inputting character
      *
      * @param code      The code
-     * @param c         The inputing character
+     * @param c         The inputting character
      */
     public OpenWnnEvent(int code, char c) {
         this.code = code;
@@ -317,21 +317,21 @@ public class OpenWnnEvent {
     }
 
     /**
-     * Generate {@link OpenWnnEvent} for inputing characters
+     * Generate {@link OpenWnnEvent} for inputting characters
      *
      * @param code      The code
-     * @param c         The array of inputing character
+     * @param c         The array of inputting character
      */
-    public OpenWnnEvent(int code, char c[]) {
+    public OpenWnnEvent(int code, char[] c) {
         this.code = code;
         this.chars = c;
     }
 
     /**
-     * Generate {@link OpenWnnEvent} for toggle inputing a character
+     * Generate {@link OpenWnnEvent} for toggle inputting a character
      *
      * @param code          The code
-     * @param toggleTable   The array of toggle inputing a character
+     * @param toggleTable   The array of toggle inputting a character
      */
     public OpenWnnEvent(int code, String[] toggleTable) {
         this.code = code;

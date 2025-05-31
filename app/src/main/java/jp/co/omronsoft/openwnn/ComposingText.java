@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 /**
  * The container class of composing string.
- *
+ * <p>
  * This interface is for the class includes information about the
  * input string, the converted string and its decoration.
  * {@link LetterConverter} and {@link WnnEngine} get the input string from it, and
@@ -69,7 +69,7 @@ public class ComposingText {
         mStringLayer = new ArrayList[MAX_LAYER];
         mCursor = new int[MAX_LAYER];
         for (int i = 0; i < MAX_LAYER; i++) {
-            mStringLayer[i] = new ArrayList<StrSegment>();
+            mStringLayer[i] = new ArrayList<>();
             mCursor[i] = 0;
         }
     }
@@ -123,7 +123,7 @@ public class ComposingText {
      */
     public String toString(int layer, int from, int to) {
         try {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             ArrayList<StrSegment> strLayer = mStringLayer[layer];
 
             for (int i = from; i <= to; i++) {
@@ -252,8 +252,6 @@ public class ComposingText {
             }
             modifyUpper(uplayer, 0, 1, 0);
         }
-
-        return;
     }
 
     /**
@@ -389,7 +387,7 @@ public class ComposingText {
                 int boundary_to = -1;
                 ArrayList<StrSegment> strLayer = mStringLayer[lv];
                 for (int i = 0; i < strLayer.size(); i++) {
-                    StrSegment ss = (StrSegment) strLayer.get(i);
+                    StrSegment ss = strLayer.get(i);
                     if ((ss.from >= fromL[lv - 1] && ss.from <= toL[lv - 1]) ||
                             (ss.to >= fromL[lv - 1] && ss.to <= toL[lv - 1])) {
                         if (fromL[lv] < 0) {

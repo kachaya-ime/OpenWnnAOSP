@@ -18,7 +18,7 @@ package jp.co.omronsoft.openwnn;
 
 /**
  * The information container class of segment in a string.
- *
+ * <p>
  * This class defines information of a segment in a string, such as a character, a word or a clause.
  * It is used to represent the layers of the composing text ({@link ComposingText}).
  *

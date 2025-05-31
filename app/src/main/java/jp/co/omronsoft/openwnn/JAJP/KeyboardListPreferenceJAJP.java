@@ -50,7 +50,7 @@ public class KeyboardListPreferenceJAJP extends ListPreference {
             OpenWnnEvent ev = new OpenWnnEvent(code);
             try {
                 wnn.onEvent(ev);
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
     }

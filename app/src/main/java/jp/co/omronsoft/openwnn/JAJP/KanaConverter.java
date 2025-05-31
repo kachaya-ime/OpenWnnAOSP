@@ -34,7 +34,7 @@ import jp.co.omronsoft.openwnn.WnnWord;
 public class KanaConverter {
 
     /** Conversion rule for half-width numeric */
-    private static final HashMap<String, String> mHalfNumericMap = new HashMap<String, String>() {{
+    private static final HashMap<String, String> mHalfNumericMap = new HashMap<>() {{
         put("あ", "1");
         put("い", "11");
         put("う", "111");
@@ -95,7 +95,7 @@ public class KanaConverter {
     }};
 
     /** Conversion rule for full-width numeric */
-    private static final HashMap<String, String> mFullNumericMap = new HashMap<String, String>() {{
+    private static final HashMap<String, String> mFullNumericMap = new HashMap<>() {{
         put("あ", "１");
         put("い", "１１");
         put("う", "１１１");
@@ -156,7 +156,7 @@ public class KanaConverter {
     }};
 
     /** Conversion rule for half-width Katakana */
-    private static final HashMap<String, String> mHalfKatakanaMap = new HashMap<String, String>() {{
+    private static final HashMap<String, String> mHalfKatakanaMap = new HashMap<>() {{
         put("あ", "ｱ");
         put("い", "ｲ");
         put("う", "ｳ");
@@ -247,7 +247,7 @@ public class KanaConverter {
     }};
 
     /** Conversion rule for full-width Katakana */
-    private static final HashMap<String, String> mFullKatakanaMap = new HashMap<String, String>() {{
+    private static final HashMap<String, String> mFullKatakanaMap = new HashMap<>() {{
         put("あ", "ア");
         put("い", "イ");
         put("う", "ウ");
@@ -338,7 +338,7 @@ public class KanaConverter {
     }};
 
     /** Conversion rule for half-width alphabet */
-    private static final HashMap<String, String> mHalfAlphabetMap = new HashMap<String, String>() {{
+    private static final HashMap<String, String> mHalfAlphabetMap = new HashMap<>() {{
         put("あ", ".");
         put("い", "@");
         put("う", "-");
@@ -376,7 +376,7 @@ public class KanaConverter {
     }};
 
     /** Conversion rule for full-width alphabet */
-    private static final HashMap<String, String> mFullAlphabetMap = new HashMap<String, String>() {{
+    private static final HashMap<String, String> mFullAlphabetMap = new HashMap<>() {{
         put("あ", "．");
         put("い", "＠");
         put("う", "ー");
@@ -414,7 +414,7 @@ public class KanaConverter {
     }};
 
     /** Conversion rule for full-width alphabet (QWERTY mode) */
-    private static final HashMap<String, String> mFullAlphabetMapQwety = new HashMap<String, String>() {{
+    private static final HashMap<String, String> mFullAlphabetMapQwerty = new HashMap<>() {{
         put("a", "ａ");
         put("b", "ｂ");
         put("c", "ｃ");
@@ -489,7 +489,7 @@ public class KanaConverter {
      * Constructor
      */
     public KanaConverter() {
-        mAddCandidateList = new ArrayList<WnnWord>();
+        mAddCandidateList = new ArrayList<>();
         mStringBuff = new StringBuffer();
     }
 
@@ -592,7 +592,7 @@ public class KanaConverter {
         list.add(new WnnWord(inputRomaji.toUpperCase(), inputHiragana, mPosSymbol));
 
         /* Create pseudo candidates for the full width alphabet */
-        if (createCandidateString(inputRomaji, mFullAlphabetMapQwety, mStringBuff)) {
+        if (createCandidateString(inputRomaji, mFullAlphabetMapQwerty, mStringBuff)) {
             String convZenEiji = mStringBuff.toString();
             String convZenEijiLower = convZenEiji.toLowerCase(Locale.JAPAN);
             list.add(new WnnWord(convZenEiji, inputHiragana, mPosSymbol));

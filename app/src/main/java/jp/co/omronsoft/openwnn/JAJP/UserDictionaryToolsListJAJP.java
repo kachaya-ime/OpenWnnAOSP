@@ -43,7 +43,7 @@ public class UserDictionaryToolsListJAJP extends UserDictionaryToolsList {
         mPackageName = "jp.co.omronsoft.openwnn";
     }
 
-    /** @see jp.co.omronsoft.iwnnime.ml.UserDictionaryToolsList#onCreate */
+    /** @see jp.co.omronsoft.openwnn.UserDictionaryToolsList#onCreate */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +78,5 @@ public class UserDictionaryToolsListJAJP extends UserDictionaryToolsList {
         public int compare(WnnWord word1, WnnWord word2) {
             return word1.stroke.compareTo(word2.stroke);
         }
-
-        ;
     }
 }

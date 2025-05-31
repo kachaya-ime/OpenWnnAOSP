@@ -33,7 +33,7 @@ import jp.co.omronsoft.openwnn.WnnWord;
  */
 public class ClearUserDictionaryDialogPreferenceJAJP extends DialogPreference {
     /** The context */
-    protected Context mContext = null;
+    protected Context mContext;
 
     /**
      * Constructor

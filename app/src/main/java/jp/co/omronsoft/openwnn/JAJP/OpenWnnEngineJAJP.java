@@ -148,8 +148,8 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         mDictionaryJP.setInUseState(false);
 
         /* work buffers */
-        mConvResult = new ArrayList<WnnWord>();
-        mCandTable = new HashMap<String, WnnWord>();
+        mConvResult = new ArrayList<>();
+        mCandTable = new HashMap<>();
 
         /* converters */
         mClauseConverter = new OpenWnnClauseConverterJAJP();
@@ -257,7 +257,7 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         if (index >= mConvResult.size()) {
             return null;
         }
-        return (WnnWord) mConvResult.get(index);
+        return mConvResult.get(index);
     }
 
     /**
@@ -454,7 +454,7 @@ public class OpenWnnEngineJAJP implements WnnEngine {
         int idx = 0;
         Iterator<WnnClause> it = sentence.elements.iterator();
         while (it.hasNext()) {
-            WnnClause clause = (WnnClause) it.next();
+            WnnClause clause = it.next();
             int len = clause.stroke.length();
             ss[idx] = new StrSegmentClause(clause, pos, pos + len - 1);
             pos += len;

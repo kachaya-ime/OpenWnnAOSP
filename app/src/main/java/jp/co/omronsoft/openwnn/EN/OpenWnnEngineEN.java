@@ -48,9 +48,9 @@ public class OpenWnnEngineEN implements WnnEngine {
     /** OpenWnn dictionary */
     private WnnDictionary mDictionary;
     /** Word list */
-    private ArrayList<WnnWord> mConvResult;
+    private final ArrayList<WnnWord> mConvResult;
     /** HashMap for checking duplicate word */
-    private HashMap<String, WnnWord> mCandTable;
+    private final HashMap<String, WnnWord> mCandTable;
     /** Input string */
     private String mInputString;
     /** Searching string */
@@ -78,8 +78,8 @@ public class OpenWnnEngineEN implements WnnEngine {
      * @param writableDictionaryName        Writable dictionary file name(null if not use)
      */
     public OpenWnnEngineEN(String writableDictionaryName) {
-        mConvResult = new ArrayList<WnnWord>();
-        mCandTable = new HashMap<String, WnnWord>();
+        mConvResult = new ArrayList<>();
+        mCandTable = new HashMap<>();
         mSearchKey = null;
         mOutputNum = 0;
 
@@ -123,7 +123,7 @@ public class OpenWnnEngineEN implements WnnEngine {
                     }
                 } else if (mCandidateCase == CASE_HEAD_UPPER) {
                     if (Character.isLowerCase(c)) {
-                        word.candidate = Character.toString(Character.toUpperCase(c)) + word.candidate.substring(1);
+                        word.candidate = Character.toUpperCase(c) + word.candidate.substring(1);
                     }
                     break;
                 } else {

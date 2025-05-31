@@ -117,10 +117,10 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         setContentView(R.layout.user_dictionary_tools_edit);
 
         /* get widgets */
-        mEntryButton = (Button) findViewById(R.id.addButton);
-        mCancelButton = (Button) findViewById(R.id.cancelButton);
-        mReadEditText = (EditText) findViewById(R.id.editRead);
-        mCandidateEditText = (EditText) findViewById(R.id.editCandidate);
+        mEntryButton = findViewById(R.id.addButton);
+        mCancelButton = findViewById(R.id.cancelButton);
+        mReadEditText = findViewById(R.id.editRead);
+        mCandidateEditText = findViewById(R.id.editCandidate);
 
         /* set the listener */
         mEntryButton.setOnClickListener(this);
@@ -233,7 +233,6 @@ public abstract class UserDictionaryToolsEdit extends Activity implements View.O
         } else {
             Log.e("OpenWnn", "onClick: Get Invalid ButtonID. ID=" + v.getId());
             finish();
-            return;
         }
     }
 

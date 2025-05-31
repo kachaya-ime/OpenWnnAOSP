@@ -30,9 +30,9 @@ public interface WnnEngine {
      * DEFINITION OF CONSTANTS
      */
     /** The identifier of the learning dictionary */
-    public static final int DICTIONARY_TYPE_LEARN = 1;
+    int DICTIONARY_TYPE_LEARN = 1;
     /** The identifier of the user dictionary */
-    public static final int DICTIONARY_TYPE_USER = 2;
+    int DICTIONARY_TYPE_USER = 2;
 
     /*
      * DEFINITION OF METHODS
@@ -41,7 +41,7 @@ public interface WnnEngine {
     /**
      * Initialize parameters.
      */
-    public void init();
+    void init();
 
     /**
      * Close the converter.
@@ -49,7 +49,7 @@ public interface WnnEngine {
      *
      * OpenWnn calls this method when it is destroyed.
      */
-    public void close();
+    void close();
 
     /**
      * Predict words/phrases.
@@ -59,7 +59,7 @@ public interface WnnEngine {
      * @param maxLen    The maximum length of a word to predict (-1 : no limit)
      * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
-    public int predict(ComposingText text, int minLen, int maxLen);
+    int predict(ComposingText text, int minLen, int maxLen);
 
     /**
      * Convert a string.
@@ -67,14 +67,14 @@ public interface WnnEngine {
      * This method is used to consecutive/single clause convert in
      * Japanese, Pinyin to Kanji convert in Chinese, Hangul to Hanja
      * convert in Korean, etc.
-     *
+     * <p>
      * The result of conversion is set into the layer 2 in the {@link ComposingText}.
      * To get other candidates of each clause, call {@link #makeCandidateListOf(int)}.
      *
      * @param text      The input string
      * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
-    public int convert(ComposingText text);
+    int convert(ComposingText text);
 
     /**
      * Search words from the dictionaries.
@@ -82,7 +82,7 @@ public interface WnnEngine {
      * @param key       The search key (stroke)
      * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
-    public int searchWords(String key);
+    int searchWords(String key);
 
     /**
      * Search words from the dictionaries.
@@ -90,7 +90,7 @@ public interface WnnEngine {
      * @param word      A word to search
      * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
-    public int searchWords(WnnWord word);
+    int searchWords(WnnWord word);
 
     /**
      * Get a candidate.
@@ -104,14 +104,14 @@ public interface WnnEngine {
      *
      * @return The candidate; {@code null} if there is no more candidate.
      */
-    public WnnWord getNextCandidate();
+    WnnWord getNextCandidate();
 
     /**
      * Retrieve the list of registered words.
      * <br>
      * @return          {@code null} if no word is registered; the array of {@link WnnWord} if some words is registered.
      */
-    public WnnWord[] getUserDictionaryWords();
+    WnnWord[] getUserDictionaryWords();
 
     /**
      * Learn a word. 
@@ -123,7 +123,7 @@ public interface WnnEngine {
      * @param word      The selected word
      * @return          {@code true} if success; {@code false} if fail or not supported.
      */
-    public boolean learn(WnnWord word);
+    boolean learn(WnnWord word);
 
     /**
      * Register a word to the user's dictionary.
@@ -131,7 +131,7 @@ public interface WnnEngine {
      * @param word      A word to register
      * @return Number of registered words in the user's dictionary after the operation; minus value if a error occurs.
      */
-    public int addWord(WnnWord word);
+    int addWord(WnnWord word);
 
     /**
      * Delete a word from the user's dictionary.
@@ -139,7 +139,7 @@ public interface WnnEngine {
      * @param word      A word to delete
      * @return          {@code true} if success; {@code false} if fail or not supported.
      */
-    public boolean deleteWord(WnnWord word);
+    boolean deleteWord(WnnWord word);
 
     /**
      * Delete all words from the user's dictionary.
@@ -147,7 +147,7 @@ public interface WnnEngine {
      * @param dictionary    {@code DICTIONARY_TYPE_LEARN} or {@code DICTIONARY_TYPE_USER}
      * @return              {@code true} if success; {@code false} if fail or not supported.
      */
-    public boolean initializeDictionary(int dictionary);
+    boolean initializeDictionary(int dictionary);
 
     /**
      * Delete all words from the user's dictionary of the specified language.
@@ -156,14 +156,14 @@ public interface WnnEngine {
      * @param type              Dictionary type (language, etc...)
      * @return                  {@code true} if success; {@code false} if fail or not supported.
      */
-    public boolean initializeDictionary(int dictionary, int type);
+    boolean initializeDictionary(int dictionary, int type);
 
     /**
      * Reflect the preferences in the converter.
      *
      * @param pref  The preferences
      */
-    public void setPreferences(SharedPreferences pref);
+    void setPreferences(SharedPreferences pref);
 
     /**
      * Break the sequence of words.
@@ -173,7 +173,7 @@ public interface WnnEngine {
      * collocation between previous input words and words which will
      * input after this break.
      */
-    public void breakSequence();
+    void breakSequence();
 
     /**
      * Makes the candidate list.
@@ -186,5 +186,5 @@ public interface WnnEngine {
      * @param clausePosition  The position of a clause
      * @return Plus value if there are candidates; 0 if there is no candidate; minus value if a error occurs.
      */
-    public int makeCandidateListOf(int clausePosition);
+    int makeCandidateListOf(int clausePosition);
 }

@@ -180,7 +180,7 @@ public class OpenWnnDictionaryImplJni {
      * @param dicLibPath    The path of the dictionary library file
      * @return The internal work area or null
      */
-    public static final native long createWnnWork(String dicLibPath);
+    public static native long createWnnWork(String dicLibPath);
 
     /**
      * Free the internal work area.
@@ -189,7 +189,7 @@ public class OpenWnnDictionaryImplJni {
      * @param work      The internal work area
      * @return 0 if processing is successful; <0 if an error occur
      */
-    public static final native int freeWnnWork(long work);
+    public static native int freeWnnWork(long work);
 
     /**
      * Clear all dictionary information.
@@ -198,7 +198,7 @@ public class OpenWnnDictionaryImplJni {
      * @param work      The internal work area
      * @return 0 if processing is successful; <0 if an error occur
      */
-    public static final native int clearDictionaryParameters(long work);
+    public static native int clearDictionaryParameters(long work);
 
     /**
      * Set a dictionary information.
@@ -210,7 +210,7 @@ public class OpenWnnDictionaryImplJni {
      * @param high      The maximum frequency or -1
      * @return 0 if processing is successful; <0 otherwise
      */
-    public static final native int setDictionaryParameter(long work, int index, int base, int high);
+    public static native int setDictionaryParameter(long work, int index, int base, int high);
 
     /**
      * Search a word from dictionaries.
@@ -227,7 +227,7 @@ public class OpenWnnDictionaryImplJni {
      * @return 0 if no result is found; 1 if a result is found; <0 if an error occur
      *
      */
-    public static final native int searchWord(long work, int operation, int order, String keyString);
+    public static native int searchWord(long work, int operation, int order, String keyString);
 
     /**
      * Retrieve a word information.
@@ -239,7 +239,7 @@ public class OpenWnnDictionaryImplJni {
      * @param length    >0 if only the result of specified length is retrieved; 0 if no condition exist
      * @return 0 if no result is retrieved; >0 if a result is retrieved; <0 if an error occur
      */
-    public static final native int getNextWord(long work, int length);
+    public static native int getNextWord(long work, int length);
 
     /**
      * Retrieve the key string from the current word information.
@@ -248,7 +248,7 @@ public class OpenWnnDictionaryImplJni {
      * @param work      The internal work area
      * @return The Key string
      */
-    public static final native String getStroke(long work);
+    public static native String getStroke(long work);
 
     /**
      * Retrieve the candidate string from the current word information.
@@ -257,7 +257,7 @@ public class OpenWnnDictionaryImplJni {
      * @param work      The internal work area
      * @return The candidate string
      */
-    public static final native String getCandidate(long work);
+    public static native String getCandidate(long work);
 
     /**
      * Retrieve the frequency from the current word information.
@@ -266,7 +266,7 @@ public class OpenWnnDictionaryImplJni {
      * @param work      The internal work area
      * @return The frequency
      */
-    public static final native int getFrequency(long work);
+    public static native int getFrequency(long work);
 
     /**
      * Retrieve the part of speech at left side from the current word information.
@@ -274,7 +274,7 @@ public class OpenWnnDictionaryImplJni {
      * @param work      The internal work area
      * @return The part of speech
      */
-    public static final native int getLeftPartOfSpeech(long work);
+    public static native int getLeftPartOfSpeech(long work);
 
     /**
      * Retrieve the part of speech at right side from the current word information.
@@ -282,7 +282,7 @@ public class OpenWnnDictionaryImplJni {
      * @param work      The internal work area
      * @return The part of speech
      */
-    public static final native int getRightPartOfSpeech(long work);
+    public static native int getRightPartOfSpeech(long work);
 
     /**
      * Clear approximate patterns.
@@ -290,7 +290,7 @@ public class OpenWnnDictionaryImplJni {
      * @see jp.co.omronsoft.openwnn.WnnDictionary#clearApproxPattern
      * @param work      The internal work area.
      */
-    public static final native void clearApproxPatterns(long work);
+    public static native void clearApproxPatterns(long work);
 
     /**
      * Set a approximate pattern.
@@ -301,7 +301,7 @@ public class OpenWnnDictionaryImplJni {
      * @param dst       The string (after)
      * @return 0 if processing is successful; <0 if an error occur
      */
-    public static final native int setApproxPattern(long work, String src, String dst);
+    public static native int setApproxPattern(long work, String src, String dst);
 
     /**
      * Set a predefined approximate pattern.
@@ -315,7 +315,7 @@ public class OpenWnnDictionaryImplJni {
      * @see jp.co.omronsoft.openwnn.WnnDictionary#APPROX_PATTERN_EN_QWERTY_NEAR_UPPER
      * @return 0 if processing is successful; <0 if an error occur
      */
-    public static final native int setApproxPattern(long work, int approxPattern);
+    public static native int setApproxPattern(long work, int approxPattern);
 
     /**
      * Get the specified approximate pattern.
@@ -323,14 +323,14 @@ public class OpenWnnDictionaryImplJni {
      * @param src       The string (before)
      * @return The string array (after)
      */
-    public static final native String[] getApproxPattern(long work, String src);
+    public static native String[] getApproxPattern(long work, String src);
 
     /**
      * Clear the current word information.
      *
      * @param work      The internal work area
      */
-    public static final native void clearResult(long work);
+    public static native void clearResult(long work);
 
     /**
      * Set the part of speech at left side to the current word information.
@@ -340,7 +340,7 @@ public class OpenWnnDictionaryImplJni {
      * @return 0 if processing is successful; <0 if an error occur
      *
      */
-    public static final native int setLeftPartOfSpeech(long work, int partOfSpeech);
+    public static native int setLeftPartOfSpeech(long work, int partOfSpeech);
 
     /**
      * Set the part of speech at right side to the current word information.
@@ -350,7 +350,7 @@ public class OpenWnnDictionaryImplJni {
      * @return 0 if processing is successful; <0 if an error occur
      *
      */
-    public static final native int setRightPartOfSpeech(long work, int partOfSpeech);
+    public static native int setRightPartOfSpeech(long work, int partOfSpeech);
 
     /**
      * Set the key string to the current word information.
@@ -360,7 +360,7 @@ public class OpenWnnDictionaryImplJni {
      * @return 0 if processing is successful; <0 if an error occur
      *
      */
-    public static final native int setStroke(long work, String stroke);
+    public static native int setStroke(long work, String stroke);
 
     /**
      * Set the candidate string to the current word information.
@@ -370,7 +370,7 @@ public class OpenWnnDictionaryImplJni {
      * @return 0 if processing is successful; <0 if an error occur
      *
      */
-    public static final native int setCandidate(long work, String candidate);
+    public static native int setCandidate(long work, String candidate);
 
     /**
      * Set the previous word information from the current word information.
@@ -378,7 +378,7 @@ public class OpenWnnDictionaryImplJni {
      * @param work          The internal work area
      * @return 0 if processing is successful; <0 if an error occur
      */
-    public static final native int selectWord(long work);
+    public static native int selectWord(long work);
 
     /**
      * Retrieve the connect array
@@ -387,21 +387,21 @@ public class OpenWnnDictionaryImplJni {
      * @param leftPartOfSpeech      The part of speech at left side
      * @return The connect array
      */
-    public static final native byte[] getConnectArray(long work, int leftPartOfSpeech);
+    public static native byte[] getConnectArray(long work, int leftPartOfSpeech);
 
     /**
      * Retrieve the number of the part of speeches at left side.
      *
      * @return The number
      */
-    public static final native int getNumberOfLeftPOS(long work);
+    public static native int getNumberOfLeftPOS(long work);
 
     /**
      * Retrieve the number of the part of speeches at right side.
      *
      * @return The number
      */
-    public static final native int getNumberOfRightPOS(long work);
+    public static native int getNumberOfRightPOS(long work);
 
     /**
      * Retrieve the specified part of speech at left side.
@@ -410,7 +410,7 @@ public class OpenWnnDictionaryImplJni {
      * @param type          The type of a part of speech
      * @return 0 if type is not found; <0 if an error occur; >0 The part of speech
      */
-    public static final native int getLeftPartOfSpeechSpecifiedType(long work, int type);
+    public static native int getLeftPartOfSpeechSpecifiedType(long work, int type);
 
     /**
      * Retrieve the specified part of speech at right side.
@@ -429,7 +429,7 @@ public class OpenWnnDictionaryImplJni {
      * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_CHIMEI
      * @see jp.co.omronsoft.openwnn.OpenWnnDictionaryImplJni#POS_TYPE_KIGOU
      */
-    public static final native int getRightPartOfSpeechSpecifiedType(long work, int type);
+    public static native int getRightPartOfSpeechSpecifiedType(long work, int type);
 
     /**
      * Create the string array that is used by operation of query
@@ -440,7 +440,7 @@ public class OpenWnnDictionaryImplJni {
      * @param maxPatternOfApprox    The maximum number of approximate patterns per character
      * @return The string array for binding
      */
-    public static final native String[] createBindArray(long work, String keyString, int maxBindsOfQuery, int maxPatternOfApprox);
+    public static native String[] createBindArray(long work, String keyString, int maxBindsOfQuery, int maxPatternOfApprox);
 
     /**
      * Create the string which used query parameter
@@ -451,5 +451,5 @@ public class OpenWnnDictionaryImplJni {
      * @param keyColumnName        The name of the key column
      * @return The string for querying
      */
-    public static final native String createQueryStringBase(long work, int maxBindsOfQuery, int maxPatternOfApprox, String keyColumnName);
+    public static native String createQueryStringBase(long work, int maxBindsOfQuery, int maxPatternOfApprox, String keyColumnName);
 }

@@ -107,21 +107,70 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
             {"、", "。", "？", "！", "・", "\u3000"}
     };
 
-    private static final HashMap<String, String> JP_FULL_HIRAGANA_REPLACE_TABLE = new HashMap<String, String>() {{
-        put("あ", "ぁ"); put("い", "ぃ"); put("う", "ぅ"); put("え", "ぇ"); put("お", "ぉ");
-        put("ぁ", "あ"); put("ぃ", "い"); put("ぅ", "ヴ"); put("ぇ", "え"); put("ぉ", "お");
-        put("か", "が"); put("き", "ぎ"); put("く", "ぐ"); put("け", "げ"); put("こ", "ご");
-        put("が", "か"); put("ぎ", "き"); put("ぐ", "く"); put("げ", "け"); put("ご", "こ");
-        put("さ", "ざ"); put("し", "じ"); put("す", "ず"); put("せ", "ぜ"); put("そ", "ぞ");
-        put("ざ", "さ"); put("じ", "し"); put("ず", "す"); put("ぜ", "せ"); put("ぞ", "そ");
-        put("た", "だ"); put("ち", "ぢ"); put("つ", "っ"); put("て", "で"); put("と", "ど");
-        put("だ", "た"); put("ぢ", "ち"); put("っ", "づ"); put("で", "て"); put("ど", "と");
-        put("づ", "つ"); put("ヴ", "う");
-        put("は", "ば"); put("ひ", "び"); put("ふ", "ぶ"); put("へ", "べ"); put("ほ", "ぼ");
-        put("ば", "ぱ"); put("び", "ぴ"); put("ぶ", "ぷ"); put("べ", "ぺ"); put("ぼ", "ぽ");
-        put("ぱ", "は"); put("ぴ", "ひ"); put("ぷ", "ふ"); put("ぺ", "へ"); put("ぽ", "ほ");
-        put("や", "ゃ"); put("ゆ", "ゅ"); put("よ", "ょ");
-        put("ゃ", "や"); put("ゅ", "ゆ"); put("ょ", "よ");
+    private static final HashMap<String, String> JP_FULL_HIRAGANA_REPLACE_TABLE = new HashMap<>() {{
+        put("あ", "ぁ");
+        put("い", "ぃ");
+        put("う", "ぅ");
+        put("え", "ぇ");
+        put("お", "ぉ");
+        put("ぁ", "あ");
+        put("ぃ", "い");
+        put("ぅ", "ヴ");
+        put("ぇ", "え");
+        put("ぉ", "お");
+        put("か", "が");
+        put("き", "ぎ");
+        put("く", "ぐ");
+        put("け", "げ");
+        put("こ", "ご");
+        put("が", "か");
+        put("ぎ", "き");
+        put("ぐ", "く");
+        put("げ", "け");
+        put("ご", "こ");
+        put("さ", "ざ");
+        put("し", "じ");
+        put("す", "ず");
+        put("せ", "ぜ");
+        put("そ", "ぞ");
+        put("ざ", "さ");
+        put("じ", "し");
+        put("ず", "す");
+        put("ぜ", "せ");
+        put("ぞ", "そ");
+        put("た", "だ");
+        put("ち", "ぢ");
+        put("つ", "っ");
+        put("て", "で");
+        put("と", "ど");
+        put("だ", "た");
+        put("ぢ", "ち");
+        put("っ", "づ");
+        put("で", "て");
+        put("ど", "と");
+        put("づ", "つ");
+        put("ヴ", "う");
+        put("は", "ば");
+        put("ひ", "び");
+        put("ふ", "ぶ");
+        put("へ", "べ");
+        put("ほ", "ぼ");
+        put("ば", "ぱ");
+        put("び", "ぴ");
+        put("ぶ", "ぷ");
+        put("べ", "ぺ");
+        put("ぼ", "ぽ");
+        put("ぱ", "は");
+        put("ぴ", "ひ");
+        put("ぷ", "ふ");
+        put("ぺ", "へ");
+        put("ぽ", "ほ");
+        put("や", "ゃ");
+        put("ゆ", "ゅ");
+        put("よ", "ょ");
+        put("ゃ", "や");
+        put("ゅ", "ゆ");
+        put("ょ", "よ");
         put("わ", "ゎ");
         put("ゎ", "わ");
         put("゛", "゜");
@@ -144,21 +193,70 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
     };
 
     /** Replace table for full-width KATAKANA */
-    private static final HashMap<String, String> JP_FULL_KATAKANA_REPLACE_TABLE = new HashMap<String, String>() {{
-        put("ア", "ァ"); put("イ", "ィ"); put("ウ", "ゥ"); put("エ", "ェ"); put("オ", "ォ");
-        put("ァ", "ア"); put("ィ", "イ"); put("ゥ", "ヴ"); put("ェ", "エ"); put("ォ", "オ");
-        put("カ", "ガ"); put("キ", "ギ"); put("ク", "グ"); put("ケ", "ゲ"); put("コ", "ゴ");
-        put("ガ", "カ"); put("ギ", "キ"); put("グ", "ク"); put("ゲ", "ケ"); put("ゴ", "コ");
-        put("サ", "ザ"); put("シ", "ジ"); put("ス", "ズ"); put("セ", "ゼ"); put("ソ", "ゾ");
-        put("ザ", "サ"); put("ジ", "シ"); put("ズ", "ス"); put("ゼ", "セ"); put("ゾ", "ソ");
-        put("タ", "ダ"); put("チ", "ヂ"); put("ツ", "ッ"); put("テ", "デ"); put("ト", "ド");
-        put("ダ", "タ"); put("ヂ", "チ"); put("ッ", "ヅ"); put("デ", "テ"); put("ド", "ト");
-        put("ヅ", "ツ"); put("ヴ", "ウ");
-        put("ハ", "バ"); put("ヒ", "ビ"); put("フ", "ブ"); put("ヘ", "ベ"); put("ホ", "ボ");
-        put("バ", "パ"); put("ビ", "ピ"); put("ブ", "プ"); put("ベ", "ペ"); put("ボ", "ポ");
-        put("パ", "ハ"); put("ピ", "ヒ"); put("プ", "フ"); put("ペ", "ヘ"); put("ポ", "ホ");
-        put("ヤ", "ャ"); put("ユ", "ュ"); put("ヨ", "ョ");
-        put("ャ", "ヤ"); put("ュ", "ユ"); put("ョ", "ヨ");
+    private static final HashMap<String, String> JP_FULL_KATAKANA_REPLACE_TABLE = new HashMap<>() {{
+        put("ア", "ァ");
+        put("イ", "ィ");
+        put("ウ", "ゥ");
+        put("エ", "ェ");
+        put("オ", "ォ");
+        put("ァ", "ア");
+        put("ィ", "イ");
+        put("ゥ", "ヴ");
+        put("ェ", "エ");
+        put("ォ", "オ");
+        put("カ", "ガ");
+        put("キ", "ギ");
+        put("ク", "グ");
+        put("ケ", "ゲ");
+        put("コ", "ゴ");
+        put("ガ", "カ");
+        put("ギ", "キ");
+        put("グ", "ク");
+        put("ゲ", "ケ");
+        put("ゴ", "コ");
+        put("サ", "ザ");
+        put("シ", "ジ");
+        put("ス", "ズ");
+        put("セ", "ゼ");
+        put("ソ", "ゾ");
+        put("ザ", "サ");
+        put("ジ", "シ");
+        put("ズ", "ス");
+        put("ゼ", "セ");
+        put("ゾ", "ソ");
+        put("タ", "ダ");
+        put("チ", "ヂ");
+        put("ツ", "ッ");
+        put("テ", "デ");
+        put("ト", "ド");
+        put("ダ", "タ");
+        put("ヂ", "チ");
+        put("ッ", "ヅ");
+        put("デ", "テ");
+        put("ド", "ト");
+        put("ヅ", "ツ");
+        put("ヴ", "ウ");
+        put("ハ", "バ");
+        put("ヒ", "ビ");
+        put("フ", "ブ");
+        put("ヘ", "ベ");
+        put("ホ", "ボ");
+        put("バ", "パ");
+        put("ビ", "ピ");
+        put("ブ", "プ");
+        put("ベ", "ペ");
+        put("ボ", "ポ");
+        put("パ", "ハ");
+        put("ピ", "ヒ");
+        put("プ", "フ");
+        put("ペ", "ヘ");
+        put("ポ", "ホ");
+        put("ヤ", "ャ");
+        put("ユ", "ュ");
+        put("ヨ", "ョ");
+        put("ャ", "ヤ");
+        put("ュ", "ユ");
+        put("ョ", "ヨ");
         put("ワ", "ヮ");
         put("ヮ", "ワ");
     }};
@@ -179,22 +277,71 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
     };
 
     /** Replace table for half-width KATAKANA */
-    private static final HashMap<String, String> JP_HALF_KATAKANA_REPLACE_TABLE = new HashMap<String, String>() {{
-        put("ｱ", "ｧ"); put("ｲ", "ｨ"); put("ｳ", "ｩ"); put("ｴ", "ｪ"); put("ｵ", "ｫ");
-        put("ｧ", "ｱ"); put("ｨ", "ｲ"); put("ｩ", "ｳﾞ"); put("ｪ", "ｴ"); put("ｫ", "ｵ");
-        put("ｶ", "ｶﾞ"); put("ｷ", "ｷﾞ"); put("ｸ", "ｸﾞ"); put("ｹ", "ｹﾞ"); put("ｺ", "ｺﾞ");
-        put("ｶﾞ", "ｶ"); put("ｷﾞ", "ｷ"); put("ｸﾞ", "ｸ"); put("ｹﾞ", "ｹ"); put("ｺﾞ", "ｺ");
-        put("ｻ", "ｻﾞ"); put("ｼ", "ｼﾞ"); put("ｽ", "ｽﾞ"); put("ｾ", "ｾﾞ"); put("ｿ", "ｿﾞ");
-        put("ｻﾞ", "ｻ"); put("ｼﾞ", "ｼ"); put("ｽﾞ", "ｽ"); put("ｾﾞ", "ｾ"); put("ｿﾞ", "ｿ");
-        put("ﾀ", "ﾀﾞ"); put("ﾁ", "ﾁﾞ"); put("ﾂ", "ｯ"); put("ﾃ", "ﾃﾞ"); put("ﾄ", "ﾄﾞ");
-        put("ﾀﾞ", "ﾀ"); put("ﾁﾞ", "ﾁ"); put("ｯ", "ﾂﾞ"); put("ﾃﾞ", "ﾃ"); put("ﾄﾞ", "ﾄ");
+    private static final HashMap<String, String> JP_HALF_KATAKANA_REPLACE_TABLE = new HashMap<>() {{
+        put("ｱ", "ｧ");
+        put("ｲ", "ｨ");
+        put("ｳ", "ｩ");
+        put("ｴ", "ｪ");
+        put("ｵ", "ｫ");
+        put("ｧ", "ｱ");
+        put("ｨ", "ｲ");
+        put("ｩ", "ｳﾞ");
+        put("ｪ", "ｴ");
+        put("ｫ", "ｵ");
+        put("ｶ", "ｶﾞ");
+        put("ｷ", "ｷﾞ");
+        put("ｸ", "ｸﾞ");
+        put("ｹ", "ｹﾞ");
+        put("ｺ", "ｺﾞ");
+        put("ｶﾞ", "ｶ");
+        put("ｷﾞ", "ｷ");
+        put("ｸﾞ", "ｸ");
+        put("ｹﾞ", "ｹ");
+        put("ｺﾞ", "ｺ");
+        put("ｻ", "ｻﾞ");
+        put("ｼ", "ｼﾞ");
+        put("ｽ", "ｽﾞ");
+        put("ｾ", "ｾﾞ");
+        put("ｿ", "ｿﾞ");
+        put("ｻﾞ", "ｻ");
+        put("ｼﾞ", "ｼ");
+        put("ｽﾞ", "ｽ");
+        put("ｾﾞ", "ｾ");
+        put("ｿﾞ", "ｿ");
+        put("ﾀ", "ﾀﾞ");
+        put("ﾁ", "ﾁﾞ");
+        put("ﾂ", "ｯ");
+        put("ﾃ", "ﾃﾞ");
+        put("ﾄ", "ﾄﾞ");
+        put("ﾀﾞ", "ﾀ");
+        put("ﾁﾞ", "ﾁ");
+        put("ｯ", "ﾂﾞ");
+        put("ﾃﾞ", "ﾃ");
+        put("ﾄﾞ", "ﾄ");
         put("ﾂﾞ", "ﾂ");
-        put("ﾊ", "ﾊﾞ"); put("ﾋ", "ﾋﾞ"); put("ﾌ", "ﾌﾞ"); put("ﾍ", "ﾍﾞ"); put("ﾎ", "ﾎﾞ");
-        put("ﾊﾞ", "ﾊﾟ"); put("ﾋﾞ", "ﾋﾟ"); put("ﾌﾞ", "ﾌﾟ"); put("ﾍﾞ", "ﾍﾟ"); put("ﾎﾞ", "ﾎﾟ");
-        put("ﾊﾟ", "ﾊ"); put("ﾋﾟ", "ﾋ"); put("ﾌﾟ", "ﾌ"); put("ﾍﾟ", "ﾍ"); put("ﾎﾟ", "ﾎ");
-        put("ﾔ", "ｬ"); put("ﾕ", "ｭ"); put("ﾖ", "ｮ");
-        put("ｬ", "ﾔ"); put("ｭ", "ﾕ"); put("ｮ", "ﾖ");
-        put("ﾜ", "ﾜ"); put("ｳﾞ", "ｳ");
+        put("ﾊ", "ﾊﾞ");
+        put("ﾋ", "ﾋﾞ");
+        put("ﾌ", "ﾌﾞ");
+        put("ﾍ", "ﾍﾞ");
+        put("ﾎ", "ﾎﾞ");
+        put("ﾊﾞ", "ﾊﾟ");
+        put("ﾋﾞ", "ﾋﾟ");
+        put("ﾌﾞ", "ﾌﾟ");
+        put("ﾍﾞ", "ﾍﾟ");
+        put("ﾎﾞ", "ﾎﾟ");
+        put("ﾊﾟ", "ﾊ");
+        put("ﾋﾟ", "ﾋ");
+        put("ﾌﾟ", "ﾌ");
+        put("ﾍﾟ", "ﾍ");
+        put("ﾎﾟ", "ﾎ");
+        put("ﾔ", "ｬ");
+        put("ﾕ", "ｭ");
+        put("ﾖ", "ｮ");
+        put("ｬ", "ﾔ");
+        put("ｭ", "ﾕ");
+        put("ｮ", "ﾖ");
+        put("ﾜ", "ﾜ");
+        put("ｳﾞ", "ｳ");
     }};
 
     /** Toggle cycle table for full-width alphabet */
@@ -213,17 +360,57 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
     };
 
     /** Replace table for full-width alphabet */
-    private static final HashMap<String, String> JP_FULL_ALPHABET_REPLACE_TABLE = new HashMap<String, String>() {{
-        put("Ａ", "ａ"); put("Ｂ", "ｂ"); put("Ｃ", "ｃ"); put("Ｄ", "ｄ"); put("Ｅ", "ｅ");
-        put("ａ", "Ａ"); put("ｂ", "Ｂ"); put("ｃ", "Ｃ"); put("ｄ", "Ｄ"); put("ｅ", "Ｅ");
-        put("Ｆ", "ｆ"); put("Ｇ", "ｇ"); put("Ｈ", "ｈ"); put("Ｉ", "ｉ"); put("Ｊ", "ｊ");
-        put("ｆ", "Ｆ"); put("ｇ", "Ｇ"); put("ｈ", "Ｈ"); put("ｉ", "Ｉ"); put("ｊ", "Ｊ");
-        put("Ｋ", "ｋ"); put("Ｌ", "ｌ"); put("Ｍ", "ｍ"); put("Ｎ", "ｎ"); put("Ｏ", "ｏ");
-        put("ｋ", "Ｋ"); put("ｌ", "Ｌ"); put("ｍ", "Ｍ"); put("ｎ", "Ｎ"); put("ｏ", "Ｏ");
-        put("Ｐ", "ｐ"); put("Ｑ", "ｑ"); put("Ｒ", "ｒ"); put("Ｓ", "ｓ"); put("Ｔ", "ｔ");
-        put("ｐ", "Ｐ"); put("ｑ", "Ｑ"); put("ｒ", "Ｒ"); put("ｓ", "Ｓ"); put("ｔ", "Ｔ");
-        put("Ｕ", "ｕ"); put("Ｖ", "ｖ"); put("Ｗ", "ｗ"); put("Ｘ", "ｘ"); put("Ｙ", "ｙ");
-        put("ｕ", "Ｕ"); put("ｖ", "Ｖ"); put("ｗ", "Ｗ"); put("ｘ", "Ｘ"); put("ｙ", "Ｙ");
+    private static final HashMap<String, String> JP_FULL_ALPHABET_REPLACE_TABLE = new HashMap<>() {{
+        put("Ａ", "ａ");
+        put("Ｂ", "ｂ");
+        put("Ｃ", "ｃ");
+        put("Ｄ", "ｄ");
+        put("Ｅ", "ｅ");
+        put("ａ", "Ａ");
+        put("ｂ", "Ｂ");
+        put("ｃ", "Ｃ");
+        put("ｄ", "Ｄ");
+        put("ｅ", "Ｅ");
+        put("Ｆ", "ｆ");
+        put("Ｇ", "ｇ");
+        put("Ｈ", "ｈ");
+        put("Ｉ", "ｉ");
+        put("Ｊ", "ｊ");
+        put("ｆ", "Ｆ");
+        put("ｇ", "Ｇ");
+        put("ｈ", "Ｈ");
+        put("ｉ", "Ｉ");
+        put("ｊ", "Ｊ");
+        put("Ｋ", "ｋ");
+        put("Ｌ", "ｌ");
+        put("Ｍ", "ｍ");
+        put("Ｎ", "ｎ");
+        put("Ｏ", "ｏ");
+        put("ｋ", "Ｋ");
+        put("ｌ", "Ｌ");
+        put("ｍ", "Ｍ");
+        put("ｎ", "Ｎ");
+        put("ｏ", "Ｏ");
+        put("Ｐ", "ｐ");
+        put("Ｑ", "ｑ");
+        put("Ｒ", "ｒ");
+        put("Ｓ", "ｓ");
+        put("Ｔ", "ｔ");
+        put("ｐ", "Ｐ");
+        put("ｑ", "Ｑ");
+        put("ｒ", "Ｒ");
+        put("ｓ", "Ｓ");
+        put("ｔ", "Ｔ");
+        put("Ｕ", "ｕ");
+        put("Ｖ", "ｖ");
+        put("Ｗ", "ｗ");
+        put("Ｘ", "ｘ");
+        put("Ｙ", "ｙ");
+        put("ｕ", "Ｕ");
+        put("ｖ", "Ｖ");
+        put("ｗ", "Ｗ");
+        put("ｘ", "Ｘ");
+        put("ｙ", "Ｙ");
         put("Ｚ", "ｚ");
         put("ｚ", "Ｚ");
     }};
@@ -244,17 +431,57 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
     };
 
     /** Replace table for half-width alphabet */
-    private static final HashMap<String, String> JP_HALF_ALPHABET_REPLACE_TABLE = new HashMap<String, String>() {{
-        put("A", "a"); put("B", "b"); put("C", "c"); put("D", "d"); put("E", "e");
-        put("a", "A"); put("b", "B"); put("c", "C"); put("d", "D"); put("e", "E");
-        put("F", "f"); put("G", "g"); put("H", "h"); put("I", "i"); put("J", "j");
-        put("f", "F"); put("g", "G"); put("h", "H"); put("i", "I"); put("j", "J");
-        put("K", "k"); put("L", "l"); put("M", "m"); put("N", "n"); put("O", "o");
-        put("k", "K"); put("l", "L"); put("m", "M"); put("n", "N"); put("o", "O");
-        put("P", "p"); put("Q", "q"); put("R", "r"); put("S", "s"); put("T", "t");
-        put("p", "P"); put("q", "Q"); put("r", "R"); put("s", "S"); put("t", "T");
-        put("U", "u"); put("V", "v"); put("W", "w"); put("X", "x"); put("Y", "y");
-        put("u", "U"); put("v", "V"); put("w", "W"); put("x", "X"); put("y", "Y");
+    private static final HashMap<String, String> JP_HALF_ALPHABET_REPLACE_TABLE = new HashMap<>() {{
+        put("A", "a");
+        put("B", "b");
+        put("C", "c");
+        put("D", "d");
+        put("E", "e");
+        put("a", "A");
+        put("b", "B");
+        put("c", "C");
+        put("d", "D");
+        put("e", "E");
+        put("F", "f");
+        put("G", "g");
+        put("H", "h");
+        put("I", "i");
+        put("J", "j");
+        put("f", "F");
+        put("g", "G");
+        put("h", "H");
+        put("i", "I");
+        put("j", "J");
+        put("K", "k");
+        put("L", "l");
+        put("M", "m");
+        put("N", "n");
+        put("O", "o");
+        put("k", "K");
+        put("l", "L");
+        put("m", "M");
+        put("n", "N");
+        put("o", "O");
+        put("P", "p");
+        put("Q", "q");
+        put("R", "r");
+        put("S", "s");
+        put("T", "t");
+        put("p", "P");
+        put("q", "Q");
+        put("r", "R");
+        put("s", "S");
+        put("t", "T");
+        put("U", "u");
+        put("V", "v");
+        put("W", "w");
+        put("X", "x");
+        put("Y", "y");
+        put("u", "U");
+        put("v", "V");
+        put("w", "W");
+        put("x", "X");
+        put("y", "Y");
         put("Z", "z");
         put("z", "Z");
     }};
@@ -879,8 +1106,7 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
             keyList[KEYMODE_JA_FULL_NUMBER][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_full_symbols_shift);
             keyList[KEYMODE_JA_HALF_ALPHABET][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_alphabet_shift);
             keyList[KEYMODE_JA_HALF_NUMBER][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_symbols_shift);
-            keyList[KEYMODE_JA_HALF_PHONE][0] =
-                    mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE][0];
+            keyList[KEYMODE_JA_HALF_PHONE][0] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE][0];
         } else {
             /* qwerty shift_off (portrait) */
             keyList = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF];
@@ -902,8 +1128,7 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
             keyList[KEYMODE_JA_HALF_ALPHABET][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_alphabet_shift);
             keyList[KEYMODE_JA_HALF_NUMBER][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_symbols_shift);
             keyList[KEYMODE_JA_HALF_KATAKANA][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_katakana_shift);
-            keyList[KEYMODE_JA_HALF_PHONE][0] =
-                    mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE][0];
+            keyList[KEYMODE_JA_HALF_PHONE][0] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE][0];
 
 
             /* 12-keys shift_off (portrait) */
@@ -924,22 +1149,14 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
 
             /* 12-keys shift_on (portrait) */
             keyList = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_ON];
-            keyList[KEYMODE_JA_FULL_HIRAGANA]
-                    = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_HIRAGANA];
-            keyList[KEYMODE_JA_FULL_ALPHABET]
-                    = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_ALPHABET];
-            keyList[KEYMODE_JA_FULL_NUMBER]
-                    = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_NUMBER];
-            keyList[KEYMODE_JA_FULL_KATAKANA]
-                    = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_KATAKANA];
-            keyList[KEYMODE_JA_HALF_ALPHABET]
-                    = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_ALPHABET]; ;
-            keyList[KEYMODE_JA_HALF_NUMBER]
-                    = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_NUMBER];
-            keyList[KEYMODE_JA_HALF_KATAKANA]
-                    = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_KATAKANA];
-            keyList[KEYMODE_JA_HALF_PHONE]
-                    = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE];
+            keyList[KEYMODE_JA_FULL_HIRAGANA] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_HIRAGANA];
+            keyList[KEYMODE_JA_FULL_ALPHABET] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_ALPHABET];
+            keyList[KEYMODE_JA_FULL_NUMBER] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_NUMBER];
+            keyList[KEYMODE_JA_FULL_KATAKANA] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_KATAKANA];
+            keyList[KEYMODE_JA_HALF_ALPHABET] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_ALPHABET];
+            keyList[KEYMODE_JA_HALF_NUMBER] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_NUMBER];
+            keyList[KEYMODE_JA_HALF_KATAKANA] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_KATAKANA];
+            keyList[KEYMODE_JA_HALF_PHONE] = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE];
         }
     }
 
@@ -965,8 +1182,7 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
             keyList[KEYMODE_JA_FULL_NUMBER][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_full_symbols_shift);
             keyList[KEYMODE_JA_HALF_ALPHABET][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_alphabet_shift);
             keyList[KEYMODE_JA_HALF_NUMBER][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_symbols_shift);
-            keyList[KEYMODE_JA_HALF_PHONE][0] =
-                    mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE][0];
+            keyList[KEYMODE_JA_HALF_PHONE][0] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE][0];
         } else {
             /* qwerty shift_off (landscape) */
             keyList = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF];
@@ -988,8 +1204,7 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
             keyList[KEYMODE_JA_HALF_ALPHABET][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_alphabet_shift);
             keyList[KEYMODE_JA_HALF_NUMBER][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_symbols_shift);
             keyList[KEYMODE_JA_HALF_KATAKANA][0] = new Keyboard(parent, R.xml.keyboard_qwerty_jp_half_katakana_shift);
-            keyList[KEYMODE_JA_HALF_PHONE][0] =
-                    mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE][0];
+            keyList[KEYMODE_JA_HALF_PHONE][0] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE][0];
 
 
             /* 12-keys shift_off (landscape) */
@@ -1010,29 +1225,21 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
 
             /* 12-keys shift_on (landscape) */
             keyList = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_ON];
-            keyList[KEYMODE_JA_FULL_HIRAGANA]
-                    = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_HIRAGANA];
-            keyList[KEYMODE_JA_FULL_ALPHABET]
-                    = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_ALPHABET];
-            keyList[KEYMODE_JA_FULL_NUMBER]
-                    = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_NUMBER];
-            keyList[KEYMODE_JA_FULL_KATAKANA]
-                    = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_KATAKANA];
-            keyList[KEYMODE_JA_HALF_ALPHABET]
-                    = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_ALPHABET]; ;
-            keyList[KEYMODE_JA_HALF_NUMBER]
-                    = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_NUMBER];
-            keyList[KEYMODE_JA_HALF_KATAKANA]
-                    = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_KATAKANA];
-            keyList[KEYMODE_JA_HALF_PHONE]
-                    = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE];
+            keyList[KEYMODE_JA_FULL_HIRAGANA] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_HIRAGANA];
+            keyList[KEYMODE_JA_FULL_ALPHABET] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_ALPHABET];
+            keyList[KEYMODE_JA_FULL_NUMBER] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_NUMBER];
+            keyList[KEYMODE_JA_FULL_KATAKANA] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_FULL_KATAKANA];
+            keyList[KEYMODE_JA_HALF_ALPHABET] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_ALPHABET];
+            keyList[KEYMODE_JA_HALF_NUMBER] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_NUMBER];
+            keyList[KEYMODE_JA_HALF_KATAKANA] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_KATAKANA];
+            keyList[KEYMODE_JA_HALF_PHONE] = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_12KEY][KEYBOARD_SHIFT_OFF][KEYMODE_JA_HALF_PHONE];
         }
     }
 
     /**
      * Convert the key code to the index of table
      * <br>
-     * @param index     The key code
+     * @param keyCode     The key code
      * @return The index of the toggle table for input
      */
     private int getTableIndex(int keyCode) {

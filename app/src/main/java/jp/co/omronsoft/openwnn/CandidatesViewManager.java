@@ -157,7 +157,7 @@ public abstract class CandidatesViewManager {
             closeDialog();
             mDialog = new Dialog(view.getContext(), R.style.Dialog);
 
-            TextView text = (TextView) mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_text);
+            TextView text = mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_text);
             text.setText(word.candidate);
 
             mDialog.setContentView(mViewLongPressDialog);

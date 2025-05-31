@@ -36,9 +36,9 @@ import android.widget.TextView;
 public class CandidateTextView extends TextView {
 
     /** Width of fontsize change */
-    private static final int WIDTH_SIZE[] = {0, 50, 100};
+    private static final int[] WIDTH_SIZE = {0, 50, 100};
     /** Fontsize corresponding to width */
-    private static final float CUSTOM_FONTSIZE[] = {20.0f, 17.0f, 15.0f};
+    private static final float[] CUSTOM_FONTSIZE = {20.0f, 17.0f, 15.0f};
     /** Width of fontsize change beginning */
     private static final int CHANGE_FONTSIZE_WIDTH = 120;
 
@@ -87,10 +87,10 @@ public class CandidateTextView extends TextView {
 
     /**
      * Textview is set to the best content for the display of candidate.
-     * @param WnnWord    candidate
+     * @param word    candidate
      * @param wordCount  candidate id
-     * @param OnClickListener Operation when clicking
-     * @param OnClickListener Operation when longclicking
+     * @param candidateOnClick Operation when clicking
+     * @param candidateOnLongClick Operation when long clicking
      * @return Set completion textview
      */
     public CandidateTextView setCandidateTextView(WnnWord word, int wordCount,
@@ -112,7 +112,7 @@ public class CandidateTextView extends TextView {
     /**
      * If the text view is set to the best width for the display,
      * and it is necessary, the character is shortened.
-     * @param WnnWord candidate word
+     * @param word candidate word
      * @return int    textview width
      */
     public int setCustomCandidate(WnnWord word) {

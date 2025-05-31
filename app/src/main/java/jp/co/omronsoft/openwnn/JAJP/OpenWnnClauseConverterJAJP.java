@@ -80,8 +80,8 @@ public class OpenWnnClauseConverterJAJP {
      * Constructor
      */
     public OpenWnnClauseConverterJAJP() {
-        mIndepWordBag = new HashMap<String, ArrayList<WnnWord>>();
-        mAllIndepWordBag = new HashMap<String, ArrayList<WnnWord>>();
+        mIndepWordBag = new HashMap<>();
+        mAllIndepWordBag = new HashMap<>();
         mFzkPatterns = new HashMap();
         mConvertResult = new LinkedList();
 
@@ -198,7 +198,7 @@ public class OpenWnnClauseConverterJAJP {
 
                 String key = input.substring(start, end);
                 clauses.clear();
-                WnnClause bestClause = null;
+                WnnClause bestClause;
                 if (end == input.length()) {
                     /* get the clause which can be the end of the sentence */
                     singleClauseConvert(clauses, key, mPosEndOfClause1, false);
@@ -356,7 +356,7 @@ public class OpenWnnClauseConverterJAJP {
         } else {
             if (!all) {
                 /* reserve only the best clause */
-                WnnClause best = (WnnClause) clauseList.get(0);
+                WnnClause best = clauseList.get(0);
                 if (best.frequency < clause.frequency) {
                     clauseList.set(0, clause);
                     return true;
@@ -392,7 +392,7 @@ public class OpenWnnClauseConverterJAJP {
             if (mConnectMatrix[left][right] != 0) {
                 return true;
             }
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -428,7 +428,7 @@ public class OpenWnnClauseConverterJAJP {
                 continue;
             }
 
-            fzks = new ArrayList<WnnWord>();
+            fzks = new ArrayList<>();
             mFzkPatterns.put(key, fzks);
 
             /* search ancillary words */
@@ -483,7 +483,7 @@ public class OpenWnnClauseConverterJAJP {
             dict.setDictionary(WnnDictionary.INDEX_USER_DICTIONARY, FREQ_USER, FREQ_USER);
             dict.setDictionary(WnnDictionary.INDEX_LEARN_DICTIONARY, FREQ_LEARN, FREQ_LEARN);
 
-            words = new ArrayList<WnnWord>();
+            words = new ArrayList<>();
             WnnWord word;
             if (all) {
                 mAllIndepWordBag.put(input, words);
@@ -503,7 +503,7 @@ public class OpenWnnClauseConverterJAJP {
                         Iterator<WnnWord> list = words.iterator();
                         boolean found = false;
                         while (list.hasNext()) {
-                            WnnWord w = (WnnWord) list.next();
+                            WnnWord w = list.next();
                             if (w.partOfSpeech.right == word.partOfSpeech.right) {
                                 found = true;
                                 break;

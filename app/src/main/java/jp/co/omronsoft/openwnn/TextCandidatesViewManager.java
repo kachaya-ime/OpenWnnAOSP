@@ -155,11 +155,11 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
     /** Number of candidates displaying for 2nd */
     private int mWordCount2nd;
     /** List of candidates for 1st */
-    private ArrayList<WnnWord> mWnnWordArray1st = new ArrayList<WnnWord>();
+    private ArrayList<WnnWord> mWnnWordArray1st = new ArrayList<>();
     /** List of candidates for 2nd */
-    private ArrayList<WnnWord> mWnnWordArray2nd = new ArrayList<WnnWord>();
+    private ArrayList<WnnWord> mWnnWordArray2nd = new ArrayList<>();
     /** List of select candidates */
-    private LinkedList<WnnWord> mWnnWordSelectedList = new LinkedList<WnnWord>();
+    private LinkedList<WnnWord> mWnnWordSelectedList = new LinkedList<>();
 
     /** Gesture detector */
     private GestureDetector mGestureDetector;
@@ -198,9 +198,9 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
     private int mNormalViewWordCountOfLine;
 
     /** List of textView for CandiData List 1st for Symbol mode */
-    private ArrayList<TextView> mTextViewArray1st = new ArrayList<TextView>();
+    private ArrayList<TextView> mTextViewArray1st = new ArrayList<>();
     /** List of textView for CandiData List 2st for Symbol mode */
-    private ArrayList<TextView> mTextViewArray2nd = new ArrayList<TextView>();
+    private ArrayList<TextView> mTextViewArray2nd = new ArrayList<>();
     /** Now focus textView index */
     private int mCurrentFocusIndex = FOCUS_NONE;
     /** Focused View */
@@ -266,7 +266,7 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
                     break;
 
                 case MSG_SELECT_CANDIDATES:
-                    WnnWord word = null;
+                    WnnWord word;
                     while ((word = mWnnWordSelectedList.poll()) != null) {
                         selectCandidate(word);
                     }
@@ -402,7 +402,7 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
             }
         }
 
-        int wordcount = ((TextView) v).getId();
+        int wordcount = v.getId();
         mWord = list.get(wordcount);
         clearFocusCandidate();
         displayDialog(v, mWord);
@@ -449,20 +449,20 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
         LayoutInflater inflater = parent.getLayoutInflater();
         mViewBody = (ViewGroup) inflater.inflate(R.layout.candidates, null);
 
-        mViewTabSymbol = (TextView) mViewBody.findViewById(R.id.candview_symbol);
-        mViewTabEmoticon = (TextView) mViewBody.findViewById(R.id.candview_emoticon);
+        mViewTabSymbol = mViewBody.findViewById(R.id.candview_symbol);
+        mViewTabEmoticon = mViewBody.findViewById(R.id.candview_emoticon);
 
-        mViewBodyScroll = (ScrollView) mViewBody.findViewById(R.id.candview_scroll);
+        mViewBodyScroll = mViewBody.findViewById(R.id.candview_scroll);
 
-        mViewCandidateBase = (ViewGroup) mViewBody.findViewById(R.id.candview_base);
+        mViewCandidateBase = mViewBody.findViewById(R.id.candview_base);
 
         setNumeberOfDisplayLines();
         createNormalCandidateView();
-        mViewCandidateList2nd = (AbsoluteLayout) mViewBody.findViewById(R.id.candidates_2nd_view);
+        mViewCandidateList2nd = mViewBody.findViewById(R.id.candidates_2nd_view);
 
         mTextColor = r.getColor(R.color.candidate_text);
 
-        mReadMoreButton = (ImageView) mViewBody.findViewById(R.id.read_more_button);
+        mReadMoreButton = mViewBody.findViewById(R.id.read_more_button);
         mReadMoreButton.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 int resid = 0;
@@ -512,10 +512,10 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
 
         mGestureDetector = new GestureDetector(this);
 
-        mViewLongPressDialog = (View) inflater.inflate(R.layout.candidate_longpress_dialog, null);
+        mViewLongPressDialog = inflater.inflate(R.layout.candidate_longpress_dialog, null);
 
         /* select button */
-        Button longPressDialogButton = (Button) mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_select);
+        Button longPressDialogButton = mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_select);
         longPressDialogButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 playSoundAndVibration();
@@ -526,7 +526,7 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
         });
 
         /* cancel button */
-        longPressDialogButton = (Button) mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_cancel);
+        longPressDialogButton = mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_cancel);
         longPressDialogButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 playSoundAndVibration();
@@ -537,7 +537,7 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
         });
 
         /* delete button */
-        longPressDialogButton = (Button) mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_delete);
+        longPressDialogButton = mViewLongPressDialog.findViewById(R.id.candidate_longpress_dialog_delete);
         longPressDialogButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 playSoundAndVibration();
@@ -555,18 +555,17 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
      * Create the normal candidate view
      */
     private void createNormalCandidateView() {
-        mViewCandidateList1st = (LinearLayout) mViewBody.findViewById(R.id.candidates_1st_view);
+        mViewCandidateList1st = mViewBody.findViewById(R.id.candidates_1st_view);
         mViewCandidateList1st.setOnClickListener(mCandidateOnClick1st);
 
-        mViewCandidateListTab = (LinearLayout) mViewBody.findViewById(R.id.candview_tab);
+        mViewCandidateListTab = mViewBody.findViewById(R.id.candview_tab);
         TextView tSymbol = mViewTabSymbol;
         tSymbol.setOnClickListener(mTabOnClick);
         TextView tEmoticon = mViewTabEmoticon;
         tEmoticon.setOnClickListener(mTabOnClick);
 
-        int line = SETTING_NUMBER_OF_LINEMAX;
         int width = mViewWidth;
-        for (int i = 0; i < line; i++) {
+        for (int i = 0; i < SETTING_NUMBER_OF_LINEMAX; i++) {
             LinearLayout lineView = new LinearLayout(mViewBodyScroll.getContext());
             lineView.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams layoutParams =
@@ -747,11 +746,11 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
 
     /**
      * Get categories text.
-     * @param String Source string replacement
+     * @param categoriesString Source string replacement
      * @return String Categories text
      */
     private String getCategoriesText(String categoriesString) {
-        String ret = null;
+        String ret;
 
         Resources r = mWnn.getResources();
         if (categoriesString.equals(r.getString(R.string.half_symbol_categories_txt))) {
@@ -759,7 +758,7 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
         } else if (categoriesString.equals(r.getString(R.string.full_symbol_categories_txt))) {
             ret = r.getString(R.string.full_symbol_txt);
         } else {
-            ret = new String("");
+            ret = "";
         }
 
         return ret;
@@ -873,7 +872,6 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
         if (!(mViewBody.isShown())) {
             mWnn.setCandidatesViewShown(true);
         }
-        return;
     }
 
     /**
@@ -1323,14 +1321,14 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
             try {
                 mVibrator.vibrate(5);
             } catch (Exception ex) {
-                Log.e("OpenWnn", "TextCandidatesViewManager::selectCandidate Vibrator " + ex.toString());
+                Log.e("OpenWnn", "TextCandidatesViewManager::selectCandidate Vibrator " + ex);
             }
         }
         if (mSound != null) {
             try {
                 mSound.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD, -1);
             } catch (Exception ex) {
-                Log.e("OpenWnn", "TextCandidatesViewManager::selectCandidate Sound " + ex.toString());
+                Log.e("OpenWnn", "TextCandidatesViewManager::selectCandidate Sound " + ex);
             }
         }
     }
@@ -1349,7 +1347,7 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
                     try {
                         mVibrator.vibrate(5);
                     } catch (Exception ex) {
-                        Log.e("iwnn", "TextCandidatesViewManager::onFling Vibrator " + ex.toString());
+                        Log.e("iwnn", "TextCandidatesViewManager::onFling Vibrator " + ex);
                     }
                 }
                 mIsFullView = true;
@@ -1362,7 +1360,7 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
                     try {
                         mVibrator.vibrate(5);
                     } catch (Exception ex) {
-                        Log.e("iwnn", "TextCandidatesViewManager::onFling Sound " + ex.toString());
+                        Log.e("iwnn", "TextCandidatesViewManager::onFling Sound " + ex);
                     }
                 }
                 mIsFullView = false;
@@ -1552,8 +1550,8 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
     private void updateTabStatus(TextView tab, boolean enabled, boolean selected) {
         tab.setVisibility(View.VISIBLE);
         tab.setEnabled(enabled);
-        int backgroundId = 0;
-        int colorId = 0;
+        int backgroundId;
+        int colorId;
         if (enabled) {
             if (selected) {
                 backgroundId = R.drawable.cand_tab;
@@ -1758,7 +1756,7 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
      * @return WnnWord word
      */
     public WnnWord getWnnWord(int index) {
-        WnnWord word = null;
+        WnnWord word;
         if (index < 0) {
             index = 0;
             mHandler.removeMessages(MSG_MOVE_FOCUS);

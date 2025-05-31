@@ -39,7 +39,7 @@ public class CandidateFilter {
      * @return          {@code true} if the word is allowed; {@code false} if the word is denied.
      */
     public boolean isAllowed(WnnWord word) {
-        if (filter == 0) {
+        if (filter == FILTER_NONE) {
             return true;
         }
         if ((filter & FILTER_NON_ASCII) != 0) {

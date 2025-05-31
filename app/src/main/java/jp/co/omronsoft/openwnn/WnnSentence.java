@@ -17,7 +17,6 @@
 package jp.co.omronsoft.openwnn;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * The container class of a sentence.
@@ -44,7 +43,7 @@ public class WnnSentence extends WnnWord {
             this.attribute = 0;
         } else {
             this.elements = clauses;
-            WnnClause headClause = (WnnClause) clauses.get(0);
+            WnnClause headClause = clauses.get(0);
 
             if (clauses.size() == 1) {
                 this.id = headClause.id;
@@ -54,13 +53,11 @@ public class WnnSentence extends WnnWord {
                 this.partOfSpeech = headClause.partOfSpeech;
                 this.attribute = headClause.attribute;
             } else {
-                StringBuffer candidate = new StringBuffer();
-                Iterator<WnnClause> ci = clauses.iterator();
-                while (ci.hasNext()) {
-                    WnnClause clause = ci.next();
+                StringBuilder candidate = new StringBuilder();
+                for (WnnClause clause : clauses) {
                     candidate.append(clause.candidate);
                 }
-                WnnClause lastClause = (WnnClause) clauses.get(clauses.size() - 1);
+                WnnClause lastClause = clauses.get(clauses.size() - 1);
 
                 this.id = headClause.id;
                 this.candidate = candidate.toString();
@@ -86,7 +83,7 @@ public class WnnSentence extends WnnWord {
         this.partOfSpeech = clause.partOfSpeech;
         this.attribute = clause.attribute;
 
-        this.elements = new ArrayList<WnnClause>();
+        this.elements = new ArrayList<>();
         this.elements.add(clause);
     }
 
@@ -104,7 +101,7 @@ public class WnnSentence extends WnnWord {
         this.partOfSpeech = new WnnPOS(prev.partOfSpeech.left, clause.partOfSpeech.right);
         this.attribute = prev.attribute;
 
-        this.elements = new ArrayList<WnnClause>();
+        this.elements = new ArrayList<>();
         this.elements.addAll(prev.elements);
         this.elements.add(clause);
     }
@@ -124,7 +121,7 @@ public class WnnSentence extends WnnWord {
             this.frequency = head.frequency;
             this.partOfSpeech = head.partOfSpeech;
             this.attribute = head.attribute;
-            this.elements = new ArrayList<WnnClause>();
+            this.elements = new ArrayList<>();
             this.elements.add(head);
         } else {
             /* consecutive clauses */
@@ -135,7 +132,7 @@ public class WnnSentence extends WnnWord {
             this.partOfSpeech = new WnnPOS(head.partOfSpeech.left, tail.partOfSpeech.right);
             this.attribute = 2;
 
-            this.elements = new ArrayList<WnnClause>();
+            this.elements = new ArrayList<>();
             this.elements.add(head);
             this.elements.addAll(tail.elements);
         }

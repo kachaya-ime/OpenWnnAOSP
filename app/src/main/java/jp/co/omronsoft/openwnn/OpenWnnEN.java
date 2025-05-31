@@ -31,7 +31,6 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
@@ -328,7 +327,7 @@ public class OpenWnnEN extends OpenWnn {
     /** @see jp.co.omronsoft.openwnn.OpenWnn#hideWindow */
     @Override
     public void hideWindow() {
-        ((BaseInputView) ((DefaultSoftKeyboard) mInputViewManager).getCurrentView()).closeDialog();
+        ((BaseInputView) mInputViewManager.getCurrentView()).closeDialog();
         mComposingText.clear();
         mInputViewManager.onUpdateState(this);
         mInputViewManager.closing();
@@ -364,7 +363,7 @@ public class OpenWnnEN extends OpenWnn {
             /* Hardware keyboard */
             int hiddenState = newConfig.hardKeyboardHidden;
             boolean hidden = (hiddenState == Configuration.HARDKEYBOARDHIDDEN_YES);
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -781,7 +780,7 @@ public class OpenWnnEN extends OpenWnn {
     /**
      * Update the composing text.
      *
-     * @param layer  {@link mComposingText}'s layer to display
+     * @param layer  {@link #mComposingText}'s layer to display
      */
     private void updateComposingText(int layer) {
         /* update the candidates view */
@@ -845,7 +844,7 @@ public class OpenWnnEN extends OpenWnn {
     /**
      * Commit the composing text.
      *
-     * @param layer  {@link mComposingText}'s layer to commit.
+     * @param layer  {@link #mComposingText}'s layer to commit.
      */
     private void commitText(int layer) {
         String tmp = mComposingText.toString(layer);
@@ -904,7 +903,7 @@ public class OpenWnnEN extends OpenWnn {
      * Display current meta-key state.
      */
     private void updateMetaKeyStateDisplay() {
-        int mode = 0;
+        int mode;
         if (mHardShift == 0 && mHardAlt == 0) {
             mode = DefaultSoftKeyboard.HARD_KEYMODE_SHIFT_OFF_ALT_OFF;
         } else if (mHardShift == 1 && mHardAlt == 0) {
@@ -958,7 +957,7 @@ public class OpenWnnEN extends OpenWnn {
     /**
      * Fits an editor info.
      *
-     * @param preferences  The preference data.
+     * @param preference  The preference data.
      * @param info          The editor info.
      */
     private void fitInputType(SharedPreferences preference, EditorInfo info) {

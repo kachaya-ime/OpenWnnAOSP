@@ -142,7 +142,7 @@ public class SymbolList implements WnnEngine {
      * @return The symbols list
      */
     private ArrayList<String> getXmlfile(int id) {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
 
         XmlResourceParser xrp = mWnn.getResources().getXml(id);
         try {

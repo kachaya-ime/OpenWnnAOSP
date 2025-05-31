@@ -32,7 +32,6 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -150,7 +149,7 @@ public class OpenWnnJAJP extends OpenWnn {
 
     /** H/W 12Keyboard keycode replace table */
     private static final HashMap<Integer, Integer> HW12KEYBOARD_KEYCODE_REPLACE_TABLE
-            = new HashMap<Integer, Integer>() {{
+            = new HashMap<>() {{
         put(KeyEvent.KEYCODE_0, DefaultSoftKeyboard.KEYCODE_JP12_0);
         put(KeyEvent.KEYCODE_1, DefaultSoftKeyboard.KEYCODE_JP12_1);
         put(KeyEvent.KEYCODE_2, DefaultSoftKeyboard.KEYCODE_JP12_2);
@@ -564,7 +563,7 @@ public class OpenWnnJAJP extends OpenWnn {
     public void hideWindow() {
         mCandidatesViewManager.setCandidateMsgRemove();
 
-        BaseInputView baseInputView = ((BaseInputView) ((DefaultSoftKeyboard) mInputViewManager).getCurrentView());
+        BaseInputView baseInputView = ((BaseInputView) mInputViewManager.getCurrentView());
         if (baseInputView != null) {
             baseInputView.closeDialog();
         }
@@ -1696,7 +1695,7 @@ public class OpenWnnJAJP extends OpenWnn {
      * @return          {@code true} if this consumes the event; {@code false} if not.
      */
     boolean processKeyEventNoInputCandidateShown(KeyEvent ev) {
-        boolean ret = true;
+        boolean ret;
         int key = ev.getKeyCode();
 
         switch (key) {
@@ -2228,9 +2227,9 @@ public class OpenWnnJAJP extends OpenWnn {
                     mDisableAutoCommitEnglishMask |= AUTO_COMMIT_ENGLISH_SYMBOL;
                     int engineModeSymbol = 0;
 
-                    if (SYMBOL_LISTS[mCurrentSymbol] == SymbolList.SYMBOL_JAPANESE) {
+                    if (SYMBOL_LISTS[mCurrentSymbol].equals(SymbolList.SYMBOL_JAPANESE)) {
                         engineModeSymbol = ENGINE_MODE_SYMBOL;
-                    } else if (SYMBOL_LISTS[mCurrentSymbol] == SymbolList.SYMBOL_JAPANESE_FACE) {
+                    } else if (SYMBOL_LISTS[mCurrentSymbol].equals(SymbolList.SYMBOL_JAPANESE_FACE)) {
                         engineModeSymbol = ENGINE_MODE_SYMBOL_KAO_MOJI;
                     } else {
                     }
@@ -2577,7 +2576,7 @@ public class OpenWnnJAJP extends OpenWnn {
      * Display current meta-key state.
      */
     private void updateMetaKeyStateDisplay() {
-        int mode = 0;
+        int mode;
         if (mHardShift == 0 && mHardAlt == 0) {
             mode = DefaultSoftKeyboard.HARD_KEYMODE_SHIFT_OFF_ALT_OFF;
         } else if (mHardShift == 1 && mHardAlt == 0) {
@@ -2635,7 +2634,7 @@ public class OpenWnnJAJP extends OpenWnn {
     /**
      * Fits an editor info.
      *
-     * @param preferences  The preference data.
+     * @param preference  The preference data.
      * @param info              The editor info.
      */
     private void fitInputType(SharedPreferences preference, EditorInfo info) {
@@ -2758,7 +2757,6 @@ public class OpenWnnJAJP extends OpenWnn {
             return; /* do nothing */
         }
         composingText.insertStrSegment(ComposingText.LAYER0, ComposingText.LAYER1, str);
-        return;
     }
 
     /**

@@ -48,7 +48,7 @@ public class OpenWnn extends InputMethodService {
     protected WnnEngine mConverter = null;
     /** Pre-converter (for Romaji-to-Kana input, Hangul input, etc.) */
     protected LetterConverter mPreConverter = null;
-    /** The inputing/editing string */
+    /** The inputting/editing string */
     protected ComposingText mComposingText = null;
     /** The input connection */
     protected InputConnection mInputConnection = null;

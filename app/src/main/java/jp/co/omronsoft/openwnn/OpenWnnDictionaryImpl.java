@@ -127,7 +127,7 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
      * DEFINITION OF PRIVATE FIELD
      */
     /** Internal work area for the dictionary search library */
-    protected long mWnnWork = 0;
+    protected long mWnnWork;
 
     /** The file path of the writable dictionary */
     protected String mDicFilePath = "";
@@ -166,11 +166,11 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
     protected String mFastLinkQuerySqlOrderByKey;
 
     /** The string array used by query operation (for "selection") */
-    protected String mExactQueryArgs[] = new String[1];
+    protected String[] mExactQueryArgs = new String[1];
     /** The string array used by query operation (for "selection") */
-    protected String mFullQueryArgs[] = new String[MAX_LENGTH_OF_QUERY * (MAX_PATTERN_OF_APPROX + 1)];
+    protected String[] mFullQueryArgs = new String[MAX_LENGTH_OF_QUERY * (MAX_PATTERN_OF_APPROX + 1)];
     /** The string array used by query operation (for "selection") */
-    protected String mFastQueryArgs[] = new String[FAST_QUERY_LENGTH * (MAX_PATTERN_OF_APPROX + 1)];
+    protected String[] mFastQueryArgs = new String[FAST_QUERY_LENGTH * (MAX_PATTERN_OF_APPROX + 1)];
 
     /** The Frequency offset of user dictionary */
     protected int mFrequencyOffsetOfUserDictionary = -1;
@@ -183,7 +183,7 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
 
     /**
      * The constructor of this class without writable dictionary.
-     *
+     * <p>
      * Create a internal work area for the search engine. It is allocated for each object.
      *
      * @param dicLibPath    The dictionary library file path
@@ -194,7 +194,7 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
 
     /**
      * The constructor of this class with writable dictionary.
-     *
+     * <p>
      * Create a internal work area and the writable dictionary for the search engine. It is allocated for each object.
      *
      * @param dicLibPath    The dictionary library file path
@@ -271,7 +271,7 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
 
                 /* Create the table if not exist */
                 createDictionaryTable(TABLE_NAME_DIC);
-            } catch (SQLException e) {
+            } catch (SQLException ignored) {
             }
         }
     }
@@ -417,7 +417,7 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
     protected void createQuery(String keyString, WnnWord wnnWord, int operation, int order) {
         int newTypeOfQuery, maxBindsOfQuery;
         String querySqlOrderByFreq, querySqlOrderByKey;
-        String queryArgs[];
+        String[] queryArgs;
 
         if (operation != WnnDictionary.SEARCH_LINK) {
             wnnWord = null;
@@ -525,8 +525,6 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
                 mDbCursor.deactivate();
             }
         }
-
-        return;
     }
 
     /**
@@ -883,8 +881,8 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
                                     new String[]{COLUMN_NAME_ID},
                                     String.format("%s=%d and %s=%s and %s=%s",
                                             COLUMN_NAME_TYPE, TYPE_NAME_USER,
-                                            COLUMN_NAME_STROKE, strokeSQL.toString(),
-                                            COLUMN_NAME_CANDIDATE, candidateSQL.toString()),
+                                            COLUMN_NAME_STROKE, strokeSQL,
+                                            COLUMN_NAME_CANDIDATE, candidateSQL),
                                     null, null, null, null);
 
                             if (cursor.getCount() > 0) {
@@ -1042,8 +1040,8 @@ public class OpenWnnDictionaryImpl implements WnnDictionary {
                         mDbDic.delete(TABLE_NAME_DIC,
                                 String.format("%s=%d and %s=%s and %s=%s",
                                         COLUMN_NAME_TYPE, TYPE_NAME_LEARN,
-                                        COLUMN_NAME_STROKE, oldestStrokeSQL.toString(),
-                                        COLUMN_NAME_CANDIDATE, oldestCandidateSQL.toString()),
+                                        COLUMN_NAME_STROKE, oldestStrokeSQL,
+                                        COLUMN_NAME_CANDIDATE, oldestCandidateSQL),
                                 null);
 
                         mDbDic.setTransactionSuccessful();

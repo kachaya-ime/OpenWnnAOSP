@@ -174,9 +174,9 @@ public abstract class UserDictionaryToolsList extends Activity
 
         /* create XML layout */
         setContentView(R.layout.user_dictionary_tools_list);
-        mTableLayout = (TableLayout) findViewById(R.id.user_dictionary_tools_table);
+        mTableLayout = findViewById(R.id.user_dictionary_tools_table);
 
-        Button b = (Button) findViewById(R.id.user_dictionary_left_button);
+        Button b = findViewById(R.id.user_dictionary_left_button);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 int pos = mWordCount - MAX_LIST_WORD_COUNT;
@@ -189,7 +189,7 @@ public abstract class UserDictionaryToolsList extends Activity
         });
         mLeftButton = b;
 
-        b = (Button) findViewById(R.id.user_dictionary_right_button);
+        b = findViewById(R.id.user_dictionary_right_button);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 int pos = mWordCount + MAX_LIST_WORD_COUNT;
@@ -213,7 +213,7 @@ public abstract class UserDictionaryToolsList extends Activity
         sJustBeforeActionTime = -1;
         mWordList = getWords();
 
-        final TextView leftText = (TextView) findViewById(R.id.user_dictionary_tools_list_title_words_count);
+        final TextView leftText = findViewById(R.id.user_dictionary_tools_list_title_words_count);
         leftText.setText(mWordList.size() + "/" + MAX_WORD_COUNT);
 
         mIsXLarge = ((getResources().getConfiguration().screenLayout &
@@ -439,7 +439,7 @@ public abstract class UserDictionaryToolsList extends Activity
                     }
                     updateWordList();
 
-                    TextView leftText = (TextView) findViewById(R.id.user_dictionary_tools_list_title_words_count);
+                    TextView leftText = findViewById(R.id.user_dictionary_tools_list_title_words_count);
                     leftText.setText(size + "/" + MAX_WORD_COUNT);
 
                     if (mInitializedMenu) {
@@ -466,10 +466,10 @@ public abstract class UserDictionaryToolsList extends Activity
                     /* show the message */
                     Toast.makeText(getApplicationContext(), R.string.dialog_clear_user_dictionary_done,
                             Toast.LENGTH_LONG).show();
-                    mWordList = new ArrayList<WnnWord>();
+                    mWordList = new ArrayList<>();
                     mWordCount = 0;
                     updateWordList();
-                    TextView leftText = (TextView) findViewById(R.id.user_dictionary_tools_list_title_words_count);
+                    TextView leftText = findViewById(R.id.user_dictionary_tools_list_title_words_count);
                     leftText.setText(mWordList.size() + "/" + MAX_WORD_COUNT);
 
                     if (mInitializedMenu) {
@@ -487,13 +487,13 @@ public abstract class UserDictionaryToolsList extends Activity
     public boolean onTouch(View v, MotionEvent e) {
 
 
-        mSelectedViewID = ((TextView) v).getId();
+        mSelectedViewID = v.getId();
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 /* double tap handling */
-                if (sBeforeSelectedViewID != ((TextView) v).getId()) {
+                if (sBeforeSelectedViewID != v.getId()) {
                     /* save the view id if the id is not same as previously selected one */
-                    sBeforeSelectedViewID = ((TextView) v).getId();
+                    sBeforeSelectedViewID = v.getId();
                 } else {
                     if ((e.getDownTime() - sJustBeforeActionTime) < DOUBLE_TAP_TIME) {
                         /* edit the word if double tapped */
@@ -513,7 +513,7 @@ public abstract class UserDictionaryToolsList extends Activity
     /** @see android.view.View.OnFocusChangeListener#onFocusChange */
     public void onFocusChange(View v, boolean hasFocus) {
 
-        mSelectedViewID = ((TextView) v).getId();
+        mSelectedViewID = v.getId();
         sFocusingView = v;
         sFocusingPairView = ((UserDictionaryToolsListFocus) v).getPairView();
         if (hasFocus) {
@@ -637,7 +637,7 @@ public abstract class UserDictionaryToolsList extends Activity
                 word);
         sendEventToIME(event);
 
-        ArrayList<WnnWord> list = new ArrayList<WnnWord>();
+        ArrayList<WnnWord> list = new ArrayList<>();
         for (int i = 0; i < MAX_WORD_COUNT; i++) {
             event = new OpenWnnEvent(OpenWnnEvent.GET_WORD, word);
             if (!sendEventToIME(event)) {
@@ -733,7 +733,7 @@ public abstract class UserDictionaryToolsList extends Activity
         int size = mWordList.size();
         int start = mWordCount;
 
-        TextView t = (TextView) findViewById(R.id.user_dictionary_position_indicator);
+        TextView t = findViewById(R.id.user_dictionary_position_indicator);
         if (size <= MAX_LIST_WORD_COUNT) {
             ((View) mLeftButton.getParent()).setVisibility(View.GONE);
         } else {
@@ -769,9 +769,9 @@ public abstract class UserDictionaryToolsList extends Activity
                 mTableLayout.findViewById(i + 1).requestFocus();
             }
 
-            TextView text = (TextView) mTableLayout.findViewById(i + 1);
+            TextView text = mTableLayout.findViewById(i + 1);
             text.setText(wnnWordGet.stroke);
-            text = (TextView) mTableLayout.findViewById(i + 1 + MAX_WORD_COUNT);
+            text = mTableLayout.findViewById(i + 1 + MAX_WORD_COUNT);
             text.setText(wnnWordGet.candidate);
             ((View) text.getParent()).setVisibility(View.VISIBLE);
         }

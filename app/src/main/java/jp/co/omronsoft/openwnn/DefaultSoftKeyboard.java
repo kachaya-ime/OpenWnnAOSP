@@ -104,7 +104,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     public static final int KEYCODE_JP12_HAN_NUM = -228;
     /** Japanese 12-key keyboard [HALF-WIDTH ALPHABET MODE] */
     public static final int KEYCODE_JP12_HAN_ALPHA = -229;
-    /** Japanese 12-key keyboard [MODE TOOGLE CHANGE] */
+    /** Japanese 12-key keyboard [MODE TOGGLE CHANGE] */
     public static final int KEYCODE_JP12_TOGGLE_MODE = -230;
 
     /** Key code for symbol keyboard alt key */
@@ -145,7 +145,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     public static final int KEYCODE_QWERTY_HAN_NUM = -112;
     /** Qwerty keyboard [ALPHABET MODE] */
     public static final int KEYCODE_QWERTY_HAN_ALPHA = -113;
-    /** Qwerty keyboard [MODE TOOGLE CHANGE] */
+    /** Qwerty keyboard [MODE TOGGLE CHANGE] */
     public static final int KEYCODE_QWERTY_TOGGLE_MODE = -114;
     /** Qwerty keyboard [PINYIN MODE] */
     public static final int KEYCODE_QWERTY_PINYIN = -115;
@@ -183,8 +183,6 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     public static final int LANG_EN = 0;
     /** Language (Japanese) */
     public static final int LANG_JA = 1;
-    /** Language (Chinese) */
-    public static final int LANG_CN = 2;
 
     /* portrait/landscape */
     /** State of the display */
@@ -238,18 +236,6 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /** Japanese key-mode (Half-width phone number) */
     public static final int KEYMODE_JA_HALF_PHONE = 7;
 
-    /* key-modes for Chinese */
-    /** Chinese key-mode (pinyin) */
-    public static final int KEYMODE_CN_PINYIN = 0;
-    /** Chinese key-mode (Full-width number) */
-    public static final int KEYMODE_CN_FULL_NUMBER = 1;
-    /** Chinese key-mode (alphabet) */
-    public static final int KEYMODE_CN_ALPHABET = 2;
-    /** Chinese key-mode (phone) */
-    public static final int KEYMODE_CN_PHONE = 3;
-    /** Chinese key-mode (Half-width number) */
-    public static final int KEYMODE_CN_HALF_NUMBER = 4;
-
     /* key-modes for HARD */
     /** HARD key-mode (SHIFT_OFF_ALT_OFF) */
     public static final int HARD_KEYMODE_SHIFT_OFF_ALT_OFF = 2;
@@ -289,7 +275,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
      */
     protected boolean mNoInput = true;
 
-    /** Vibratior for key click vibration */
+    /** Vibrator for key click vibration */
     protected Vibrator mVibrator = null;
 
     /** MediaPlayer for key click sound */
@@ -445,14 +431,14 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /**
      * Get the keyboard when some characters are input or no character is input.
      *
-     * @param inputed   {@code true} if some characters are inputed; {@code false} if no character is inputed.
+     * @param inputted   {@code true} if some characters are inputted; {@code false} if no character is inputted.
      * @return Keyboard view
      */
-    protected Keyboard getKeyboardInputed(boolean inputed) {
+    protected Keyboard getKeyboardInputted(boolean inputted) {
         try {
             Keyboard[] kbd = mKeyboard[mCurrentLanguage][mDisplayMode][mCurrentKeyboardType][mShiftOn][mCurrentKeyMode];
 
-            if (inputed && kbd[1] != null) {
+            if (inputted && kbd[1] != null) {
                 return kbd[1];
             }
             return kbd[0];
@@ -644,14 +630,14 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     }
 
     /**
-     * Update the SHFIT/ALT keys indicator.
+     * Update the SHIFT/ALT keys indicator.
      *
      * @param mode  The state of SHIFT/ALT keys.
      */
     public void updateIndicator(int mode) {
         Resources res = mWnn.getResources();
-        TextView text1 = (TextView) mSubView.findViewById(R.id.shift);
-        TextView text2 = (TextView) mSubView.findViewById(R.id.alt);
+        TextView text1 = mSubView.findViewById(R.id.shift);
+        TextView text2 = mSubView.findViewById(R.id.alt);
 
         switch (mode) {
             case HARD_KEYMODE_SHIFT_OFF_ALT_OFF:
@@ -715,7 +701,6 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
                 text2.setBackgroundColor(res.getColor(R.color.indicator_textbackground_default));
                 break;
         }
-        return;
     }
 
     /** @see jp.co.omronsoft.openwnn.InputViewManager#getCurrentView */
@@ -730,7 +715,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
                 if (!mNoInput) {
                     /* when the mode changed to "no input" */
                     mNoInput = true;
-                    Keyboard newKeyboard = getKeyboardInputed(false);
+                    Keyboard newKeyboard = getKeyboardInputted(false);
                     if (mCurrentKeyboard != newKeyboard) {
                         changeKeyboard(newKeyboard);
                     }
@@ -739,13 +724,13 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
                 if (mNoInput) {
                     /* when the mode changed to "input some characters" */
                     mNoInput = false;
-                    Keyboard newKeyboard = getKeyboardInputed(true);
+                    Keyboard newKeyboard = getKeyboardInputted(true);
                     if (mCurrentKeyboard != newKeyboard) {
                         changeKeyboard(newKeyboard);
                     }
                 }
             }
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -849,13 +834,13 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         if (mVibrator != null) {
             try {
                 mVibrator.vibrate(5);
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
         if (mSound != null) {
             try {
                 mSound.seekTo(0); mSound.start();
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
     }
