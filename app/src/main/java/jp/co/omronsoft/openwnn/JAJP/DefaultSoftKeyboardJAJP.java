@@ -576,6 +576,8 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
             mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
                     OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_12KEY));
         } else {
+            /* Create the hardware assist keyboard object */
+            createKeyboardsAssist(parent);
             mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
                     OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_QWERTY));
         }
@@ -1084,6 +1086,39 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
         }
     }
 
+    private void createKeyboardsAssist(OpenWnn parent) {
+        Keyboard keyboardAssist = new Keyboard(parent, R.xml.keyboard_assist);
+        Keyboard[][] keyList;
+
+        keyList = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF];
+        keyList[KEYMODE_JA_FULL_HIRAGANA][0] = keyboardAssist;
+        keyList[KEYMODE_JA_FULL_NUMBER][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_ALPHABET][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_NUMBER][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_PHONE][0] = keyboardAssist;
+
+        keyList = mKeyboard[LANG_JA][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_ON];
+        keyList[KEYMODE_JA_FULL_HIRAGANA][0] = keyboardAssist;
+        keyList[KEYMODE_JA_FULL_NUMBER][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_ALPHABET][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_NUMBER][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_PHONE][0] = keyboardAssist;
+
+        keyList = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF];
+        keyList[KEYMODE_JA_FULL_HIRAGANA][0] = keyboardAssist;
+        keyList[KEYMODE_JA_FULL_NUMBER][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_ALPHABET][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_NUMBER][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_PHONE][0] = keyboardAssist;
+
+        keyList = mKeyboard[LANG_JA][LANDSCAPE][KEYBOARD_QWERTY][KEYBOARD_SHIFT_ON];
+        keyList[KEYMODE_JA_FULL_HIRAGANA][0] = keyboardAssist;
+        keyList[KEYMODE_JA_FULL_NUMBER][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_ALPHABET][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_NUMBER][0] = keyboardAssist;
+        keyList[KEYMODE_JA_HALF_PHONE][0] = keyboardAssist;
+
+    }
     /**
      * Create the keyboard for portrait mode
      * <br>

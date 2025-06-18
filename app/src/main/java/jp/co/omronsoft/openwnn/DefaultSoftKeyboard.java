@@ -607,8 +607,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         mSymbolKeyboard = new Keyboard(parent, R.xml.keyboard_4key);
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(parent);
-        String skin = pref.getString("keyboard_skin",
-                mWnn.getResources().getString(R.string.keyboard_skin_id_default));
+        String skin = pref.getString("keyboard_skin", mWnn.getResources().getString(R.string.keyboard_skin_id_default));
         int id = parent.getResources().getIdentifier(skin, "layout", "jp.co.omronsoft.openwnn");
 
         mKeyboardView = (KeyboardView) mWnn.getLayoutInflater().inflate(id, null);
@@ -621,6 +620,9 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         if (!mHardKeyboardHidden) {
             if (!mEnableHardware12Keyboard) {
                 mMainView.addView(mSubView);
+                if (mKeyboardView != null) {
+                    mMainView.addView(mKeyboardView);
+                }
             }
         } else if (mKeyboardView != null) {
             mMainView.addView(mKeyboardView);
