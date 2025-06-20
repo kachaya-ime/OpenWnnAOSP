@@ -566,20 +566,14 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
             }
 
             if (mCurrentKeyboardType == KEYBOARD_12KEY) {
-                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                        OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_12KEY));
+                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE, OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_12KEY));
             } else {
-                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                        OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_QWERTY));
+                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE, OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_QWERTY));
             }
-        } else if (mEnableHardware12Keyboard) {
-            mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                    OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_12KEY));
         } else {
             /* Create the hardware assist keyboard object */
             createKeyboardsAssist(parent);
-            mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                    OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_QWERTY));
+            mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE, OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_QWERTY));
         }
     }
 
@@ -737,28 +731,26 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
                 }
                 break;
 
-            case DefaultSoftKeyboard.KEYCODE_QWERTY_BACKSPACE:
+            case KEYCODE_QWERTY_BACKSPACE:
             case KEYCODE_JP12_BACKSPACE:
-                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.INPUT_SOFT_KEY,
-                        new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL)));
+                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.INPUT_SOFT_KEY, new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL)));
                 break;
 
-            case DefaultSoftKeyboard.KEYCODE_QWERTY_SHIFT:
+            case KEYCODE_QWERTY_SHIFT:
                 toggleShiftLock();
                 break;
 
-            case DefaultSoftKeyboard.KEYCODE_QWERTY_ALT:
+            case KEYCODE_QWERTY_ALT:
                 processAltKey();
                 break;
 
             case KEYCODE_QWERTY_ENTER:
             case KEYCODE_JP12_ENTER:
-                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.INPUT_SOFT_KEY,
-                        new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)));
+                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.INPUT_SOFT_KEY, new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)));
                 break;
 
             case KEYCODE_JP12_REVERSE:
-                if (!mNoInput && !mEnableHardware12Keyboard) {
+                if (!mNoInput) {
                     mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.TOGGLE_REVERSE_CHAR, mCurrentCycleTable));
                 }
                 break;
@@ -983,8 +975,6 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
             case EditorInfo.TYPE_CLASS_PHONE:
                 if (mHardKeyboardHidden) {
                     mLimitedKeyMode = new int[]{KEYMODE_JA_HALF_PHONE};
-                } else if (mEnableHardware12Keyboard) {
-                    mLimitedKeyMode = new int[]{KEYMODE_JA_HALF_NUMBER};
                 } else {
                     mLimitedKeyMode = new int[]{KEYMODE_JA_HALF_ALPHABET};
                 }
@@ -1442,19 +1432,12 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
     public void setHardKeyboardHidden(boolean hidden) {
         if (mWnn != null) {
             if (!hidden) {
-                if (mEnableHardware12Keyboard) {
-                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                            OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_12KEY));
-                } else {
-                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                            OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_QWERTY));
-                }
+                mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE, OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_QWERTY));
             }
 
             if (mHardKeyboardHidden != hidden) {
                 if ((mLimitedKeyMode != null)
-                        || (!mEnableHardware12Keyboard
-                        && (mCurrentKeyMode != KEYMODE_JA_FULL_HIRAGANA)
+                        || ((mCurrentKeyMode != KEYMODE_JA_FULL_HIRAGANA)
                         && (mCurrentKeyMode != KEYMODE_JA_HALF_ALPHABET))) {
 
                     mLastInputType = EditorInfo.TYPE_NULL;
@@ -1465,23 +1448,6 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
             }
         }
         super.setHardKeyboardHidden(hidden);
-    }
-
-    /** @see jp.co.omronsoft.openwnn.DefaultSoftKeyboard#setHardware12Keyboard */
-    @Override
-    public void setHardware12Keyboard(boolean type12Key) {
-        if (mWnn != null) {
-            if (mEnableHardware12Keyboard != type12Key) {
-                if (type12Key) {
-                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                            OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_12KEY));
-                } else {
-                    mWnn.onEvent(new OpenWnnEvent(OpenWnnEvent.CHANGE_MODE,
-                            OpenWnnJAJP.ENGINE_MODE_OPT_TYPE_QWERTY));
-                }
-            }
-        }
-        super.setHardware12Keyboard(type12Key);
     }
 
     /**
@@ -1495,8 +1461,7 @@ public class DefaultSoftKeyboardJAJP extends DefaultSoftKeyboard {
         int[] limits = mLimitedKeyMode;
 
         if (!mHardKeyboardHidden) { /* for hardware keyboard */
-            if (!mEnableHardware12Keyboard && (targetMode != KEYMODE_JA_FULL_HIRAGANA)
-                    && (targetMode != KEYMODE_JA_HALF_ALPHABET)) {
+            if ((targetMode != KEYMODE_JA_FULL_HIRAGANA) && (targetMode != KEYMODE_JA_HALF_ALPHABET)) {
 
                 Locale locale = Locale.getDefault();
                 int keymode = KEYMODE_JA_HALF_ALPHABET;

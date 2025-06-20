@@ -259,9 +259,6 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     /** Whether the H/W keyboard is hidden. */
     protected boolean mHardKeyboardHidden = true;
 
-    /** Whether the H/W 12key keyboard. */
-    protected boolean mEnableHardware12Keyboard = false;
-
     /** Symbol keyboard */
     protected Keyboard mSymbolKeyboard;
 
@@ -618,11 +615,9 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         mSubView = (ViewGroup) parent.getLayoutInflater().inflate(R.layout.keyboard_default_sub, null);
 
         if (!mHardKeyboardHidden) {
-            if (!mEnableHardware12Keyboard) {
-                mMainView.addView(mSubView);
-                if (mKeyboardView != null) {
-                    mMainView.addView(mKeyboardView);
-                }
+            mMainView.addView(mSubView);
+            if (mKeyboardView != null) {
+                mMainView.addView(mKeyboardView);
             }
         } else if (mKeyboardView != null) {
             mMainView.addView(mKeyboardView);
@@ -823,7 +818,7 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         playSoundAndVibration();
     }
 
-    /** @see android.jp.co.omronsoft.openwnn.KeyboardView.OnKeyboardActionListener#onLongPress */
+    /** @see KeyboardView.OnKeyboardActionListener#onLongPress */
     public boolean onLongPress(Keyboard.Key key) {
         return false;
     }
@@ -876,15 +871,6 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
      */
     public void setHardKeyboardHidden(boolean hidden) {
         mHardKeyboardHidden = hidden;
-    }
-
-    /**
-     * Set the H/W keyboard's type.
-     *
-     * @param type12Key {@code true} if 12Key.
-     */
-    public void setHardware12Keyboard(boolean type12Key) {
-        mEnableHardware12Keyboard = type12Key;
     }
 
     /**

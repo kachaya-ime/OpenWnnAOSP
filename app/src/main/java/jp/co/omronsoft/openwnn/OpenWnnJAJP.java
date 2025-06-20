@@ -147,25 +147,6 @@ public class OpenWnnJAJP extends OpenWnn {
     /** Delay time(msec.) to start prediction after key input when the candidates view is shown. */
     private static final int PREDICTION_DELAY_MS_SHOWING_CANDIDATE = 200;
 
-    /** H/W 12Keyboard keycode replace table */
-    private static final HashMap<Integer, Integer> HW12KEYBOARD_KEYCODE_REPLACE_TABLE
-            = new HashMap<>() {{
-        put(KeyEvent.KEYCODE_0, DefaultSoftKeyboard.KEYCODE_JP12_0);
-        put(KeyEvent.KEYCODE_1, DefaultSoftKeyboard.KEYCODE_JP12_1);
-        put(KeyEvent.KEYCODE_2, DefaultSoftKeyboard.KEYCODE_JP12_2);
-        put(KeyEvent.KEYCODE_3, DefaultSoftKeyboard.KEYCODE_JP12_3);
-        put(KeyEvent.KEYCODE_4, DefaultSoftKeyboard.KEYCODE_JP12_4);
-        put(KeyEvent.KEYCODE_5, DefaultSoftKeyboard.KEYCODE_JP12_5);
-        put(KeyEvent.KEYCODE_6, DefaultSoftKeyboard.KEYCODE_JP12_6);
-        put(KeyEvent.KEYCODE_7, DefaultSoftKeyboard.KEYCODE_JP12_7);
-        put(KeyEvent.KEYCODE_8, DefaultSoftKeyboard.KEYCODE_JP12_8);
-        put(KeyEvent.KEYCODE_9, DefaultSoftKeyboard.KEYCODE_JP12_9);
-        put(KeyEvent.KEYCODE_POUND, DefaultSoftKeyboard.KEYCODE_JP12_SHARP);
-        put(KeyEvent.KEYCODE_STAR, DefaultSoftKeyboard.KEYCODE_JP12_ASTER);
-        put(KeyEvent.KEYCODE_CALL, DefaultSoftKeyboard.KEYCODE_JP12_REVERSE);
-    }};
-
-
     /** Convert engine's state */
     private class EngineState {
         /** Definition for {@code EngineState.*} (invalid) */
@@ -411,9 +392,6 @@ public class OpenWnnJAJP extends OpenWnn {
     /** Whether text selection has started */
     private boolean mHasStartedTextSelection = true;
 
-    /** Whether the H/W 12keyboard is active or not. */
-    private boolean mEnableHardware12Keyboard = false;
-
     /** {@code Handler} for drawing candidates/displaying tutorial */
     Handler mHandler = new Handler() {
         @Override
@@ -505,9 +483,7 @@ public class OpenWnnJAJP extends OpenWnn {
         boolean type12Key
                 = (getResources().getConfiguration().keyboard == Configuration.KEYBOARD_12KEY);
         ((DefaultSoftKeyboardJAJP) mInputViewManager).setHardKeyboardHidden(hidden);
-        ((DefaultSoftKeyboard) mInputViewManager).setHardware12Keyboard(type12Key);
         mTextCandidatesViewManager.setHardKeyboardHidden(hidden);
-        mEnableHardware12Keyboard = type12Key;
         return super.onCreateInputView();
     }
 
@@ -658,9 +634,7 @@ public class OpenWnnJAJP extends OpenWnn {
                 boolean hidden = (hiddenState == Configuration.HARDKEYBOARDHIDDEN_YES);
                 boolean type12Key = (newConfig.keyboard == Configuration.KEYBOARD_12KEY);
                 ((DefaultSoftKeyboardJAJP) mInputViewManager).setHardKeyboardHidden(hidden);
-                ((DefaultSoftKeyboard) mInputViewManager).setHardware12Keyboard(type12Key);
                 mTextCandidatesViewManager.setHardKeyboardHidden(hidden);
-                mEnableHardware12Keyboard = type12Key;
             }
         } catch (Exception ex) {
             /* do nothing if an error occurs. */
@@ -864,16 +838,14 @@ public class OpenWnnJAJP extends OpenWnn {
                     return false;
 
                 case KeyEvent.KEYCODE_SPACE:
-                    if (keyEvent != null) {
-                        if (keyEvent.isShiftPressed()) {
-                            onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_UP));
-                        } else if (keyEvent.isAltPressed()) {
-                            if (keyEvent.getRepeatCount() == 0) {
-                                switchSymbolList();
-                            }
-                        } else {
-                            onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_DOWN));
+                    if (keyEvent.isShiftPressed()) {
+                        onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_UP));
+                    } else if (keyEvent.isAltPressed()) {
+                        if (keyEvent.getRepeatCount() == 0) {
+                            switchSymbolList();
                         }
+                    } else {
+                        onEvent(new OpenWnnEvent(OpenWnnEvent.CANDIDATE_VIEW_SCROLL_DOWN));
                     }
                     return true;
 
@@ -938,10 +910,6 @@ public class OpenWnnJAJP extends OpenWnn {
             state = new EngineState();
             state.temporaryMode = EngineState.TEMPORARY_DICTIONARY_MODE_NONE;
             updateEngineState(state);
-        }
-
-        if ((ev.code == OpenWnnEvent.INPUT_KEY) && processHardware12Keyboard(keyEvent)) {
-            return true;
         }
 
         if (ev.code == OpenWnnEvent.LIST_CANDIDATES_FULL) {
@@ -1158,19 +1126,23 @@ public class OpenWnnJAJP extends OpenWnn {
                 return false;
             }
             if (ev.isCtrlPressed()) {
-                if (key == KeyEvent.KEYCODE_A || key == KeyEvent.KEYCODE_F || key == KeyEvent.KEYCODE_C ||
-                        key == KeyEvent.KEYCODE_V || key == KeyEvent.KEYCODE_X || key == KeyEvent.KEYCODE_Z) {
-                    if (mComposingText.size(ComposingText.LAYER1) < 1) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                switch (key) {
+                    case KeyEvent.KEYCODE_A:
+                    case KeyEvent.KEYCODE_F:
+                    case KeyEvent.KEYCODE_C:
+                    case KeyEvent.KEYCODE_V:
+                    case KeyEvent.KEYCODE_X:
+                    case KeyEvent.KEYCODE_Z:
+                        if (mComposingText.size(ComposingText.LAYER1) < 1) {
+                            return false;
+                        } else {
+                            return true;
+                        }
                 }
             }
 
             /* do nothing if the character is not able to display or the character is dead key */
-            if ((mHardShift > 0 && mHardAlt > 0) ||
-                    (ev.isAltPressed() && ev.isShiftPressed())) {
+            if ((mHardShift > 0 && mHardAlt > 0) || (ev.isAltPressed() && ev.isShiftPressed())) {
                 int charCode = ev.getUnicodeChar(MetaKeyKeyListener.META_SHIFT_ON | MetaKeyKeyListener.META_ALT_ON);
                 if (charCode == 0 || (charCode & KeyCharacterMap.COMBINING_ACCENT) != 0 || charCode == PRIVATE_AREA_CODE) {
                     if (mHardShift == 1) {
@@ -1212,8 +1184,7 @@ public class OpenWnnJAJP extends OpenWnn {
                     str = createStrSegment(ev.getUnicodeChar());
                 }
             } else {
-                str = createStrSegment(ev.getUnicodeChar(mShiftKeyToggle[mHardShift]
-                        | mAltKeyToggle[mHardAlt]));
+                str = createStrSegment(ev.getUnicodeChar(mShiftKeyToggle[mHardShift] | mAltKeyToggle[mHardAlt]));
                 if (mHardShift == 1) {
                     mShiftPressing = false;
                 }
@@ -1273,12 +1244,10 @@ public class OpenWnnJAJP extends OpenWnn {
                 case KeyEvent.KEYCODE_DEL:
                     mStatus = STATUS_INPUT_EDIT;
                     if (mEngineState.isConvertState()) {
-                        mComposingText.setCursor(ComposingText.LAYER1,
-                                mComposingText.toString(ComposingText.LAYER1).length());
+                        mComposingText.setCursor(ComposingText.LAYER1, mComposingText.toString(ComposingText.LAYER1).length());
                         mExactMatchMode = false;
                     } else {
-                        if ((mComposingText.size(ComposingText.LAYER1) == 1)
-                                && mComposingText.getCursor(ComposingText.LAYER1) != 0) {
+                        if ((mComposingText.size(ComposingText.LAYER1) == 1) && mComposingText.getCursor(ComposingText.LAYER1) != 0) {
                             initializeScreen();
                             return true;
                         } else {
@@ -1303,8 +1272,7 @@ public class OpenWnnJAJP extends OpenWnn {
                             mCandidatesViewManager.clearCandidates();
                             mStatus = STATUS_INPUT_EDIT;
                             mExactMatchMode = false;
-                            mComposingText.setCursor(ComposingText.LAYER1,
-                                    mComposingText.toString(ComposingText.LAYER1).length());
+                            mComposingText.setCursor(ComposingText.LAYER1, mComposingText.toString(ComposingText.LAYER1).length());
                             updateViewStatusForPrediction(true, true);
                         }
                     }
@@ -1545,7 +1513,6 @@ public class OpenWnnJAJP extends OpenWnn {
                 Matcher m = mEnglishAutoCommitDelimiter.matcher(str.string);
                 if (m.matches()) {
                     commitText(true);
-
                     commit = true;
                 }
                 appendStrSegment(str);
@@ -1595,8 +1562,7 @@ public class OpenWnnJAJP extends OpenWnn {
 
         /* update the candidates view */
         if (candidates > 0) {
-            mHasContinuedPrediction = ((mComposingText.size(ComposingText.LAYER1) == 0)
-                    && !mEngineState.isSymbolList());
+            mHasContinuedPrediction = ((mComposingText.size(ComposingText.LAYER1) == 0) && !mEngineState.isSymbolList());
             mCandidatesViewManager.displayCandidates(mConverter);
         } else {
             mCandidatesViewManager.clearCandidates();
@@ -1661,8 +1627,7 @@ public class OpenWnnJAJP extends OpenWnn {
                 composingText.moveCursor(ComposingText.LAYER1, 1);
             }
         } else {
-            if (composingText.getCursor(ComposingText.LAYER1)
-                    < composingText.size(ComposingText.LAYER1)) {
+            if (composingText.getCursor(ComposingText.LAYER1) < composingText.size(ComposingText.LAYER1)) {
                 composingText.moveCursor(ComposingText.LAYER1, 1);
             }
         }
@@ -1786,39 +1751,30 @@ public class OpenWnnJAJP extends OpenWnn {
                         || (FIX_CURSOR_TEXT_END && isEnglishPrediction()
                         && (cursor < mComposingText.size(ComposingText.LAYER1)))) {
 
-                    mDisplayText.setSpan(SPAN_EXACT_BGCOLOR_HL, 0, cursor,
-                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    mDisplayText.setSpan(SPAN_EXACT_BGCOLOR_HL, 0, cursor, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     highlightEnd = cursor;
 
                 } else if (FIX_CURSOR_TEXT_END && mEngineState.isEisuKana()) {
-                    mDisplayText.setSpan(SPAN_EISUKANA_BGCOLOR_HL, 0, cursor,
-                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    mDisplayText.setSpan(SPAN_EISUKANA_BGCOLOR_HL, 0, cursor, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     highlightEnd = cursor;
 
                 } else if (layer == ComposingText.LAYER2) {
                     highlightEnd = mComposingText.toString(layer, 0, 0).length();
 
                     /* highlights the first segment */
-                    mDisplayText.setSpan(SPAN_CONVERT_BGCOLOR_HL, 0,
-                            highlightEnd,
-                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    mDisplayText.setSpan(SPAN_CONVERT_BGCOLOR_HL, 0, highlightEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
                 if (FIX_CURSOR_TEXT_END && (highlightEnd != 0)) {
                     /* highlights remaining text */
-                    mDisplayText.setSpan(SPAN_REMAIN_BGCOLOR_HL, highlightEnd,
-                            mComposingText.toString(layer).length(),
-                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    mDisplayText.setSpan(SPAN_REMAIN_BGCOLOR_HL, highlightEnd, mComposingText.toString(layer).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                     /* text color in the highlight */
-                    mDisplayText.setSpan(SPAN_TEXTCOLOR, 0,
-                            mComposingText.toString(layer).length(),
-                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    mDisplayText.setSpan(SPAN_TEXTCOLOR, 0, mComposingText.toString(layer).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }
 
-            mDisplayText.setSpan(SPAN_UNDERLINE, 0, mDisplayText.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mDisplayText.setSpan(SPAN_UNDERLINE, 0, mDisplayText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             int displayCursor = mComposingText.toString(layer, 0, cursor - 1).length();
             if (FIX_CURSOR_TEXT_END) {
@@ -1840,16 +1796,13 @@ public class OpenWnnJAJP extends OpenWnn {
             case ComposingText.LAYER1: /* prediction */
                 if (mEnablePrediction || mEngineState.isSymbolList() || mEngineState.isEisuKana()) {
                     /* update the candidates view */
-                    if ((mComposingText.size(ComposingText.LAYER1) != 0)
-                            && !mEngineState.isConvertState()) {
+                    if ((mComposingText.size(ComposingText.LAYER1) != 0) && !mEngineState.isConvertState()) {
 
                         mHandler.removeMessages(MSG_PREDICTION);
                         if (mCandidatesViewManager.getCurrentView().isShown()) {
-                            mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_PREDICTION),
-                                    PREDICTION_DELAY_MS_SHOWING_CANDIDATE);
+                            mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_PREDICTION), PREDICTION_DELAY_MS_SHOWING_CANDIDATE);
                         } else {
-                            mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_PREDICTION),
-                                    PREDICTION_DELAY_MS_1ST);
+                            mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_PREDICTION), PREDICTION_DELAY_MS_1ST);
                         }
                     } else {
                         mHandler.removeMessages(MSG_PREDICTION);
@@ -1872,8 +1825,7 @@ public class OpenWnnJAJP extends OpenWnn {
                     mComposingText.setCursor(ComposingText.LAYER2, 1);
                     mCandidatesViewManager.displayCandidates(mConverter);
                 } else {
-                    mComposingText.setCursor(ComposingText.LAYER1,
-                            mComposingText.toString(ComposingText.LAYER1).length());
+                    mComposingText.setCursor(ComposingText.LAYER1, mComposingText.toString(ComposingText.LAYER1).length());
                     mCandidatesViewManager.clearCandidates();
                 }
                 break;
@@ -1890,8 +1842,7 @@ public class OpenWnnJAJP extends OpenWnn {
      */
     private int commitText(boolean learn) {
         if (isEnglishPrediction()) {
-            mComposingText.setCursor(ComposingText.LAYER1,
-                    mComposingText.size(ComposingText.LAYER1));
+            mComposingText.setCursor(ComposingText.LAYER1, mComposingText.size(ComposingText.LAYER1));
         }
 
         int layer = mTargetLayer;
@@ -1944,8 +1895,7 @@ public class OpenWnnJAJP extends OpenWnn {
         if (mEngineState.isConvertState()) {
             commitConvertingText();
         } else {
-            mComposingText.setCursor(ComposingText.LAYER1,
-                    mComposingText.size(ComposingText.LAYER1));
+            mComposingText.setCursor(ComposingText.LAYER1, mComposingText.size(ComposingText.LAYER1));
             mStatus = commitText(true);
         }
         checkCommitInfo();
@@ -2148,8 +2098,7 @@ public class OpenWnnJAJP extends OpenWnn {
         EngineState myState = mEngineState;
 
         /* language */
-        if ((state.dictionarySet != EngineState.INVALID)
-                && (myState.dictionarySet != state.dictionarySet)) {
+        if ((state.dictionarySet != EngineState.INVALID) && (myState.dictionarySet != state.dictionarySet)) {
 
             switch (state.dictionarySet) {
                 case EngineState.DICTIONARYSET_EN:
@@ -2171,8 +2120,7 @@ public class OpenWnnJAJP extends OpenWnn {
         }
 
         /* type of conversion */
-        if ((state.convertType != EngineState.INVALID)
-                && (myState.convertType != state.convertType)) {
+        if ((state.convertType != EngineState.INVALID) && (myState.convertType != state.convertType)) {
 
             switch (state.convertType) {
                 case EngineState.CONVERT_TYPE_NONE:
@@ -2253,8 +2201,7 @@ public class OpenWnnJAJP extends OpenWnn {
         }
 
         /* preference dictionary */
-        if ((state.preferenceDictionary != EngineState.INVALID)
-                && (myState.preferenceDictionary != state.preferenceDictionary)) {
+        if ((state.preferenceDictionary != EngineState.INVALID) && (myState.preferenceDictionary != state.preferenceDictionary)) {
 
             myState.preferenceDictionary = state.preferenceDictionary;
             setDictionary(mPrevDictionarySet);
@@ -2350,8 +2297,7 @@ public class OpenWnnJAJP extends OpenWnn {
         if ((mStatus & ~STATUS_CANDIDATE_FULL) == STATUS_INPUT) {
             int cursor = mComposingText.getCursor(ComposingText.LAYER1);
             if (cursor > 0) {
-                String prevChar = mComposingText.getStrSegment(ComposingText.LAYER1,
-                        cursor - 1).string;
+                String prevChar = mComposingText.getStrSegment(ComposingText.LAYER1, cursor - 1).string;
                 String c = searchToggleCharacter(prevChar, table, false);
                 if (c != null) {
                     mComposingText.delete(ComposingText.LAYER1, false);
@@ -2451,8 +2397,7 @@ public class OpenWnnJAJP extends OpenWnn {
 
             /* Auto-commit a word if it is English and Qwerty mode */
             boolean commit = false;
-            if (isEnglishPrediction()
-                    && (mEngineState.keyboard == EngineState.KEYBOARD_QWERTY)) {
+            if (isEnglishPrediction() && (mEngineState.keyboard == EngineState.KEYBOARD_QWERTY)) {
 
                 Matcher m = mEnglishAutoCommitDelimiter.matcher(new String(chars));
                 if (m.matches()) {
@@ -2498,8 +2443,7 @@ public class OpenWnnJAJP extends OpenWnn {
                         mExactMatchMode = true;
                     } else {
                         /* specify all range */
-                        mComposingText.setCursor(ComposingText.LAYER1,
-                                mComposingText.size(ComposingText.LAYER1));
+                        mComposingText.setCursor(ComposingText.LAYER1, mComposingText.size(ComposingText.LAYER1));
                     }
                 }
             }
@@ -2839,7 +2783,7 @@ public class OpenWnnJAJP extends OpenWnn {
     /**
      * Handling KeyEvent(KEYUP)
      * <br>
-     * This method is called from {@link #onEvent()}.
+     * This method is called from {@link #onEvent(OpenWnnEvent)}.
      *
      * @param ev   An up key event
      */
@@ -2859,84 +2803,17 @@ public class OpenWnnJAJP extends OpenWnn {
                 updateMetaKeyStateDisplay();
             }
         }
-        if (mEnableHardware12Keyboard && !mDirectInputMode) {
-            if (isHardKeyboard12KeyLongPress(key)
-                    && ((ev.getFlags() & KeyEvent.FLAG_CANCELED_LONG_PRESS) == 0)) {
-                switch (key) {
-                    case KeyEvent.KEYCODE_SOFT_LEFT:
-                        if (mEngineState.isSymbolList()) {
-                            switchSymbolList();
-                        } else if ((mComposingText.size(0) != 0) && !mEngineState.isRenbun()
-                                && (((DefaultSoftKeyboardJAJP) mInputViewManager).getKeyMode()
-                                == DefaultSoftKeyboardJAJP.KEYMODE_JA_FULL_HIRAGANA)) {
-                            startConvert(EngineState.CONVERT_TYPE_RENBUN);
-                        } else {
-                            ((DefaultSoftKeyboard) mInputViewManager).onKey(
-                                    DefaultSoftKeyboard.KEYCODE_JP12_EMOJI, null);
-                        }
-                        break;
-
-                    case KeyEvent.KEYCODE_SOFT_RIGHT:
-                        ((DefaultSoftKeyboardJAJP) mInputViewManager).showInputModeSwitchDialog();
-                        break;
-
-                    case KeyEvent.KEYCODE_DEL:
-                        int newKeyCode = KeyEvent.KEYCODE_FORWARD_DEL;
-                        int composingTextSize = mComposingText.size(ComposingText.LAYER1);
-                        if (composingTextSize > 0) {
-                            if (mComposingText.getCursor(ComposingText.LAYER1) > (composingTextSize - 1)) {
-                                newKeyCode = KeyEvent.KEYCODE_DEL;
-                            }
-                            KeyEvent keyEvent = new KeyEvent(ev.getAction(), newKeyCode);
-                            if (!processKeyEvent(keyEvent)) {
-                                sendDownUpKeyEvents(keyEvent.getKeyCode());
-                            }
-                        } else {
-                            if (mInputConnection != null) {
-                                CharSequence text = mInputConnection.getTextAfterCursor(1, 0);
-                                if ((text == null) || (text.length() == 0)) {
-                                    newKeyCode = KeyEvent.KEYCODE_DEL;
-                                }
-                            }
-                            sendDownUpKeyEvents(newKeyCode);
-                        }
-                        break;
-
-                    default:
-                        break;
-
-                }
-            }
-        }
     }
 
     /**
      * Handling KeyEvent(KEYLONGPRESS)
      * <br>
-     * This method is called from {@link #handleEvent}.
+     * This method is called from {@link #onEvent(OpenWnnEvent)}.
      *
      * @param ev   An long press key event
      * @return    {@code true} if the event is processed in this method; {@code false} if not.
      */
     private boolean onKeyLongPressEvent(KeyEvent ev) {
-        if (mEnableHardware12Keyboard) {
-            int keyCode = 0;
-            if (ev != null) {
-                keyCode = ev.getKeyCode();
-            }
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_DEL:
-                    initializeScreen();
-                    if (mInputConnection != null) {
-                        mInputConnection.deleteSurroundingText(Integer.MAX_VALUE, Integer.MAX_VALUE);
-                    }
-                    return true;
-
-                default:
-                    break;
-
-            }
-        }
         return false;
     }
 
@@ -3027,53 +2904,4 @@ public class OpenWnnJAJP extends OpenWnn {
         mTextCandidatesViewManager.setEnableEmoticon(enableEmoticon);
     }
 
-    /**
-     * Is enable hard keyboard 12Key long press keycode.
-     *
-     * @param  keyCode  keycode.
-     * @return  {@code true} if enable long press keycode; {@code false} if not.
-     */
-    private boolean isHardKeyboard12KeyLongPress(int keyCode) {
-        boolean isLongPress = false;
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_SOFT_LEFT:
-            case KeyEvent.KEYCODE_SOFT_RIGHT:
-            case KeyEvent.KEYCODE_DEL:
-                isLongPress = true;
-                break;
-
-            default:
-                break;
-        }
-        return isLongPress;
-    }
-
-    /**
-     * Key event handler for hardware 12Keyboard.
-     *
-     * @param keyEvent A key event
-     * @return  {@code true} if the event is handled in this method.
-     */
-    private boolean processHardware12Keyboard(KeyEvent keyEvent) {
-        boolean ret = false;
-        if (mEnableHardware12Keyboard && (keyEvent != null)) {
-            int keyCode = keyEvent.getKeyCode();
-
-            if (isHardKeyboard12KeyLongPress(keyCode)) {
-                if (keyEvent.getRepeatCount() == 0) {
-                    keyEvent.startTracking();
-                }
-                ret = true;
-            } else {
-                Integer code = HW12KEYBOARD_KEYCODE_REPLACE_TABLE.get(keyCode);
-                if (code != null) {
-                    if (keyEvent.getRepeatCount() == 0) {
-                        ((DefaultSoftKeyboard) mInputViewManager).onKey(code.intValue(), null);
-                    }
-                    ret = true;
-                }
-            }
-        }
-        return ret;
-    }
 }
