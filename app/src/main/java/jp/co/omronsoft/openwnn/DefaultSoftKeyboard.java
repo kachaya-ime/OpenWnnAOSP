@@ -757,12 +757,8 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
         }
 
         /* pop-up preview */
-        if (OpenWnn.isXLarge()) {
-            mKeyboardView.setPreviewEnabled(false);
-        } else {
-            mKeyboardView.setPreviewEnabled(pref.getBoolean("popup_preview", true));
-            mKeyboardView.clearWindowInfo();
-        }
+        mKeyboardView.setPreviewEnabled(pref.getBoolean("popup_preview", true));
+        mKeyboardView.clearWindowInfo();
 
     }
 

@@ -719,57 +719,25 @@ public class KeyboardView extends View implements View.OnClickListener {
             keyBackground.draw(canvas);
 
             if (label != null) {
-                if (OpenWnn.isXLarge()) {
-                    if (label.length() > 1 && key.codes.length < 2) {
-                        paint.setTextSize(mLabelTextSize);
-                        paint.setTypeface(Typeface.DEFAULT);
-                    } else {
-                        paint.setTextSize(mKeyTextSize);
-                        paint.setTypeface(Typeface.DEFAULT_BOLD);
-                    }
+                if (label.length() > 1 && key.codes.length < 2) {
+                    paint.setTextSize(mLabelTextSize);
+                    paint.setTypeface(Typeface.DEFAULT_BOLD);
                 } else {
-                    if (label.length() > 1 && key.codes.length < 2) {
-                        paint.setTextSize(mLabelTextSize);
-                        paint.setTypeface(Typeface.DEFAULT_BOLD);
-                    } else {
-                        paint.setTextSize(mKeyTextSize);
-                        paint.setTypeface(Typeface.DEFAULT_BOLD);
-                    }
+                    paint.setTextSize(mKeyTextSize);
+                    paint.setTypeface(Typeface.DEFAULT_BOLD);
                 }
                 paint.setShadowLayer(mShadowRadius, 0, 0, mShadowColor);
-                if (OpenWnn.isXLarge()) {
-                    canvas.drawText(label,
-                            (key.width - padding.left + 7 - padding.right) / 2
-                                    + padding.left,
-                            (key.height - padding.top + 7 - padding.bottom) / 2
-                                    + (paint.getTextSize() - paint.descent()) / 2 + padding.top,
-                            paint);
-                } else {
-                    canvas.drawText(label,
-                            (key.width - padding.left - padding.right) / 2
-                                    + padding.left,
-                            (key.height - padding.top - padding.bottom) / 2
-                                    + (paint.getTextSize() - paint.descent()) / 2 + padding.top,
-                            paint);
-                }
+                float x = (key.width - padding.left - padding.right) / 2.0f + padding.left;
+                float y = (key.height - padding.top - padding.bottom) / 2.0f + (paint.getTextSize() - paint.descent()) / 2 + padding.top;
+                canvas.drawText(label, x, y, paint);
                 paint.setShadowLayer(0, 0, 0, 0);
             } else if (key.icon != null) {
                 int drawableX;
                 int drawableY;
-                if (OpenWnn.isXLarge()) {
-                    drawableX = (key.width - padding.left + 12 - padding.right
-                            - key.icon.getIntrinsicWidth()) / 2 + padding.left;
-                    drawableY = (key.height - padding.top + 9 - padding.bottom
-                            - key.icon.getIntrinsicHeight()) / 2 + padding.top;
-                } else {
-                    drawableX = (key.width - padding.left - padding.right
-                            - key.icon.getIntrinsicWidth()) / 2 + padding.left;
-                    drawableY = (key.height - padding.top - padding.bottom
-                            - key.icon.getIntrinsicHeight()) / 2 + padding.top;
-                }
+                drawableX = (key.width - padding.left - padding.right - key.icon.getIntrinsicWidth()) / 2 + padding.left;
+                drawableY = (key.height - padding.top - padding.bottom - key.icon.getIntrinsicHeight()) / 2 + padding.top;
                 canvas.translate(drawableX, drawableY);
-                key.icon.setBounds(0, 0,
-                        key.icon.getIntrinsicWidth(), key.icon.getIntrinsicHeight());
+                key.icon.setBounds(0, 0, key.icon.getIntrinsicWidth(), key.icon.getIntrinsicHeight());
                 key.icon.draw(canvas);
                 canvas.translate(-drawableX, -drawableY);
             }
@@ -1150,16 +1118,14 @@ public class KeyboardView extends View implements View.OnClickListener {
 
         if (pointerCount != mOldPointerCount) {
             if (isPointerCountOne) {
-                MotionEvent down = MotionEvent.obtain(now, now, MotionEvent.ACTION_DOWN,
-                        me.getX(), me.getY(), me.getMetaState());
+                MotionEvent down = MotionEvent.obtain(now, now, MotionEvent.ACTION_DOWN, me.getX(), me.getY(), me.getMetaState());
                 result = onModifiedTouchEvent(down, false);
                 down.recycle();
                 if (action == MotionEvent.ACTION_UP) {
                     result = onModifiedTouchEvent(me, true);
                 }
             } else {
-                MotionEvent up = MotionEvent.obtain(now, now, MotionEvent.ACTION_UP,
-                        mOldPointerX, mOldPointerY, me.getMetaState());
+                MotionEvent up = MotionEvent.obtain(now, now, MotionEvent.ACTION_UP, mOldPointerX, mOldPointerY, me.getMetaState());
                 result = onModifiedTouchEvent(up, true);
                 up.recycle();
             }
@@ -1186,12 +1152,12 @@ public class KeyboardView extends View implements View.OnClickListener {
         int keyIndex = getKeyIndices(touchX, touchY, null);
         mPossiblePoly = possiblePoly;
 
-        if (action == MotionEvent.ACTION_DOWN)
+        if (action == MotionEvent.ACTION_DOWN) {
             mSwipeTracker.clear();
+        }
         mSwipeTracker.addMovement(me);
 
-        if (mAbortKey
-                && action != MotionEvent.ACTION_DOWN && action != MotionEvent.ACTION_CANCEL) {
+        if (mAbortKey && action != MotionEvent.ACTION_DOWN && action != MotionEvent.ACTION_CANCEL) {
             return true;
         }
 
@@ -1221,8 +1187,7 @@ public class KeyboardView extends View implements View.OnClickListener {
                 mDownTime = me.getEventTime();
                 mLastMoveTime = mDownTime;
                 checkMultiTap(eventTime, keyIndex);
-                mKeyboardActionListener.onPress(keyIndex != NOT_A_KEY ?
-                        mKeys[keyIndex].codes[0] : 0);
+                mKeyboardActionListener.onPress(keyIndex != NOT_A_KEY ? mKeys[keyIndex].codes[0] : 0);
                 if (mCurrentKey >= 0 && mKeys[mCurrentKey].repeatable) {
                     mRepeatKeyIndex = mCurrentKey;
                     Message msg = mHandler.obtainMessage(MSG_REPEAT);
@@ -1255,8 +1220,7 @@ public class KeyboardView extends View implements View.OnClickListener {
                             mLastKey = mCurrentKey;
                             mLastCodeX = mLastX;
                             mLastCodeY = mLastY;
-                            mLastKeyTime =
-                                    mCurrentKeyTime + eventTime - mLastMoveTime;
+                            mLastKeyTime = mCurrentKeyTime + eventTime - mLastMoveTime;
                             mCurrentKey = keyIndex;
                             mCurrentKeyTime = 0;
                         }
@@ -1284,8 +1248,7 @@ public class KeyboardView extends View implements View.OnClickListener {
                     mCurrentKey = keyIndex;
                     mCurrentKeyTime = 0;
                 }
-                if (mCurrentKeyTime < mLastKeyTime && mCurrentKeyTime < DEBOUNCE_TIME
-                        && mLastKey != NOT_A_KEY) {
+                if (mCurrentKeyTime < mLastKeyTime && mCurrentKeyTime < DEBOUNCE_TIME && mLastKey != NOT_A_KEY) {
                     mCurrentKey = mLastKey;
                     touchX = mLastCodeX;
                     touchY = mLastCodeY;
@@ -1386,8 +1349,7 @@ public class KeyboardView extends View implements View.OnClickListener {
         Key key = mKeys[keyIndex];
         if (key.codes.length > 1) {
             mInMultiTap = true;
-            if (eventTime < mLastTapTime + MULTITAP_INTERVAL
-                    && keyIndex == mLastSentIndex) {
+            if (eventTime < mLastTapTime + MULTITAP_INTERVAL && keyIndex == mLastSentIndex) {
                 mTapCount = (mTapCount + 1) % key.codes.length;
                 return;
             } else {
@@ -1420,8 +1382,7 @@ public class KeyboardView extends View implements View.OnClickListener {
             long time = ev.getEventTime();
             final int N = ev.getHistorySize();
             for (int i = 0; i < N; i++) {
-                addPoint(ev.getHistoricalX(i), ev.getHistoricalY(i),
-                        ev.getHistoricalEventTime(i));
+                addPoint(ev.getHistoricalX(i), ev.getHistoricalY(i), ev.getHistoricalEventTime(i));
             }
             addPoint(ev.getX(), ev.getY(), time);
         }
@@ -1440,8 +1401,9 @@ public class KeyboardView extends View implements View.OnClickListener {
             if (i == NUM_PAST && drop < 0) {
                 drop = 0;
             }
-            if (drop == i)
+            if (drop == i) {
                 drop--;
+            }
             final float[] pastX = mPastX;
             final float[] pastY = mPastY;
             if (drop >= 0) {
@@ -1485,26 +1447,27 @@ public class KeyboardView extends View implements View.OnClickListener {
 
             for (int i = 1; i < N; i++) {
                 final int dur = (int) (pastTime[i] - oldestTime);
-                if (dur == 0)
+                if (dur == 0) {
                     continue;
+                }
                 float dist = pastX[i] - oldestX;
                 float vel = (dist / dur) * units;
-                if (accumX == 0)
+                if (accumX == 0) {
                     accumX = vel;
-                else
+                } else {
                     accumX = (accumX + vel) * .5f;
+                }
 
                 dist = pastY[i] - oldestY;
                 vel = (dist / dur) * units;
-                if (accumY == 0)
+                if (accumY == 0) {
                     accumY = vel;
-                else
+                } else {
                     accumY = (accumY + vel) * .5f;
+                }
             }
-            mXVelocity = accumX < 0.0f ? Math.max(accumX, -maxVelocity)
-                    : Math.min(accumX, maxVelocity);
-            mYVelocity = accumY < 0.0f ? Math.max(accumY, -maxVelocity)
-                    : Math.min(accumY, maxVelocity);
+            mXVelocity = accumX < 0.0f ? Math.max(accumX, -maxVelocity) : Math.min(accumX, maxVelocity);
+            mYVelocity = accumY < 0.0f ? Math.max(accumY, -maxVelocity) : Math.min(accumY, maxVelocity);
         }
 
         public float getXVelocity() {

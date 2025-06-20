@@ -36,7 +36,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -458,7 +457,6 @@ public class OpenWnnJAJP extends OpenWnn {
     /** @see jp.co.omronsoft.openwnn.OpenWnn#onCreate */
     @Override
     public void onCreate() {
-        updateXLargeMode();
         super.onCreate();
 
         if (mConverter == null || mConverterJAJP == null) {
@@ -480,8 +478,6 @@ public class OpenWnnJAJP extends OpenWnn {
     public View onCreateInputView() {
         int hiddenState = getResources().getConfiguration().hardKeyboardHidden;
         boolean hidden = (hiddenState == Configuration.HARDKEYBOARDHIDDEN_YES);
-        boolean type12Key
-                = (getResources().getConfiguration().keyboard == Configuration.KEYBOARD_12KEY);
         ((DefaultSoftKeyboardJAJP) mInputViewManager).setHardKeyboardHidden(hidden);
         mTextCandidatesViewManager.setHardKeyboardHidden(hidden);
         return super.onCreateInputView();
@@ -506,10 +502,6 @@ public class OpenWnnJAJP extends OpenWnn {
 
             super.onStartInputView(attribute, restarting);
 
-            if (OpenWnn.isXLarge()) {
-                mTextCandidatesViewManager.setPreferences(pref);
-            }
-
             mCandidatesViewManager.clearCandidates();
             mStatus = STATUS_INIT;
             mExactMatchMode = false;
@@ -523,11 +515,7 @@ public class OpenWnnJAJP extends OpenWnn {
         /* initialize the engine's state */
         fitInputType(pref, attribute);
 
-        if (OpenWnn.isXLarge()) {
-            mTextCandidates1LineViewManager.setAutoHide(true);
-        } else {
-            ((TextCandidatesViewManager) mCandidatesViewManager).setAutoHide(true);
-        }
+        ((TextCandidatesViewManager) mCandidatesViewManager).setAutoHide(true);
 
         if (isEnableL2Converter()) {
             breakSequence();
@@ -548,11 +536,7 @@ public class OpenWnnJAJP extends OpenWnn {
         clearCommitInfo();
         mInputViewManager.closing();
 
-        if (OpenWnn.isXLarge()) {
-            mTextCandidates1LineViewManager.closeDialog();
-        } else {
-            mTextCandidatesViewManager.closeDialog();
-        }
+        mTextCandidatesViewManager.closeDialog();
 
         super.hideWindow();
     }
@@ -775,8 +759,7 @@ public class OpenWnnJAJP extends OpenWnn {
                             sendKeyChar('\n');
                         } else {
                             mInputConnection.sendKeyEvent(keyEvent);
-                            mInputConnection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP,
-                                    keyEvent.getKeyCode()));
+                            mInputConnection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, keyEvent.getKeyCode()));
                         }
                         break;
                     case OpenWnnEvent.INPUT_CHAR:
@@ -1302,12 +1285,8 @@ public class OpenWnnJAJP extends OpenWnn {
                     return true;
 
                 case KeyEvent.KEYCODE_DPAD_UP:
-                    if (OpenWnn.isXLarge()) {
-                        updateViewStatusForPrediction(true, true);
-                    } else {
-                        if (mCandidatesViewManager.isFocusCandidate()) {
-                            processUpKeyEvent();
-                        }
+                    if (mCandidatesViewManager.isFocusCandidate()) {
+                        processUpKeyEvent();
                     }
                     return true;
 
@@ -1450,11 +1429,7 @@ public class OpenWnnJAJP extends OpenWnn {
 
                 mEnableLearning = pref.getBoolean("opt_enable_learning_en", true);
                 mEnablePrediction = pref.getBoolean("opt_prediction_en", false);
-                if (OpenWnn.isXLarge()) {
-                    mEnableSpellCorrection = pref.getBoolean("opt_spell_correction_en", false);
-                } else {
-                    mEnableSpellCorrection = pref.getBoolean("opt_spell_correction_en", true);
-                }
+                mEnableSpellCorrection = pref.getBoolean("opt_spell_correction_en", true);
             }
             mCandidatesViewManager.clearCandidates();
 
@@ -2051,11 +2026,7 @@ public class OpenWnnJAJP extends OpenWnn {
 
                 mEnableLearning = pref.getBoolean("opt_enable_learning_en", true);
                 mEnablePrediction = pref.getBoolean("opt_prediction_en", false);
-                if (OpenWnn.isXLarge()) {
-                    mEnableSpellCorrection = pref.getBoolean("opt_spell_correction_en", false);
-                } else {
-                    mEnableSpellCorrection = pref.getBoolean("opt_spell_correction_en", true);
-                }
+                mEnableSpellCorrection = pref.getBoolean("opt_spell_correction_en", true);
                 break;
 
             case OpenWnnEvent.Mode.NO_LV2_CONV:
@@ -2152,13 +2123,6 @@ public class OpenWnnJAJP extends OpenWnn {
                         mDisableAutoCommitEnglishMask &= ~AUTO_COMMIT_ENGLISH_SYMBOL;
                         ((DefaultSoftKeyboard) mInputViewManager).setNormalKeyboard();
                         mTextCandidatesViewManager.setSymbolMode(false, ENGINE_MODE_SYMBOL_NONE);
-                        if (OpenWnn.isXLarge()) {
-                            mCandidatesViewManager = mTextCandidates1LineViewManager;
-                            View view = mTextCandidates1LineViewManager.getCurrentView();
-                            if (view != null) {
-                                setCandidatesView(view);
-                            }
-                        }
                     }
                     break;
 
@@ -2183,13 +2147,6 @@ public class OpenWnnJAJP extends OpenWnn {
                     }
 
                     mTextCandidatesViewManager.setSymbolMode(true, engineModeSymbol);
-                    if (OpenWnn.isXLarge()) {
-                        mCandidatesViewManager = mTextCandidatesViewManager;
-                        View view = mTextCandidatesViewManager.getCurrentView();
-                        if (view != null) {
-                            setCandidatesView(view);
-                        }
-                    }
                     breakSequence();
                     ((DefaultSoftKeyboard) mInputViewManager).setSymbolKeyboard();
                     break;
@@ -2590,11 +2547,7 @@ public class OpenWnnJAJP extends OpenWnn {
         if (mConverter == mConverterEN) {
             mEnableLearning = preference.getBoolean("opt_enable_learning_en", true);
             mEnablePrediction = preference.getBoolean("opt_prediction_en", false);
-            if (OpenWnn.isXLarge()) {
-                mEnableSpellCorrection = preference.getBoolean("opt_spell_correction_en", false);
-            } else {
-                mEnableSpellCorrection = preference.getBoolean("opt_spell_correction_en", true);
-            }
+            mEnableSpellCorrection = preference.getBoolean("opt_spell_correction_en", true);
         } else {
             mEnableLearning = preference.getBoolean("opt_enable_learning_ja", true);
             mEnablePrediction = preference.getBoolean("opt_prediction_ja", true);

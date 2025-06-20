@@ -60,9 +60,6 @@ public class OpenWnn extends InputMethodService {
     /** Flag for checking if the previous down key event is consumed by OpenWnn  */
     private boolean mConsumeDownEvent;
 
-    /** for isXLarge */
-    private static boolean mIsXLarge = false;
-
     /** TextCandidatesViewManager */
     protected TextCandidatesViewManager mTextCandidatesViewManager = null;
 
@@ -88,7 +85,6 @@ public class OpenWnn extends InputMethodService {
     /** @see android.inputmethodservice.InputMethodService#onCreate */
     @Override
     public void onCreate() {
-        updateXLargeMode();
         super.onCreate();
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -97,13 +93,7 @@ public class OpenWnn extends InputMethodService {
 
 
         mTextCandidatesViewManager = new TextCandidatesViewManager(-1);
-        if (isXLarge()) {
-            mTextCandidates1LineViewManager =
-                    new TextCandidates1LineViewManager(OpenWnnEngineJAJP.LIMIT_OF_CANDIDATES_1LINE);
-            mCandidatesViewManager = mTextCandidates1LineViewManager;
-        } else {
-            mCandidatesViewManager = mTextCandidatesViewManager;
-        }
+        mCandidatesViewManager = mTextCandidatesViewManager;
 
         if (mConverter != null) {
             mConverter.init();
@@ -118,17 +108,8 @@ public class OpenWnn extends InputMethodService {
     public View onCreateCandidatesView() {
         if (mCandidatesViewManager != null) {
             WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-            if (isXLarge()) {
-                mCandidatesViewManager = mTextCandidates1LineViewManager;
-                mTextCandidatesViewManager.initView(this,
-                        wm.getDefaultDisplay().getWidth(),
-                        wm.getDefaultDisplay().getHeight());
-            } else {
-                mCandidatesViewManager = mTextCandidatesViewManager;
-            }
-            View view = mCandidatesViewManager.initView(this,
-                    wm.getDefaultDisplay().getWidth(),
-                    wm.getDefaultDisplay().getHeight());
+            mCandidatesViewManager = mTextCandidatesViewManager;
+            View view = mCandidatesViewManager.initView(this, wm.getDefaultDisplay().getWidth(), wm.getDefaultDisplay().getHeight());
             mCandidatesViewManager.setViewType(CandidatesViewManager.VIEW_TYPE_NORMAL);
             return view;
         } else {
@@ -353,24 +334,6 @@ public class OpenWnn extends InputMethodService {
         if (mConverter != null) {
             mConverter.close();
         }
-    }
-
-    /**
-     * Whether the x large mode.
-     *
-     * @return      {@code true} if x large; {@code false} if not x large.
-     */
-    public static boolean isXLarge() {
-        return mIsXLarge;
-    }
-
-    /**
-     * Update the x large mode.
-     */
-    public void updateXLargeMode() {
-        mIsXLarge = ((getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_MASK)
-                == Configuration.SCREENLAYOUT_SIZE_XLARGE);
     }
 
     /**

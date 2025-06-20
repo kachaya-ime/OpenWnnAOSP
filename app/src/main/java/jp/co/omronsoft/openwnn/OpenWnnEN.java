@@ -319,9 +319,6 @@ public class OpenWnnEN extends OpenWnn {
 
         ((DefaultSoftKeyboard) mInputViewManager).resetCurrentKeyboard();
 
-        if (OpenWnn.isXLarge()) {
-            mTextCandidatesViewManager.setPreferences(pref);
-        }
     }
 
     /** @see jp.co.omronsoft.openwnn.OpenWnn#hideWindow */

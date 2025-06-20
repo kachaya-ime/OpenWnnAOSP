@@ -426,16 +426,9 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
         Resources r = mWnn.getResources();
         mCandidateMinimumWidth = r.getDimensionPixelSize(R.dimen.cand_minimum_width);
         mCandidateMinimumHeight = r.getDimensionPixelSize(R.dimen.cand_minimum_height);
-        if (OpenWnn.isXLarge()) {
-            mCandidateOneLineMinimumHeight = r.getDimensionPixelSize(R.dimen.candidate_layout_height);
-        }
         mCandidateCategoryMinimumHeight = r.getDimensionPixelSize(R.dimen.cand_category_minimum_height);
         mCandidateLeftAlignThreshold = r.getDimensionPixelSize(R.dimen.cand_left_align_threshold);
         mKeyboardHeight = r.getDimensionPixelSize(R.dimen.keyboard_height);
-        if (OpenWnn.isXLarge()) {
-            mKeyboardHeight += Math.round(height * KEYBOARD_VERTICAL_GAP)
-                    * KEYBOARD_VERTICAL_GAP_COUNT;
-        }
         mSymbolKeyboardHeight = r.getDimensionPixelSize(R.dimen.symbol_keyboard_height);
         Drawable d = r.getDrawable(R.drawable.tab_no_select);
         mSymbolKeyboardTabHeight = d.getMinimumHeight();
@@ -1495,26 +1488,18 @@ public class TextCandidatesViewManager extends CandidatesViewManager implements 
      * @return the height of a candidate view.
      */
     private int getCandidateViewHeight() {
-        if (OpenWnn.isXLarge()) {
-            return mKeyboardHeight + mCandidateOneLineMinimumHeight - mSymbolKeyboardHeight
-                    - mSymbolKeyboardTabHeight;
+        int numberOfLine = (mPortrait) ? mPortraitNumberOfLine : mLandscapeNumberOfLine;
+        Resources resource = mWnn.getResources();
+        Drawable keyboardBackground = resource.getDrawable(R.drawable.keyboard_background);
+        Rect keyboardPadding = new Rect(0, 0, 0, 0);
+        keyboardBackground.getPadding(keyboardPadding);
+        int keyboardTotalPadding = keyboardPadding.top + keyboardPadding.bottom;
+        if (mIsSymbolMode) {
+            return mKeyboardHeight + numberOfLine * getCandidateMinimumHeight() - mSymbolKeyboardHeight - mSymbolKeyboardTabHeight;
+        } else if (!mHardKeyboardHidden) {
+            return mKeyboardHeight + numberOfLine * getCandidateMinimumHeight() - mSymbolKeyboardHeight;
         } else {
-            int numberOfLine = (mPortrait) ? mPortraitNumberOfLine : mLandscapeNumberOfLine;
-            Resources resource = mWnn.getResources();
-            Drawable keyboardBackground = resource.getDrawable(R.drawable.keyboard_background);
-            Rect keyboardPadding = new Rect(0, 0, 0, 0);
-            keyboardBackground.getPadding(keyboardPadding);
-            int keyboardTotalPadding = keyboardPadding.top + keyboardPadding.bottom;
-            if (mIsSymbolMode) {
-                return mKeyboardHeight + numberOfLine * getCandidateMinimumHeight()
-                        - mSymbolKeyboardHeight - mSymbolKeyboardTabHeight;
-            } else if (!mHardKeyboardHidden) {
-                return mKeyboardHeight + numberOfLine * getCandidateMinimumHeight()
-                        - mSymbolKeyboardHeight;
-            } else {
-                return mKeyboardHeight + keyboardTotalPadding
-                        + numberOfLine * getCandidateMinimumHeight();
-            }
+            return mKeyboardHeight + keyboardTotalPadding + numberOfLine * getCandidateMinimumHeight();
         }
     }
 
