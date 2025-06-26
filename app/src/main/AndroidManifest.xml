@@ -19,12 +19,12 @@
 
     <original-package android:name="jp.co.omronsoft.openwnn" />
 
-    <uses-permission xmlns:android="http://schemas.android.com/apk/res/android"
+    <uses-permission
         android:name="android.permission.VIBRATE" />
     <application android:label="OpenWnn">
 
         <service
-            android:name="OpenWnnJAJP"
+            android:name=".OpenWnnJAJP"
             android:exported="true"
             android:label="Japanese IME"
             android:permission="android.permission.BIND_INPUT_METHOD">
@@ -37,7 +37,7 @@
         </service>
 
         <activity
-            android:name="OpenWnnControlPanelJAJP"
+            android:name=".OpenWnnControlPanelJAJP"
             android:exported="true"
             android:label="@string/preference_ime_setting_app">
             <intent-filter>

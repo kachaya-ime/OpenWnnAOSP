@@ -30,6 +30,7 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
@@ -616,7 +617,6 @@ public class OpenWnnJAJP extends OpenWnn {
                 /* Hardware keyboard */
                 int hiddenState = newConfig.hardKeyboardHidden;
                 boolean hidden = (hiddenState == Configuration.HARDKEYBOARDHIDDEN_YES);
-                boolean type12Key = (newConfig.keyboard == Configuration.KEYBOARD_12KEY);
                 ((DefaultSoftKeyboardJAJP) mInputViewManager).setHardKeyboardHidden(hidden);
                 mTextCandidatesViewManager.setHardKeyboardHidden(hidden);
             }

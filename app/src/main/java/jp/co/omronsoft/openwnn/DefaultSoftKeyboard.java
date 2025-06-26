@@ -149,6 +149,8 @@ public class DefaultSoftKeyboard implements InputViewManager, KeyboardView.OnKey
     public static final int KEYCODE_QWERTY_TOGGLE_MODE = -114;
     /** Qwerty keyboard [PINYIN MODE] */
     public static final int KEYCODE_QWERTY_PINYIN = -115;
+    /** Qwerty keyboard Esc */
+    public static final int KEYCODE_QWERTY_ESCAPE = -116;
 
     /** OpenWnn instance which hold this software keyboard*/
     protected OpenWnn mWnn;

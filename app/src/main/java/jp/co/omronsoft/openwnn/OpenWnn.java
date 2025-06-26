@@ -63,9 +63,6 @@ public class OpenWnn extends InputMethodService {
     /** TextCandidatesViewManager */
     protected TextCandidatesViewManager mTextCandidatesViewManager = null;
 
-    /** TextCandidates1LineViewManager */
-    protected TextCandidates1LineViewManager mTextCandidates1LineViewManager = null;
-
     /** The instance of current IME */
     private static OpenWnn mCurrentIme;
 
